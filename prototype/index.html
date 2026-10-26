@@ -147,6 +147,7 @@ svg{overflow:visible}
 .typing{min-height:18px; padding:0 14px; font-size:11.5px; font-style:italic; color:var(--muted)}
 .suggest{display:flex; gap:6px; overflow-x:auto; padding:6px 10px; background:var(--paper); border-top:1px solid var(--line)}
 .sug{flex:none; display:inline-flex; align-items:center; gap:6px; border:1px solid var(--line); background:var(--panel); border-radius:999px; padding:3px 10px 3px 4px}
+.sug.locked{border-style:dashed; color:var(--muted); font-size:12px; white-space:nowrap}
 .sug code, .sc-row code{font-family:var(--font-pixel); font-size:15px; color:var(--ink)}
 .emo-inline.seq{display:inline-flex; align-items:flex-end; vertical-align:-6px}
 .emo-inline.seq .p-bug + .p-bug{margin-left:-7px}
@@ -443,7 +444,7 @@ const STR = {
     zing_sent:'~ you sent a zing ~', zing_recv:'~ {name} sent you a zing ~', combo:'same energy', no_msgs:'No messages yet. Break the ice with a zing.',
     grab:'Grab it', grab_n:'Grab them ({n})', taken:'Grabbed. Added to your collection', have:'You already have it',
     typing:'{name} is typing...', input_ph:'Type... try :) or :lol', foot:'zings today {n}/30 · double-tap their avatar to zing',
-    mix_hint:'Tap faces and parts to chain them into a mix, then hit send. Parts snap together.', mix_faces:'Faces', mix_parts:'Parts', mix_clear:'Clear', sc_all:'All shortcuts', sc_title:'Shortcuts', sc_intro:'Type a code in a message, comment or post. It becomes the emoticon only if you own it. Start with : for suggestions.', sc_sets:'Sets: one code, the whole thing', sc_need_all:'needs all the parts', sc_locked:'{n} more unlock when someone sends them to you.', opt_code:'Shortcut (optional)', code_ph:'e.g. simo, becomes :simo:', code_taken:'That shortcut is taken. Try another.', my_emos:'Your emoticons', send:'Send', back:'Back', crush_aria:'Secret crush', zing_aria:'Send a zing',
+    mix_hint:'Tap faces and parts to chain them into a mix, then hit send. Parts snap together.', mix_faces:'Faces', mix_parts:'Parts', mix_clear:'Clear', sc_all:'All shortcuts', sc_locked_one:'you don’t have this one yet: a friend has to send it to you', sc_title:'Shortcuts', sc_intro:'Type a code in a message, comment or post. It becomes the emoticon only if you own it. Start with : for suggestions.', sc_sets:'Sets: one code, the whole thing', sc_need_all:'needs all the parts', sc_locked:'{n} more unlock when someone sends them to you.', opt_code:'Shortcut (optional)', code_ph:'e.g. simo, becomes :simo:', code_taken:'That shortcut is taken. Try another.', my_emos:'Your emoticons', send:'Send', back:'Back', crush_aria:'Secret crush', zing_aria:'Send a zing',
     offline_note:'{name} is offline. They’ll see it when they’re back.', sent_emo:'sent you an emoticon',
     daily_out:'You’re out of zings for today.', combo_hint:'Zing back within 3 seconds: same energy.',
     combo_text:'You and {name} zinged each other at the same moment.', combo_btn:'nice',
@@ -494,7 +495,7 @@ const STR = {
     zing_sent:'~ hai mandato uno zing ~', zing_recv:'~ {name} ti ha mandato uno zing ~', combo:'same energy', no_msgs:'Nessun messaggio. Rompi il ghiaccio con uno zing.',
     grab:'Grab it', grab_n:'Grab them ({n})', taken:'Presa. È nella tua collezione', have:'Ce l’hai già',
     typing:'{name} sta scrivendo...', input_ph:'Scrivi... prova :) o :lol', foot:'zing oggi {n}/30 · doppio tocco sull’avatar per uno zing',
-    mix_hint:'Tocca facce e pezzi per metterli in fila, poi premi invia. I pezzi si incastrano tra loro.', mix_faces:'Facce', mix_parts:'Pezzi', mix_clear:'Svuota', sc_all:'Tutte le scorciatoie', sc_title:'Scorciatoie', sc_intro:'Scrivi un codice in un messaggio, commento o post. Diventa emoticon solo se ce l’hai. Inizia con : per i suggerimenti.', sc_sets:'Set: un codice, tutto intero', sc_need_all:'servono tutti i pezzi', sc_locked:'Altre {n} si sbloccano quando qualcuno te le manda.', opt_code:'Scorciatoia (facoltativa)', code_ph:'es. simo, diventa :simo:', code_taken:'Scorciatoia già usata. Provane un’altra.', my_emos:'Le tue emoticon', send:'Invia', back:'Indietro', crush_aria:'Cotta segreta', zing_aria:'Manda uno zing',
+    mix_hint:'Tocca facce e pezzi per metterli in fila, poi premi invia. I pezzi si incastrano tra loro.', mix_faces:'Facce', mix_parts:'Pezzi', mix_clear:'Svuota', sc_all:'Tutte le scorciatoie', sc_locked_one:'questa non ce l’hai ancora: te la deve mandare un amico', sc_title:'Scorciatoie', sc_intro:'Scrivi un codice in un messaggio, commento o post. Diventa emoticon solo se ce l’hai. Inizia con : per i suggerimenti.', sc_sets:'Set: un codice, tutto intero', sc_need_all:'servono tutti i pezzi', sc_locked:'Altre {n} si sbloccano quando qualcuno te le manda.', opt_code:'Scorciatoia (facoltativa)', code_ph:'es. simo, diventa :simo:', code_taken:'Scorciatoia già usata. Provane un’altra.', my_emos:'Le tue emoticon', send:'Invia', back:'Indietro', crush_aria:'Cotta segreta', zing_aria:'Manda uno zing',
     offline_note:'{name} è offline. Lo vedrà quando si collega.', sent_emo:'ti ha mandato un’emoticon',
     daily_out:'Hai finito gli zing di oggi.', combo_hint:'Rimandalo entro 3 secondi: same energy.',
     combo_text:'Tu e {name} vi siete mandati uno zing nello stesso momento.', combo_btn:'top',
@@ -751,7 +752,7 @@ S.me = {theme:'sky', mood:0, song:'', tags:n2(['music','Y2K'],['musica','Y2K']),
   posts:[{kind:'blog', title:n2('first post, be nice','primo post, siate buoni'), text:n2('setting up my wall like it’s 2006. who remembers glitter text?','sto sistemando la mia bacheca come nel 2006. chi si ricorda le scritte glitterate?'), date:n2('today','oggi'), reacts:{risata:2, occhiolino:1}, comments:[]}],
   guestbook:[{from:'giulia', text:n2('omg your wall is so 2006, I love it','oddio la tua bacheca è così 2006, la adoro')}]};
 P.me = S.me;
-['sorriso','occhiolino','risata','linguaccia','stupito','triste','sonno','imbarazzo','sudato','bughead','bugseg','bugtail'].forEach(id => S.owned[id] = {from:'starter', date:'oct'});
+['sorriso','occhiolino','risata','linguaccia','stupito','triste','sonno','imbarazzo','sudato','lacrimoni','bughead','bugseg','bugtail'].forEach(id => S.owned[id] = {from:'starter', date:'oct'});
 S.chats = {
   giulia:[{from:'giulia', text:n2('heyyy','ciaooo')}, {t:'zing', from:'giulia'}, {from:'me', text:'hiii Giuly :D'}, {from:'giulia', text:n2('you on zing tonight?','stasera ci sei su zing?')}, {from:'giulia', text:n2('pls?','dai?'), strip:['occhidolci']}],
   marco:[{from:'marco', text:n2('did you see the test??','oh hai visto la verifica??')}, {from:'me', text:'nooo :('}, {from:'marco', text:n2('relax, I’ve got my lucky shades','tranquillo, ho gli occhiali portafortuna'), strip:['smeraldo']}, {from:'marco', text:n2('also look, I built a train','e guarda, ho fatto un treno'), strip:TRAIN}],
@@ -1016,8 +1017,10 @@ function suggestFor(text){
   return out.slice(0, 8);
 }
 function renderSuggest(){
-  const inp = $('#msgInput'), list = suggestFor(inp.value.slice(0, inp.selectionStart ?? inp.value.length)), bar = $('#suggest');
+  const inp = $('#msgInput'), before = inp.value.slice(0, inp.selectionStart ?? inp.value.length), list = suggestFor(before), bar = $('#suggest');
   S.sug = list; bar.hidden = !list.length;
+  const tok = (before.match(/(\S+)$/) || [])[1], hit = !list.length && tok && codeTable().get(tok.toLowerCase());
+  if (hit && !hit.ids.every(id => S.owned[id])){ bar.hidden = false; bar.innerHTML = `<span class="sug locked"><span class="silhouette">${itemSVG(E(hit.ids[0]), 22, 0, false)}</span><code>${esc(tok)}</code>${t('sc_locked_one')}</span>`; return; }
   bar.innerHTML = list.map((x, k) => `<button type="button" class="sug" data-sug="${k}">${x.ids.length > 1 ? `<span class="emo-inline seq">${x.ids.map((id, j) => itemSVG(E(id), 20, j, false)).join('')}</span>` : itemSVG(E(x.ids[0]), 22, 0, false)}<code>${esc(x.code)}</code></button>`).join('');
 }
 function applySuggest(k){
