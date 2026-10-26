@@ -21,7 +21,7 @@ Lo zing (il "trillo" di MSN) è il gesto principale dell'app: costa un tocco e d
 
 - Uno zing fa **tremare lo schermo della chat** del destinatario, con vibrazione e suono dedicato. Ad app chiusa arriva una push con suono personalizzato (su iOS la vibrazione delle push non si può personalizzare: va bene così).
 - Si manda **solo agli amici** (amicizia reciproca, richiesta + accettazione).
-- **Zing Combo**: se due amici si mandano uno zing a vicenda entro 3 secondi, parte un'animazione speciale doppia.
+- **Same energy**: se due amici si mandano uno zing a vicenda entro 3 secondi, compare "same energy", con i due avatar che pulsano insieme. Animazione sobria: niente scritte urlate né grafica da cartone animato, perché il pubblico (Gen Z e Gen Alpha) è ironico e attento all'estetica, e scappa da tutto ciò che sembra infantile.
 - **Cotta segreta**: ogni utente può segnare in segreto fino a 3 amici come "cotta". Nessuno lo vede. Se la cotta è **reciproca**, a entrambi arriva uno **Destiny Zing** ("Zing del destino") con animazione speciale e un'emoticon esclusiva. Se non è reciproca, non succede niente e nessuno lo saprà mai. Niente messaggi anonimi: l'unica cosa che si rivela è una corrispondenza reciproca. Solo tra utenti della stessa fascia d'età (vedi sicurezza).
 - **Anti-spam e rispetto**: cooldown per conversazione, limite giornaliero (configurabili), possibilità di silenziare gli zing di una persona. Chi silenzia non viene notificato.
 - **Ore di silenzio**: per i minori, di default dalle 23 alle 7 gli zing arrivano senza suono né vibrazione e si vedono al risveglio.

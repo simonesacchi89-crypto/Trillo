@@ -140,7 +140,7 @@ svg{overflow:visible}
 .rar-chip{--r:var(--muted); display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.6px; color:var(--paper); background:var(--r); padding:2px 9px; border-radius:999px; box-shadow:inset 0 2px 1px rgb(255 255 255 / .45)}
 .sys{align-self:center; max-width:90%; text-align:center; font-size:12.5px; font-weight:600; color:var(--muted); background:var(--paper); border:1px solid var(--line); border-radius:999px; padding:4px 12px}
 .zing-pill{font-family:var(--font-pixel); font-size:19px; color:var(--ink); background:var(--cream); border:2px dashed var(--sun)}
-.combo-pill{font-family:var(--font-display); font-size:15px; color:var(--paper); background:linear-gradient(90deg, var(--pink), var(--sun)); border:0; letter-spacing:1px}
+.combo-pill{color:var(--paper); background:var(--ink); border:0; font-weight:800; letter-spacing:.4px}
 .typing{min-height:20px; padding:0 14px; font-size:12px; font-style:italic; color:var(--muted)}
 .mixbar{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px; align-items:center; padding:6px 10px; background:var(--cream); border-top:1px solid var(--line)}
 .mixbar .strip{padding-top:4px}
@@ -216,13 +216,18 @@ h3{font-family:var(--font-display); font-weight:400; font-size:22px; margin:0; c
 .card-fig p{margin:0; font-size:13px}
 .card-fig .strip{justify-content:center}
 .fig-tag{font-family:var(--font-pixel); font-size:20px; color:var(--pink); letter-spacing:2px}
-.combo, .destiny{display:grid; justify-items:center; gap:8px; text-align:center; color:var(--paper)}
-.combo h2, .destiny h2{font-size:44px; line-height:.95; color:var(--paper); text-shadow:0 3px 0 var(--pink-deep), 0 0 24px rgb(255 198 46 / .8); animation:zoom .6s cubic-bezier(.3,1.6,.5,1)}
-.combo p, .destiny p{margin:0; max-width:28ch; font-weight:600}
-.combo .btn-gloss, .destiny .btn-gloss{max-width:240px}
-.combo-emos{display:flex; gap:4px}
-.ce.left{animation:clashL .8s ease-in-out 2}
-.ce.right{animation:clashR .8s ease-in-out 2}
+.destiny{display:grid; justify-items:center; gap:8px; text-align:center; color:var(--paper)}
+.destiny h2{font-size:44px; line-height:.95; color:var(--paper); text-shadow:0 3px 0 var(--pink-deep), 0 0 24px rgb(255 198 46 / .8); animation:zoom .6s cubic-bezier(.3,1.6,.5,1)}
+.destiny p{margin:0; max-width:28ch; font-weight:600}
+.destiny .btn-gloss{max-width:240px}
+.overlay.calm{background:rgb(10 20 40 / .74); backdrop-filter:blur(8px)}
+.sync{display:grid; justify-items:center; gap:10px; text-align:center; color:var(--paper)}
+.sync-avas{display:flex}
+.sync-avas .ava{box-shadow:0 0 0 3px rgb(255 255 255 / .9), 0 0 32px rgb(255 79 154 / .55); animation:sync-pulse 1.6s ease-in-out infinite}
+.sync-avas .ava + .ava{margin-left:-22px}
+.sync h2{font-size:34px; color:var(--paper)}
+.sync p{margin:0; max-width:26ch; font-size:14px; opacity:.85}
+.sync-btn{margin-top:6px; border:1.5px solid rgb(255 255 255 / .7); background:transparent; color:var(--paper); border-radius:999px; padding:8px 24px; font-weight:800}
 .hearts{font-family:var(--font-display); font-size:64px; color:var(--pink); animation:beat 1s ease-in-out infinite}
 .gift{display:grid; justify-items:center; gap:4px; padding:12px 18px; border-radius:20px; background:rgb(255 255 255 / .14); border:1.5px solid rgb(255 255 255 / .4)}
 .story-view{position:relative; width:100%; height:100%; display:grid; grid-template-rows:auto auto 1fr auto; padding:12px 16px 28px; color:var(--paper)}
@@ -285,8 +290,7 @@ h3{font-family:var(--font-display); font-weight:400; font-size:22px; margin:0; c
 @keyframes wiggle{0%,100%{transform:rotate(0)}20%{transform:rotate(-8deg)}40%{transform:rotate(8deg)}60%{transform:rotate(-4deg)}}
 @keyframes flip{0%{transform:perspective(600px) rotateY(180deg) scale(.6)}100%{transform:perspective(600px) rotateY(0) scale(1)}}
 @keyframes zoom{0%{transform:scale(.2) rotate(-10deg)}100%{transform:scale(1) rotate(-3deg)}}
-@keyframes clashL{0%,100%{transform:translateX(0)}50%{transform:translateX(18px) rotate(12deg)}}
-@keyframes clashR{0%,100%{transform:translateX(0)}50%{transform:translateX(-18px) rotate(-12deg)}}
+@keyframes sync-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
 @keyframes fill{to{width:100%}}
 @keyframes up{from{transform:translateY(100%)}to{transform:translateY(0)}}
@@ -359,13 +363,13 @@ const STR = {
     frame:'{r} frame', frame_note:'Your frame changes with the rarest emoticon you own.', nickname:'Nickname', showcase:'Showcase', showcase_note:'To change it, tap an emoticon in the album.',
     numbers:'Your numbers · only you see them', s_sent:'Zings sent', s_recv:'Zings received', s_emo:'Emoticons', s_crush:'Secret crushes',
     settings:'Settings', quiet:'Quiet hours 23:00–07:00', quiet_note:'At night, zings arrive without sound or vibration.', ageband:'Age group: 14-17', ageband_note:'Secret crush only works within your age group.',
-    zing_sent:'~ You sent a Zing! ~', zing_recv:'~ {name} sent you a Zing! ~', combo:'ZING COMBO!', no_msgs:'No messages yet. Break the ice with a Zing.',
+    zing_sent:'~ You sent a Zing! ~', zing_recv:'~ {name} sent you a Zing! ~', combo:'same energy', no_msgs:'No messages yet. Break the ice with a Zing.',
     grab:'Grab it!', grab_n:'Grab them! ({n})', taken:'Grabbed! It’s in your album', have:'You already have it',
     typing:'{name} is typing...', input_ph:'Type... try :) or (H)', foot:'zings today {n}/30 · 5 s pause between zings',
     mix_hint:'Tap faces and parts to chain them into a mix, then hit send. Parts snap together.', mix_faces:'Faces', mix_parts:'Parts', mix_clear:'Clear', my_emos:'Your emoticons', send:'Send', back:'Back to friends', crush_aria:'Secret crush',
     offline_note:'{name} is offline: they’ll read it when they’re back.', sent_emo:'sent you an emoticon',
-    daily_out:'You’re out of zings for today. Tomorrow you start again!', combo_hint:'Zing back within 3 seconds for a combo!',
-    combo_text:'You and {name} zinged each other in under 3 seconds.', combo_btn:'So cool',
+    daily_out:'You’re out of zings for today. Tomorrow you start again!', combo_hint:'Zing back within 3 seconds: same energy.',
+    combo_text:'You and {name} zinged each other at the same moment.', combo_btn:'nice',
     passes_out:'{name} has used up their {r} passes for {period}. Try again later!', passes_left:'{name} can pass {n} more {r} ones {period}.', week:'this week', month:'this month',
     new:'NEW!', from_line:'From <b>{name}</b> · today', to_album:'Into the album!', and_more:'+ {n} more',
     crush_title:'Secret crush', crush_text:'Nobody will ever know you picked {name}. If {name} picks you too, you both get a <b>Destiny Zing</b>. If not, nothing happens.',
@@ -383,7 +387,7 @@ const STR = {
     g_steps:[
       'Open <b>MaRkO_xX</b>’s chat and tap <b>Grab it!</b> on the emerald shades and on the train.',
       'Tap the smiley next to the text box: chain faces and parts into a mix (a longer train, a caterpillar) and send it.',
-      'Send a <b>Zing!</b> to <b>*~Giuly~*</b>. If Giuly zings back within 3 seconds you get a combo.',
+      'Send a <b>Zing!</b> to <b>*~Giuly~*</b>. If Giuly zings back within 3 seconds it’s <b>same energy</b>.',
       'In Giuly’s chat, tap the heart at the top: that’s the <b>secret crush</b>.',
       'Type <code>:)</code> and then <code>(H)</code>. The second stays text until someone passes you the Cool emoticon.',
       'Watch the <b>stories</b> at the top of the friends list: stickers can be grabbed.',
@@ -405,13 +409,13 @@ const STR = {
     frame:'Cornice {r}', frame_note:'La cornice cambia con l’emoticon più rara che possiedi.', nickname:'Nickname', showcase:'Vetrina', showcase_note:'Per cambiarla tocca un’emoticon nell’album.',
     numbers:'I tuoi numeri · li vedi solo tu', s_sent:'Zing inviati', s_recv:'Zing ricevuti', s_emo:'Emoticon', s_crush:'Cotte segrete',
     settings:'Impostazioni', quiet:'Ore di silenzio 23:00–07:00', quiet_note:'Di notte gli zing arrivano senza suono né vibrazione.', ageband:'Fascia d’età: 14-17', ageband_note:'La cotta segreta funziona solo con chi è nella tua fascia.',
-    zing_sent:'~ Hai mandato uno Zing! ~', zing_recv:'~ {name} ti ha mandato uno Zing! ~', combo:'ZING COMBO!', no_msgs:'Nessun messaggio. Rompi il ghiaccio con uno Zing.',
+    zing_sent:'~ Hai mandato uno Zing! ~', zing_recv:'~ {name} ti ha mandato uno Zing! ~', combo:'same energy', no_msgs:'Nessun messaggio. Rompi il ghiaccio con uno Zing.',
     grab:'Grab it!', grab_n:'Grab them! ({n})', taken:'Presa! È nel tuo album', have:'Ce l’hai già',
     typing:'{name} sta scrivendo...', input_ph:'Scrivi... prova :) o (H)', foot:'zing oggi {n}/30 · pausa di 5 s tra uno zing e l’altro',
     mix_hint:'Tocca facce e pezzi per metterli in fila, poi premi invia. I pezzi si incastrano tra loro.', mix_faces:'Facce', mix_parts:'Pezzi', mix_clear:'Svuota', my_emos:'Le tue emoticon', send:'Invia', back:'Torna agli amici', crush_aria:'Cotta segreta',
     offline_note:'{name} è offline: leggerà quando si collega.', sent_emo:'ti ha mandato un’emoticon',
-    daily_out:'Hai finito gli zing di oggi. Domani si ricomincia!', combo_hint:'Rimandalo entro 3 secondi per la combo!',
-    combo_text:'Tu e {name} vi siete mandati uno zing a vicenda in meno di 3 secondi.', combo_btn:'Troppo forte',
+    daily_out:'Hai finito gli zing di oggi. Domani si ricomincia!', combo_hint:'Rimandalo entro 3 secondi: same energy.',
+    combo_text:'Tu e {name} vi siete mandati uno zing nello stesso momento.', combo_btn:'top',
     passes_out:'{name} ha finito i passaggi {r} per {period}. Riprova più avanti!', passes_left:'{name} può passare ancora {n} {r} {period}.', week:'questa settimana', month:'questo mese',
     new:'NUOVA!', from_line:'Ricevuta da <b>{name}</b> · oggi', to_album:'Nell’album!', and_more:'+ altri {n}',
     crush_title:'Cotta segreta', crush_text:'Nessuno saprà mai che hai scelto {name}. Se anche {name} sceglie te, vi arriva uno <b>Zing del destino</b>. Se no, non succede niente.',
@@ -429,7 +433,7 @@ const STR = {
     g_steps:[
       'Apri la chat con <b>MaRkO_xX</b> e tocca <b>Grab it!</b> sotto gli occhiali smeraldo e sotto il treno.',
       'Tocca la faccina accanto al testo: metti in fila facce e pezzi (un treno più lungo, un bruco) e invia.',
-      'Manda uno <b>Zing!</b> a <b>*~Giuly~*</b>. Se Giuly te lo rimanda entro 3 secondi parte la combo.',
+      'Manda uno <b>Zing!</b> a <b>*~Giuly~*</b>. Se Giuly te lo rimanda entro 3 secondi è <b>same energy</b>.',
       'Nella chat con Giuly tocca il cuore in alto: è la <b>cotta segreta</b>.',
       'Scrivi <code>:)</code> e poi <code>(H)</code>. La seconda resta testo finché qualcuno non ti passa l’emoticon Cool.',
       'Guarda le <b>storie</b> in alto nella lista amici: gli sticker si possono prendere.',
@@ -875,7 +879,8 @@ function incomingZing(i){
 }
 function showCombo(i){
   zingSound(); zingSound(.2); buzz([60,30,60,30,60,30,200]);
-  overlay(`<div class="combo"><div class="combo-emos"><span class="ce left">${emoSVG(E('risata').s, 92)}</span><span class="ce right">${emoSVG(E('occhiolino').s, 92)}</span></div><h2>ZING<br>COMBO!</h2><p>${esc(t('combo_text', {name:F[i].name}))}</p><button class="btn-gloss pink" data-close-overlay>${t('combo_btn')}</button></div>`);
+  const me = (S.nick.match(/[a-z0-9]/i) || ['?'])[0].toUpperCase();
+  overlay(`<div class="sync"><div class="sync-avas"><span class="ava xl" style="--c:var(--pink)">${me}</span><span class="ava xl" style="--c:${F[i].c}">${initial(i)}</span></div><h2>${t('combo')}</h2><p>${esc(t('combo_text', {name:F[i].name}))}</p><button class="sync-btn" data-close-overlay>${t('combo_btn')}</button></div>`, 'calm');
 }
 
 /* ---------- Grab it! ---------- */
