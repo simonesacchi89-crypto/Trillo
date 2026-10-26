@@ -492,8 +492,8 @@ try { const saved = localStorage.getItem('zing-lang'); if (saved === 'it' || sav
 const STR = {
   en:{
     st_online:'Online', st_occupato:'Busy', st_torno:'Be right back', st_telefono:'On the phone', st_pranzo:'Out to lunch', st_invisibile:'Appear offline', st_offline:'Offline',
-    tab_drops:'Drops', drops_sub:'Limited releases from small brands and local shops.', drops_rules:'Shops on Zing can’t message you, add you or see who you are. Every drop is labelled.',
-    live:'live', soon:'soon', in_store:'in store', ends_in:'ends in {t}', left:'{n} of {m} left', reserve:'Reserve', reserved:'Reserved', remind:'Remind me', reminding:'Reminder on', remind_toast:'We’ll remind you 10 minutes before.',
+    tab_drops:'Drops', drops_sub:'Limited drops from small brands: clothes, sneakers, merch, vintage.', drops_rules:'Shops on Zing can’t message you, add you or see who you are. Every drop is labelled.',
+    live:'live', soon:'soon', in_store:'in store', raffle:'raffle', enter_raffle:'Enter the raffle', entered_btn:'You’re in · size {s}', entered:'You’re in. Winners are drawn on Sunday.', raffle_emo:'Everyone who enters gets the emoticon, win or lose.', need_size:'Pick your size first.', choose_size:'Size', raffle_note:'Only friend-verified accounts can enter: no bots, no resellers.', raffle_how:'One entry per person. Winners are drawn at random and have 24 hours to confirm.', raffle_pay:'You only pay if you win. Ages 14-17: a parent confirms the purchase.', ends_in:'ends in {t}', left:'{n} of {m} left', reserve:'Reserve', reserved:'Reserved', remind:'Remind me', reminding:'Reminder on', remind_toast:'We’ll remind you 10 minutes before.',
     excl:'Comes with an exclusive emoticon', scan:'I’m at the counter: scan the QR', scan_note:'Only works in the shop: the code changes every minute.', verified:'Verified shop', follow:'Follow', following:'Following',
     checkout:'Checkout', pickup:'Delivery', pickup_v:'Pick up in store', parent_need:'You’re 14-17, so a parent approves purchases.', ask_parent:'Ask a parent to approve',
     pay_note:'Demo: nothing is charged. In the real app: Revolut Pay, card, Apple Pay or Google Pay.', parent_sent:'Request sent to your parent.', parent_ok:'Approved. It’s reserved for you.',
@@ -549,13 +549,13 @@ const STR = {
       'In Giuly’s chat, tap the heart: that’s the <b>secret crush</b>.',
       'Type <code>:)</code>, or <code>:lo</code> to get suggestions. <code>(H)</code> stays text until someone passes you Cool. Grab Marco’s train, then type <code>(train)</code>. <code>QQ</code> is the teary one.',
       'Make your own emoticon in the <b>Studio</b>, including how it moves.',
-      'Open <b>Drops</b>: reserve the live beanie drop, set a reminder, or scan the QR at Caffè Pixel.'
+      'Open <b>Drops</b>: pick a size and reserve the live hoodie, enter the sneaker raffle, set a reminder, or scan the QR at the vintage shop.'
     ]
   },
   it:{
     st_online:'Online', st_occupato:'Occupato', st_torno:'Torno subito', st_telefono:'Al telefono', st_pranzo:'A pranzo', st_invisibile:'Invisibile', st_offline:'Offline',
-    tab_drops:'Drops', drops_sub:'Uscite limitate di piccoli brand e negozi.', drops_rules:'I negozi su Zing non possono scriverti, aggiungerti né vedere chi sei. Ogni drop è segnalato.',
-    live:'live', soon:'presto', in_store:'in negozio', ends_in:'finisce tra {t}', left:'ne restano {n} su {m}', reserve:'Prenota', reserved:'Prenotato', remind:'Ricordamelo', reminding:'Promemoria attivo', remind_toast:'Ti avvisiamo 10 minuti prima.',
+    tab_drops:'Drops', drops_sub:'Drop limitati di piccoli brand: vestiti, sneakers, merch, vintage.', drops_rules:'I negozi su Zing non possono scriverti, aggiungerti né vedere chi sei. Ogni drop è segnalato.',
+    live:'live', soon:'presto', in_store:'in negozio', raffle:'estrazione', enter_raffle:'Partecipa all’estrazione', entered_btn:'Partecipi · taglia {s}', entered:'Sei dentro. I vincitori si estraggono domenica.', raffle_emo:'Chi partecipa riceve l’emoticon, che vinca o no.', need_size:'Prima scegli la taglia.', choose_size:'Taglia', raffle_note:'Partecipano solo gli account verificati dagli amici: niente bot né rivenditori.', raffle_how:'Una partecipazione a persona. I vincitori sono estratti a caso e hanno 24 ore per confermare.', raffle_pay:'Paghi solo se vinci. Se hai 14-17 anni, l’acquisto lo conferma un genitore.', ends_in:'finisce tra {t}', left:'ne restano {n} su {m}', reserve:'Prenota', reserved:'Prenotato', remind:'Ricordamelo', reminding:'Promemoria attivo', remind_toast:'Ti avvisiamo 10 minuti prima.',
     excl:'Include un’emoticon esclusiva', scan:'Sono alla cassa: scansiona il QR', scan_note:'Funziona solo in negozio: il codice cambia ogni minuto.', verified:'Negozio verificato', follow:'Segui', following:'Lo segui',
     checkout:'Riepilogo', pickup:'Consegna', pickup_v:'Ritiro in negozio', parent_need:'Hai 14-17 anni, quindi gli acquisti li approva un genitore.', ask_parent:'Chiedi l’ok a un genitore',
     pay_note:'Demo: non si paga niente. Nell’app vera: Revolut Pay, carta, Apple Pay o Google Pay.', parent_sent:'Richiesta inviata al tuo genitore.', parent_ok:'Approvato. È prenotato per te.',
@@ -611,7 +611,7 @@ const STR = {
       'Nella chat con Giuly tocca il cuore: è la <b>cotta segreta</b>.',
       'Scrivi <code>:)</code>, oppure <code>:lo</code> per i suggerimenti. <code>(H)</code> resta testo finché qualcuno non ti passa Cool. Prendi il treno di Marco e poi scrivi <code>(train)</code>. <code>QQ</code> sono i lacrimoni.',
       'Crea la tua emoticon nello <b>Studio</b>, compreso come si muove.',
-      'Apri <b>Drops</b>: prenota il drop live dei berretti, attiva un promemoria o scansiona il QR del Caffè Pixel.'
+      'Apri <b>Drops</b>: scegli la taglia e prenota la felpa live, partecipa all’estrazione delle sneakers, attiva un promemoria o scansiona il QR del negozio vintage.'
     ]
   }
 };
@@ -743,8 +743,9 @@ const CAT = [
   {id:'miciodolce', name:n2('Sweet Kitty','Micio dolce'), r:'epica', s:{color:'#ffab4a', eyes:'puppy', mouth:'cat', acc:'blush', anim:'float'}},
   {id:'beanie', name:n2('Beanie Season','Beanie Season'), r:'rara', s:{color:Y, eyes:'happy', mouth:'smile', acc:'beanie', anim:'bounce'}},
   {id:'vinyl', name:n2('Side B','Lato B'), r:'rara', s:{color:'#5fe0d6', eyes:'sleepy', mouth:'smile', acc:'headphones', anim:'float'}},
-  {id:'kumo', name:n2('Cloud Sticker','Sticker nuvola'), r:'noncomune', s:{color:'#e8ecff', eyes:'puppy', mouth:'tiny', acc:'blush', anim:'float'}},
-  {id:'pixelcafe', name:n2('Pixel Latte','Latte Pixel'), r:'epica', s:{color:'#c98a5a', eyes:'dot', mouth:'grin', acc:'shades', anim:'wobble'}},
+  {id:'awaymsg', name:n2('Away Message','Messaggio di stato'), r:'rara', s:{color:'#c7b6ff', eyes:'sleepy', mouth:'smile', acc:'cap', anim:'float'}},
+  {id:'freshpair', name:n2('Fresh Pair','Paio nuovo'), r:'epica', s:{color:'#ffab4a', eyes:'star', mouth:'grin', acc:'sweat', anim:'bounce'}},
+  {id:'thrift', name:n2('Thrift Find','Affare vintage'), r:'noncomune', s:{color:'#b6f04a', eyes:'happy', mouth:'tongue', acc:'flower', anim:'wobble'}},
   {id:'angelo', name:n2('Angel','Angioletto'), r:'rara', sc:'(A)', s:{color:'#f4f7ff', eyes:'happy', mouth:'smile', acc:'halo', anim:'float'}},
   {id:'diavoletto', name:n2('Little Devil','Diavoletto'), r:'rara', sc:'(6)', s:{color:'#ff5a4f', eyes:'wink', mouth:'grin', acc:'horns', anim:'shiver'}},
   {id:'innamorato', name:n2('Crushing','Cotto'), r:'rara', s:{color:Y, eyes:'heart', mouth:'smile', anim:'pulse'}},
@@ -769,7 +770,7 @@ const CAT = [
 const E = id => CAT.find(e => e.id === id);
 const nm = e => tx(e.name);
 const CODES = {sorriso:'smile', occhiolino:'wink', risata:'lol', linguaccia:'tongue', stupito:'wow', triste:'sad', sonno:'sleepy', imbarazzo:'blush',
-  cool:'cool', fiore:'flower', cuffie:'headphones', sudato:'sweaty', gatto:'kitty', occhidolci:'puppy', lacrimoni:'teary', supplica:'pleading', miciodolce:'sweetkitty', beanie:'beanie', vinyl:'sideb', kumo:'cloud', pixelcafe:'latte', angelo:'angel', diavoletto:'devil', innamorato:'crush', stellare:'starry',
+  cool:'cool', fiore:'flower', cuffie:'headphones', sudato:'sweaty', gatto:'kitty', occhidolci:'puppy', lacrimoni:'teary', supplica:'pleading', miciodolce:'sweetkitty', beanie:'beanie', vinyl:'sideb', awaymsg:'away', freshpair:'freshpair', thrift:'thrift', angelo:'angel', diavoletto:'devil', innamorato:'crush', stellare:'starry',
   smeraldo:'emerald', invito:'welcome', corona:'royal', alieno:'alien', fantasma:'ghost', cometa:'comet', galassia:'galaxy',
   bughead:'bughead', bugseg:'bugbody', bugtail:'bugtail', loco:'loco', wagon:'wagon', caboose:'caboose', nose:'nose', body:'rocketbody', booster:'booster'};
 const EXTRA_SC = {innamorato:'<3', fiore:'(F)', cuffie:'(8)', stellare:'(*)', lacrimoni:'QQ'};
@@ -831,17 +832,31 @@ const P = {
 
 /* ---------- Negozi e drop (brand inventati) ---------- */
 const SHOPS = {
+  ottanta:{name:'Studio Ottanta', c:'#13304f', bio:n2('Streetwear from Milan, small runs, no restocks.','Streetwear da Milano, piccole serie, niente restock.')},
+  kiko:{name:'Kiko Runners', c:'#ff7a1a', bio:n2('Independent sneaker label. Every pair numbered.','Marchio indipendente di sneakers. Ogni paio è numerato.')},
   nova:{name:'NOVA knit', c:'#ff4f9a', bio:n2('Small-batch knitwear, made in Bologna.','Maglieria in piccole serie, fatta a Bologna.')},
-  tape:{name:'Tape Deck Records', c:'#1a96e6', bio:n2('Indie label. Vinyl and tapes only.','Etichetta indie. Solo vinili e cassette.')},
-  kumo:{name:'kumo studio', c:'#9a45f5', bio:n2('Stickers and pins by two illustrators.','Sticker e spille di due illustratrici.')},
-  pixel:{name:'Caffè Pixel', c:'#a8683c', bio:n2('Café with retro games, Via Roma 12.','Caffè con giochi retrò, Via Roma 12.')}
+  tape:{name:'Tape Deck Records', c:'#1a96e6', bio:n2('Indie label. Vinyl, tapes and tour merch.','Etichetta indie. Vinili, cassette e merch dei tour.')},
+  ritorno:{name:'Ritorno Vintage', c:'#3d8a12', bio:n2('Second-hand Y2K clothes, Via Roma 12.','Abiti Y2K di seconda mano, Via Roma 12.')}
 };
 const DROPS = [
-  {id:'d1', shop:'nova', kind:'live', title:n2('Beanie Season, 120 pieces','Beanie Season, 120 pezzi'), price:'€28', stock:37, total:120, ends:Date.now() + 14 * 60000 + 32000, emo:'beanie', bg:'linear-gradient(135deg,#ffc2dc,#ff6fb5)'},
-  {id:'d2', shop:'tape', kind:'soon', title:n2('“Side B” vinyl reissue','Ristampa in vinile di “Lato B”'), price:'€24', when:n2('drops Friday 18:00','esce venerdì alle 18:00'), emo:'vinyl', bg:'linear-gradient(135deg,#9ad8ff,#1a96e6)'},
-  {id:'d3', shop:'kumo', kind:'soon', title:n2('Cloud sticker pack','Pacchetto di sticker nuvola'), price:'€6', when:n2('drops tomorrow 10:00','esce domani alle 10:00'), emo:'kumo', bg:'linear-gradient(135deg,#eef1ff,#b07cff)'},
-  {id:'d4', shop:'pixel', kind:'store', title:n2('In-store drop: Pixel Latte','Drop in negozio: Latte Pixel'), place:'Caffè Pixel · Via Roma 12', emo:'pixelcafe', bg:'linear-gradient(135deg,#f3d9b8,#c98a5a)'}
+  {id:'d1', shop:'ottanta', kind:'live', art:'hoodie', color:'#6a4cff', title:n2('“Away Message” hoodie, 150 pieces','Felpa “Away Message”, 150 pezzi'), price:'€59', stock:41, total:150, ends:Date.now() + 14 * 60000 + 32000, sizes:['XS','S','M','L','XL'], emo:'awaymsg', bg:'linear-gradient(135deg,#eef1ff,#b07cff)'},
+  {id:'d2', shop:'kiko', kind:'raffle', art:'sneaker', color:'#ff7a1a', title:n2('Kiko Runner ’05, 300 numbered pairs','Kiko Runner ’05, 300 paia numerate'), price:'€120', when:n2('raffle closes in 2 days','l’estrazione chiude tra 2 giorni'), sizes:['36','37','38','39','40','41','42','43','44','45'], emo:'freshpair', bg:'linear-gradient(135deg,#fff2a8,#ffab4a)'},
+  {id:'d3', shop:'nova', kind:'soon', art:'beanie', color:'#ff4f9a', title:n2('Beanie Season, 120 pieces','Beanie Season, 120 pezzi'), price:'€28', when:n2('drops Friday 18:00','esce venerdì alle 18:00'), emo:'beanie', bg:'linear-gradient(135deg,#ffc2dc,#ff6fb5)'},
+  {id:'d4', shop:'tape', kind:'soon', art:'tee', color:'#13304f', title:n2('“Side B” tour tee','Maglietta del tour “Lato B”'), price:'€25', when:n2('drops tomorrow 10:00','esce domani alle 10:00'), emo:'vinyl', bg:'linear-gradient(135deg,#9ad8ff,#1a96e6)'},
+  {id:'d5', shop:'ritorno', kind:'store', art:'rack', color:'#3d8a12', title:n2('Y2K vintage rack, Saturday only','Stand vintage Y2K, solo sabato'), place:'Ritorno Vintage · Via Roma 12', emo:'thrift', bg:'linear-gradient(135deg,#e2ff9e,#7fdc2f)'}
 ];
+/* Capi disegnati in SVG, senza loghi di marchi veri */
+function garmentSVG(kind, c){
+  const d = mix(c, -.35), l = mix(c, .45), shine = `<path d="M40 30 Q44 50 40 74" stroke="#fff" stroke-width="5" opacity=".25" fill="none" stroke-linecap="round"/>`;
+  const G = {
+    hoodie:`<path d="M30 26 Q60 12 90 26 L108 48 L97 56 L90 47 V84 H30 V47 L23 56 L12 48Z" fill="${c}" stroke="${d}" stroke-width="2" stroke-linejoin="round"/><path d="M45 22 Q60 4 75 22 Q60 33 45 22Z" fill="${l}" stroke="${d}" stroke-width="2"/><path d="M56 30 V44 M64 30 V44" stroke="#fff" stroke-width="2" stroke-linecap="round"/><rect x="44" y="60" width="32" height="14" rx="5" fill="${l}" stroke="${d}" stroke-width="1.5"/>${shine}`,
+    tee:`<path d="M36 18 L50 12 Q60 21 70 12 L84 18 L102 34 L91 43 L84 37 V84 H36 V37 L29 43 L18 34Z" fill="${c}" stroke="${d}" stroke-width="2" stroke-linejoin="round"/><circle cx="60" cy="48" r="12" fill="#ffd93b" stroke="#fff" stroke-width="2"/><path d="M54 49 q6 6 12 0" stroke="${c}" stroke-width="2.4" fill="none" stroke-linecap="round"/>${shine}`,
+    sneaker:`<path d="M16 66 Q18 44 38 40 L58 38 Q68 30 78 42 Q96 50 106 60 L107 66Z" fill="#fff" stroke="#13304f" stroke-width="2" stroke-linejoin="round"/><path d="M40 50 Q60 40 86 52 L84 60 Q60 50 42 58Z" fill="${c}"/><path d="M60 38 L66 46 M66 36 L72 45 M72 37 L77 45" stroke="#13304f" stroke-width="1.8" stroke-linecap="round"/><path d="M14 66 H109 Q111 66 111 70 V73 Q111 76 108 76 H16 Q12 76 12 72 V70 Q12 66 14 66Z" fill="${l}" stroke="#13304f" stroke-width="2"/>`,
+    beanie:`<path d="M28 62 C28 20 92 20 92 62Z" fill="${c}" stroke="${d}" stroke-width="2"/><path d="M42 60 V32 M52 60 V26 M60 60 V24 M68 60 V26 M78 60 V32" stroke="${d}" stroke-width="1.5" opacity=".5"/><rect x="24" y="56" width="72" height="16" rx="8" fill="${l}" stroke="${d}" stroke-width="2"/><circle cx="60" cy="18" r="9" fill="#fff" stroke="#c9cfe0" stroke-width="1.5"/>`,
+    rack:`<path d="M14 14 H106 M20 14 V84 M100 14 V84" stroke="#56739a" stroke-width="3" stroke-linecap="round"/><path d="M32 20 L26 30 V70 H46 V30 L40 20" fill="#ff6fb5" stroke="#c21f6a" stroke-width="1.5"/><path d="M54 20 L48 30 V66 H72 V30 L66 20" fill="#5fe0d6" stroke="#1a96e6" stroke-width="1.5"/><path d="M80 20 L74 30 V74 H94 V30 L88 20" fill="#ffd93b" stroke="#c99a00" stroke-width="1.5"/><path d="M32 14 q4 -6 8 0 M56 14 q4 -6 8 0 M80 14 q4 -6 8 0" stroke="#56739a" stroke-width="1.5" fill="none"/>`
+  };
+  return `<svg width="150" height="112" viewBox="0 0 120 90" aria-hidden="true">${G[kind]}</svg>`;
+}
 const SKINS = ['sky','classic','chrome','clean'];
 const SKIN_SW = {sky:'linear-gradient(180deg,#5cc2ff,#0f6fbf)', classic:'linear-gradient(180deg,#7fb2f0,#2459b8 52%,#a6e07a 53%,#3d8a12)', chrome:'linear-gradient(160deg,#f4f6fa,#6c7891 50%,#161a2c 51%,#ff6fb5)', clean:'linear-gradient(180deg,#ffffff,#eef1f5)'};
 
@@ -992,11 +1007,14 @@ function viewStudio(){
 const fmtLeft = ms => { const x = Math.max(0, Math.floor(ms / 1000)); return String(Math.floor(x / 60)).padStart(2, '0') + ':' + String(x % 60).padStart(2, '0'); };
 function dropCard(d){
   const sh = SHOPS[d.shop], e = E(d.emo);
-  const tag = d.kind === 'live' ? `<span class="drop-tag live">${t('live')}</span>` : `<span class="drop-tag">${t(d.kind === 'soon' ? 'soon' : 'in_store')}</span>`;
+  const tag = d.kind === 'live' ? `<span class="drop-tag live">${t('live')}</span>` : `<span class="drop-tag">${t({soon:'soon', store:'in_store', raffle:'raffle'}[d.kind])}</span>`;
   let meta = '', act = '';
   if (d.kind === 'live'){
     meta = `<div class="drop-meta"><b>${d.price}</b><span>${t('ends_in', {t:`<span class="countdown" data-countdown="${d.id}">${fmtLeft(d.ends - Date.now())}</span>`})}</span></div><div class="stock"><i data-stockbar="${d.id}" style="width:${d.stock / d.total * 100}%"></i></div><div class="drop-meta"><span data-stock="${d.id}">${t('left', {n:d.stock, m:d.total})}</span></div>`;
     act = d.reserved ? `<button class="btn ghost" disabled>${t('reserved')}</button>` : `<button class="btn pink" data-reserve="${d.id}">${t('reserve')}</button>`;
+  } else if (d.kind === 'raffle'){
+    meta = `<div class="drop-meta"><b>${d.price}</b><span>${esc(tx(d.when))}</span></div><p class="small" style="margin:0">${t('raffle_note')}</p>`;
+    act = d.entered ? `<button class="btn ghost" disabled>${t('entered_btn', {s:d.entered})}</button>` : `<button class="btn pink" data-raffle="${d.id}">${t('enter_raffle')}</button>`;
   } else if (d.kind === 'soon'){
     meta = `<div class="drop-meta"><b>${d.price}</b><span>${esc(tx(d.when))}</span></div>`;
     act = `<button class="btn ${d.remind ? 'ghost' : ''}" data-remind="${d.id}">${d.remind ? t('reminding') : t('remind')}</button>`;
@@ -1004,7 +1022,7 @@ function dropCard(d){
     meta = `<div class="drop-meta"><span>${esc(d.place)}</span></div><p class="small" style="margin:0">${t('scan_note')}</p>`;
     act = S.owned[d.emo] ? `<button class="btn ghost" disabled>${t('have')}</button>` : `<button class="btn" data-scan="${d.id}">${t('scan')}</button>`;
   }
-  return `<article class="drop"><div class="drop-img" style="background:${d.bg}">${tag}${emoSVG(e.s, 84)}</div><div class="drop-body"><button class="shop-row" data-shop="${d.shop}"><span class="shop-logo" style="--c:${sh.c}">${sh.name[0].toUpperCase()}</span>${esc(sh.name)}<span class="verified">${t('verified')}</span></button><h3 class="drop-title">${esc(tx(d.title))}</h3>${meta}<div class="excl">${emoSVG(e.s, 20, false)}<span>${t('excl')}: <b>${esc(nm(e))}</b></span></div>${act}</div></article>`;
+  return `<article class="drop"><div class="drop-img" style="background:${d.bg}">${tag}${garmentSVG(d.art, d.color)}<span style="position:absolute; right:12px; bottom:10px">${emoSVG(e.s, 44)}</span></div><div class="drop-body"><button class="shop-row" data-shop="${d.shop}"><span class="shop-logo" style="--c:${sh.c}">${sh.name[0].toUpperCase()}</span>${esc(sh.name)}<span class="verified">${t('verified')}</span></button><h3 class="drop-title">${esc(tx(d.title))}</h3>${meta}<div class="excl">${emoSVG(e.s, 20, false)}<span>${t('excl')}: <b>${esc(nm(e))}</b></span></div>${act}</div></article>`;
 }
 function viewDrops(){
   return `<div class="pad" style="padding-bottom:0"><h2>Drops</h2><p class="small">${t('drops_sub')}</p></div><div class="drops-note">${t('drops_rules')}</div>${DROPS.map(dropCard).join('')}
@@ -1015,9 +1033,15 @@ function grantDrop(d, extra){
   if (!S.owned[d.emo]) S.owned[d.emo] = {from:sh.name, date:'today'};
   renderTray(); popSound(); buzz(30); showCard([d.emo], sh.name, extra || '');
 }
+function sizesHTML(d){
+  return d.sizes ? `<span class="opt-label">${t('choose_size')}</span><div class="chips">${d.sizes.map(z => `<button class="chip ${S.size === z ? 'on' : ''}" data-size="${z}" data-size-drop="${d.id}">${z}</button>`).join('')}</div>` : '';
+}
 function openCheckout(d){
   const e = E(d.emo);
-  sheet(`<h3>${t('checkout')}</h3><div class="checkout-row"><span>${esc(tx(d.title))}</span><b>${d.price}</b></div><div class="checkout-row"><span>${t('pickup')}</span><span>${t('pickup_v')}</span></div><div class="excl">${emoSVG(e.s, 22, false)}<span>${t('excl')}: <b>${esc(nm(e))}</b></span></div><p class="small">${t('parent_need')}</p><button class="btn pink" data-parent="${d.id}">${t('ask_parent')}</button><p class="pay-note">${t('pay_note')}</p><button class="btn ghost" data-close-sheet>${t('not_now')}</button>`);
+  sheet(`<h3>${t('checkout')}</h3><div class="checkout-row"><span>${esc(tx(d.title))}</span><b>${d.price}</b></div>${sizesHTML(d)}<div class="checkout-row"><span>${t('pickup')}</span><span>${t('pickup_v')}</span></div><div class="excl">${emoSVG(e.s, 22, false)}<span>${t('excl')}: <b>${esc(nm(e))}</b></span></div><p class="small">${t('parent_need')}</p><button class="btn pink" data-parent="${d.id}">${t('ask_parent')}</button><p class="pay-note">${t('pay_note')}</p><button class="btn ghost" data-close-sheet>${t('not_now')}</button>`);
+}
+function openRaffle(d){
+  sheet(`<h3>${t('enter_raffle')}</h3><div class="checkout-row"><span>${esc(tx(d.title))}</span><b>${d.price}</b></div>${sizesHTML(d)}<p class="small">${t('raffle_how')}</p><button class="btn pink" data-enter-raffle="${d.id}">${t('enter_raffle')}</button><p class="pay-note">${t('raffle_pay')}</p><button class="btn ghost" data-close-sheet>${t('not_now')}</button>`);
 }
 function openShop(k){
   const sh = SHOPS[k], f = S.follows[k];
@@ -1453,9 +1477,15 @@ document.addEventListener('click', ev => {
   else if (d.vetrina){ S.me.vetrina = [d.vetrina, ...S.me.vetrina.filter(x => x !== d.vetrina)].slice(0, 3); closeSheet(); toast(t('showcased')); if (S.tab === 'profilo') renderScreen(); }
   else if (d.opt){ S.studio[d.opt] = d.val; renderScreen(); }
   else if (d.skin){ S.skin = d.skin; applySkin(); renderStatic(); renderAll(); }
-  else if (d.reserve) openCheckout(DROPS.find(x => x.id === d.reserve));
+  else if (d.reserve){ S.size = null; openCheckout(DROPS.find(x => x.id === d.reserve)); }
+  else if (d.raffle){ S.size = null; openRaffle(DROPS.find(x => x.id === d.raffle)); }
+  else if (d.size){ S.size = d.size; const dr = DROPS.find(x => x.id === d.sizeDrop); dr.kind === 'raffle' ? openRaffle(dr) : openCheckout(dr); }
+  else if (d.enterRaffle){
+    const dr = DROPS.find(x => x.id === d.enterRaffle); if (!S.size){ toast(t('need_size')); return; }
+    dr.entered = S.size; closeSheet(); renderScreen(); toast(t('entered')); grantDrop(dr, t('raffle_emo'));
+  }
   else if (d.parent){
-    const dr = DROPS.find(x => x.id === d.parent); closeSheet(); toast(t('parent_sent'));
+    const dr = DROPS.find(x => x.id === d.parent); if (dr.sizes && !S.size){ toast(t('need_size')); return; } closeSheet(); toast(t('parent_sent'));
     setTimeout(() => { dr.reserved = true; dr.stock = Math.max(0, dr.stock - 1); if (S.tab === 'drops') renderScreen(); grantDrop(dr, t('parent_ok')); }, 1800);
   }
   else if (d.remind){ const dr = DROPS.find(x => x.id === d.remind); dr.remind = !dr.remind; if (dr.remind) toast(t('remind_toast')); renderScreen(); }

@@ -79,7 +79,10 @@ Su MSN le emoticon di base le disegnavano i designer di Microsoft, ma c'erano an
 Non nell'MVP, ma progetta il catalogo in modo che sia possibile: un brand può lanciare una **serie di emoticon sponsorizzata** come evento a tempo (pochi possessori iniziali, poi si diffonde tra amici). Regole fisse: sempre segnalata come sponsorizzata, mai a pagamento per gli utenti, nessuna profilazione dei minori.
 
 ### Drops di piccoli brand e negozi
-Una sezione **Drops** nella barra principale: uscite limitate di piccoli brand e negozi locali, che oggi vanno molto.
+Una sezione **Drops** nella barra principale: uscite limitate di piccoli brand e negozi locali, che oggi vanno molto. Il cuore sono i **vestiti**: streetwear, sneakers, maglieria, merch di band e artisti, vintage.
+- Prenotazione con **scelta della taglia** (XS-XL, numeri per le scarpe).
+- Per i drop più richiesti (per esempio sneakers numerate) un'**estrazione** al posto del "chi arriva prima": una partecipazione a persona, vincitori a caso, si paga solo se si vince. Possono partecipare solo gli account **verificati dagli amici**, quindi niente bot né rivenditori: è un vantaggio concreto da raccontare ai brand. Chi partecipa riceve comunque l'emoticon esclusiva.
+- Più avanti: i ragazzi pubblicano in bacheca il "fit check" con il capo preso, collegato al drop.
 - Ogni drop ha un negozio verificato, pochi pezzi, un'ora di uscita e un'**emoticon esclusiva** inclusa. L'emoticon poi gira tra amici come le altre, ed è la pubblicità che il brand ottiene.
 - Stati del drop: **in arrivo** (promemoria 10 minuti prima), **live** (conto alla rovescia e pezzi rimasti), **in negozio** (un QR alla cassa, che cambia ogni minuto, regala l'emoticon a chi passa di persona).
 - **Prenotazione** con ritiro in negozio o spedizione. Per i 14-17enni l'acquisto lo approva un genitore. Pagamento con Revolut Pay, carta, Apple Pay o Google Pay, da verificare con le regole degli store.
