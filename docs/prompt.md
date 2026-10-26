@@ -41,7 +41,12 @@ Lo zing (il "trillo" di MSN) è il gesto principale dell'app: costa un tocco e d
 - **Rarità**: Comune, Non comune, Rara, Epica, Leggendaria.
 - **Provenienza**: ogni emoticon ricorda chi te l'ha passata e quando ("Ricevuta da Marco, 12 ottobre"). Statistiche globali: quante persone ce l'hanno, quante volte è passata di mano.
 - **Paziente zero**: badge per i primi possessori di un'emoticon.
-- **Scorciatoie da tastiera** stile MSN: `:)`, `;)`, `(Y)`, `(H)` diventano emoticon **solo se la possiedi**, altrimenti restano testo.
+- **Scorciatoie**: funzionano in chat, nei post e nei commenti, e diventano emoticon **solo se la possiedi** (altrimenti restano testo):
+  - codici classici stile MSN: `:)`, `;)`, `:D`, `(H)`, `<3`...;
+  - codici con nome per tutte le emoticon e i pezzi, internazionali come su Discord e Slack: `:lol:`, `:cool:`, `:loco:`. Scrivendo `:` compaiono i **suggerimenti** con le emoticon che possiedi;
+  - **set**: un solo codice per l'insieme intero, se hai tutti i pezzi (`(train)`, `(rocket)`, `(bug)`);
+  - chi crea un'emoticon nello Studio sceglie la sua scorciatoia (es. `:simo:`), unica in tutto il catalogo;
+  - una schermata "Tutte le scorciatoie" elenca i codici delle emoticon che hai.
 - **Collezione**: sobria, non da album di figurine. Non è nella barra principale: sta dentro il Profilo (anteprima più "vedi tutte"). Mostra le emoticon che hai, divise per rarità con un pallino colorato discreto; quelle mancanti si vedono solo se lo chiedi, sbiadite e senza nome. Niente barre di avanzamento e niente "???".
 
 ### Economia (regole di partenza, tutte configurabili in una tabella `economy_config`)

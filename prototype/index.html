@@ -145,6 +145,16 @@ svg{overflow:visible}
 .zing-pill{font-family:var(--font-pixel); font-size:17px; color:var(--ink); background:var(--cream); border:1.5px dashed var(--sun)}
 .combo-pill{color:var(--paper); background:var(--ink); border:0; font-weight:800; letter-spacing:.4px}
 .typing{min-height:18px; padding:0 14px; font-size:11.5px; font-style:italic; color:var(--muted)}
+.suggest{display:flex; gap:6px; overflow-x:auto; padding:6px 10px; background:var(--paper); border-top:1px solid var(--line)}
+.sug{flex:none; display:inline-flex; align-items:center; gap:6px; border:1px solid var(--line); background:var(--panel); border-radius:999px; padding:3px 10px 3px 4px}
+.sug code, .sc-row code{font-family:var(--font-pixel); font-size:15px; color:var(--ink)}
+.emo-inline.seq{display:inline-flex; align-items:flex-end; vertical-align:-6px}
+.emo-inline.seq .p-bug + .p-bug{margin-left:-7px}
+.sc-list{display:grid; gap:2px}
+.sc-row{display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:10px; align-items:center; padding:4px 2px; border-bottom:1px solid var(--line); font-size:13px}
+.sc-row.locked{opacity:.5}
+.sc-row .codes{display:flex; gap:6px}
+.sc-row code{background:var(--cream); padding:0 6px; border-radius:6px}
 .mixbar{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px; align-items:center; padding:5px 10px; background:var(--cream); border-top:1px solid var(--line)}
 .mixbar .strip{padding-top:4px}
 .mixbar .strip button{border:0; background:transparent; padding:0}
@@ -385,6 +395,7 @@ textarea.field{resize:vertical; min-height:64px}
       <div class="chat-head" id="chatHead"></div>
       <div class="msgs" id="msgs" aria-live="polite"></div>
       <div class="typing" id="typing"></div>
+      <div class="suggest" id="suggest" hidden></div>
       <div class="mixbar" id="mixbar" hidden></div>
       <div class="tray" id="tray" hidden></div>
       <form class="composer" id="composer">
@@ -431,8 +442,8 @@ const STR = {
     settings:'Settings', quiet:'Quiet hours 23:00–07:00', quiet_note:'At night, zings arrive without sound or vibration.', ageband:'Age group: 14-17', ageband_note:'Secret crush only works within your age group.',
     zing_sent:'~ you sent a zing ~', zing_recv:'~ {name} sent you a zing ~', combo:'same energy', no_msgs:'No messages yet. Break the ice with a zing.',
     grab:'Grab it', grab_n:'Grab them ({n})', taken:'Grabbed. Added to your collection', have:'You already have it',
-    typing:'{name} is typing...', input_ph:'Type... try :) or (H)', foot:'zings today {n}/30 · double-tap their avatar to zing',
-    mix_hint:'Tap faces and parts to chain them into a mix, then hit send. Parts snap together.', mix_faces:'Faces', mix_parts:'Parts', mix_clear:'Clear', my_emos:'Your emoticons', send:'Send', back:'Back', crush_aria:'Secret crush', zing_aria:'Send a zing',
+    typing:'{name} is typing...', input_ph:'Type... try :) or :lol', foot:'zings today {n}/30 · double-tap their avatar to zing',
+    mix_hint:'Tap faces and parts to chain them into a mix, then hit send. Parts snap together.', mix_faces:'Faces', mix_parts:'Parts', mix_clear:'Clear', sc_all:'All shortcuts', sc_title:'Shortcuts', sc_intro:'Type a code in a message, comment or post. It becomes the emoticon only if you own it. Start with : for suggestions.', sc_sets:'Sets: one code, the whole thing', sc_need_all:'needs all the parts', sc_locked:'{n} more unlock when someone sends them to you.', opt_code:'Shortcut (optional)', code_ph:'e.g. simo, becomes :simo:', code_taken:'That shortcut is taken. Try another.', my_emos:'Your emoticons', send:'Send', back:'Back', crush_aria:'Secret crush', zing_aria:'Send a zing',
     offline_note:'{name} is offline. They’ll see it when they’re back.', sent_emo:'sent you an emoticon',
     daily_out:'You’re out of zings for today.', combo_hint:'Zing back within 3 seconds: same energy.',
     combo_text:'You and {name} zinged each other at the same moment.', combo_btn:'nice',
@@ -462,7 +473,7 @@ const STR = {
       'Tap a friend’s <b>avatar</b> in the list to open their <b>wall</b>: photos, blog posts, emoticon reactions, guestbook.',
       'In <b>Profile</b>, customize your page like it’s MySpace and publish a post. You can add a real photo.',
       'In Giuly’s chat, tap the heart: that’s the <b>secret crush</b>.',
-      'Type <code>:)</code> and then <code>(H)</code>. The second stays text until someone passes you Cool.',
+      'Type <code>:)</code>, or <code>:lo</code> to get suggestions. <code>(H)</code> stays text until someone passes you Cool. Grab Marco’s train, then type <code>(train)</code>.',
       'Make your own emoticon in the <b>Studio</b>, including how it moves.'
     ]
   },
@@ -482,8 +493,8 @@ const STR = {
     settings:'Impostazioni', quiet:'Ore di silenzio 23:00–07:00', quiet_note:'Di notte gli zing arrivano senza suono né vibrazione.', ageband:'Fascia d’età: 14-17', ageband_note:'La cotta segreta funziona solo con chi è nella tua fascia.',
     zing_sent:'~ hai mandato uno zing ~', zing_recv:'~ {name} ti ha mandato uno zing ~', combo:'same energy', no_msgs:'Nessun messaggio. Rompi il ghiaccio con uno zing.',
     grab:'Grab it', grab_n:'Grab them ({n})', taken:'Presa. È nella tua collezione', have:'Ce l’hai già',
-    typing:'{name} sta scrivendo...', input_ph:'Scrivi... prova :) o (H)', foot:'zing oggi {n}/30 · doppio tocco sull’avatar per uno zing',
-    mix_hint:'Tocca facce e pezzi per metterli in fila, poi premi invia. I pezzi si incastrano tra loro.', mix_faces:'Facce', mix_parts:'Pezzi', mix_clear:'Svuota', my_emos:'Le tue emoticon', send:'Invia', back:'Indietro', crush_aria:'Cotta segreta', zing_aria:'Manda uno zing',
+    typing:'{name} sta scrivendo...', input_ph:'Scrivi... prova :) o :lol', foot:'zing oggi {n}/30 · doppio tocco sull’avatar per uno zing',
+    mix_hint:'Tocca facce e pezzi per metterli in fila, poi premi invia. I pezzi si incastrano tra loro.', mix_faces:'Facce', mix_parts:'Pezzi', mix_clear:'Svuota', sc_all:'Tutte le scorciatoie', sc_title:'Scorciatoie', sc_intro:'Scrivi un codice in un messaggio, commento o post. Diventa emoticon solo se ce l’hai. Inizia con : per i suggerimenti.', sc_sets:'Set: un codice, tutto intero', sc_need_all:'servono tutti i pezzi', sc_locked:'Altre {n} si sbloccano quando qualcuno te le manda.', opt_code:'Scorciatoia (facoltativa)', code_ph:'es. simo, diventa :simo:', code_taken:'Scorciatoia già usata. Provane un’altra.', my_emos:'Le tue emoticon', send:'Invia', back:'Indietro', crush_aria:'Cotta segreta', zing_aria:'Manda uno zing',
     offline_note:'{name} è offline. Lo vedrà quando si collega.', sent_emo:'ti ha mandato un’emoticon',
     daily_out:'Hai finito gli zing di oggi.', combo_hint:'Rimandalo entro 3 secondi: same energy.',
     combo_text:'Tu e {name} vi siete mandati uno zing nello stesso momento.', combo_btn:'top',
@@ -513,7 +524,7 @@ const STR = {
       'Tocca l’<b>avatar</b> di un amico nella lista per aprire la sua <b>bacheca</b>: foto, post da blog, reazioni con le emoticon, messaggi.',
       'Nel <b>Profilo</b> personalizza la tua pagina come su MySpace e pubblica un post. Puoi aggiungere una foto vera.',
       'Nella chat con Giuly tocca il cuore: è la <b>cotta segreta</b>.',
-      'Scrivi <code>:)</code> e poi <code>(H)</code>. La seconda resta testo finché qualcuno non ti passa Cool.',
+      'Scrivi <code>:)</code>, oppure <code>:lo</code> per i suggerimenti. <code>(H)</code> resta testo finché qualcuno non ti passa Cool. Prendi il treno di Marco e poi scrivi <code>(train)</code>.',
       'Crea la tua emoticon nello <b>Studio</b>, compreso come si muove.'
     ]
   }
@@ -654,12 +665,18 @@ const CAT = [
 ];
 const E = id => CAT.find(e => e.id === id);
 const nm = e => tx(e.name);
-const SC = CAT.filter(e => e.sc);
-const SC_RE = new RegExp('(^|\\s)(' + SC.map(e => e.sc.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')(?=\\s|$)', 'g');
+const CODES = {sorriso:'smile', occhiolino:'wink', risata:'lol', linguaccia:'tongue', stupito:'wow', triste:'sad', sonno:'sleepy', imbarazzo:'blush',
+  cool:'cool', fiore:'flower', cuffie:'headphones', sudato:'sweaty', gatto:'kitty', angelo:'angel', diavoletto:'devil', innamorato:'crush', stellare:'starry',
+  smeraldo:'emerald', invito:'welcome', corona:'royal', alieno:'alien', fantasma:'ghost', cometa:'comet', galassia:'galaxy',
+  bughead:'bughead', bugseg:'bugbody', bugtail:'bugtail', loco:'loco', wagon:'wagon', caboose:'caboose', nose:'nose', body:'rocketbody', booster:'booster'};
+const EXTRA_SC = {innamorato:'<3', fiore:'(F)', cuffie:'(8)', stellare:'(*)'};
+CAT.forEach(e => { e.code = CODES[e.id]; if (EXTRA_SC[e.id]) e.sc = EXTRA_SC[e.id]; });
+const reEsc = x => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const ST_C = {online:'#3ccf4e', occupato:'#ff4747', torno:'#ffad1f', telefono:'#ffad1f', pranzo:'#ffad1f', invisibile:'#a9b8c8', offline:'#a9b8c8'};
 
 /* ---------- Amici finti ---------- */
 const TRAIN = ['loco','wagon','wagon','caboose'], ROCKET = ['nose','body','booster'], BUG = ['bughead','bugseg','bugseg','bugseg','bugtail'];
+const MACROS = [{code:'(train)', ids:TRAIN}, {code:'(rocket)', ids:ROCKET}, {code:'(bug)', ids:['bughead','bugseg','bugseg','bugtail']}];
 const F = {
   giulia:{name:'*~Giuly~*', c:'#ff6fb5', status:'online', pm:n2('whoever zings me wins','chi mi manda uno zing vince'), listen:n2('Playlist "summer 2006 but it’s 2026"','Playlist "estate 2006 ma siamo nel 2026"'),
     story:{text:n2('concert tonight','concerto stasera'), bg:'linear-gradient(160deg,#ff6fb5,#ffc62e)', emo:'cuffie'},
@@ -840,10 +857,11 @@ function viewStudio(){
     const inner = k === 'color' ? `<i class="sw" style="background:${v}"></i>` : k === 'anim' ? t('an_' + v) : emoSVG({...sp, [k]:v}, 30, false);
     return `<button class="chip ${sp[k] === v ? 'on' : ''}" data-opt="${k}" data-val="${v}" aria-label="${label}: ${k === 'anim' ? t('an_' + v) : v}" aria-pressed="${sp[k] === v}">${inner}</button>`;
   }).join('')}</div></div>`;
-  const cr = S.creations.map(c => `<div class="creation">${emoSVG(c.spec, 36)}<span style="min-width:0"><b>${esc(c.name)}</b><span class="small" style="display:block">${c.ok ? t('review_ok') : t('review_wait')}</span></span><span class="state ${c.ok ? 'ok' : ''}">${c.ok ? t('approved') : t('in_review')}</span></div>`).join('');
+  const cr = S.creations.map(c => `<div class="creation">${emoSVG(c.spec, 36)}<span style="min-width:0"><b>${esc(c.name)}</b> <code class="small">:${esc(c.code)}:</code><span class="small" style="display:block">${c.ok ? t('review_ok') : t('review_wait')}</span></span><span class="state ${c.ok ? 'ok' : ''}">${c.ok ? t('approved') : t('in_review')}</span></div>`).join('');
   return `<div class="pad"><div class="studio-hero"><div class="preview">${emoSVG(sp, 86)}</div><div style="min-width:0"><h2>Studio</h2><p class="small">${t('studio_intro')}</p></div></div>
     ${grp('color', t('opt_color'))}${grp('eyes', t('opt_eyes'))}${grp('mouth', t('opt_mouth'))}${grp('acc', t('opt_acc'))}${grp('anim', t('opt_anim'))}
     <label class="opt-label" for="emoName">${t('opt_name')}</label><input id="emoName" class="field" maxlength="20" placeholder="${esc(t('name_ph'))}" value="${esc(S.studioName)}">
+    <label class="opt-label" for="emoCode">${t('opt_code')}</label><input id="emoCode" class="field" maxlength="12" placeholder="${esc(t('code_ph'))}" value="${esc(S.studioCode || '')}">
     <button class="btn pink" data-submit-emo>${t('submit')}</button>
     <p class="small">${t('studio_note')}</p>
     ${cr ? `<div class="creations">${cr}</div>` : ''}</div>`;
@@ -853,8 +871,8 @@ function viewStudio(){
 function postHTML(owner, p, idx){
   const reacts = Object.entries(p.reacts).filter(([, n]) => n > 0).map(([id, n]) => `<button class="react ${p.mine && p.mine.includes(id) ? 'on' : ''}" data-react="${owner}|${idx}|${id}" aria-label="${esc(nm(E(id)))} ${n}">${emoSVG(E(id).s, 20, false)}<span>${n}</span></button>`).join('');
   const media = p.kind === 'photo' ? `<div class="photo ${p.img ? '' : 'scene-' + p.scene}">${p.img ? `<img src="${p.img}" alt="">` : ''}${p.sticker ? `<span class="sticker">${emoSVG(E(p.sticker).s, 46)}</span>` : ''}</div>` : '';
-  const body = p.kind === 'blog' ? `<h4>${esc(tx(p.title))}</h4><p>${esc(tx(p.text))}</p>` : (p.text ? `<p>${esc(tx(p.text))}</p>` : '');
-  const cm = p.open ? `<div class="comments">${p.comments.map(c => `<div class="comment"><b>${esc(whoName(c.from))}</b>${esc(tx(c.text))}</div>`).join('')}<form class="cform" data-cform="${owner}|${idx}"><input aria-label="${t('c_ph')}" placeholder="${t('c_ph')}" maxlength="140"><button>${t('comment_send')}</button></form></div>` : '';
+  const body = p.kind === 'blog' ? `<h4>${esc(tx(p.title))}</h4><p>${fmtText(p.text)}</p>` : (p.text ? `<p>${fmtText(p.text)}</p>` : '');
+  const cm = p.open ? `<div class="comments">${p.comments.map(c => `<div class="comment"><b>${esc(whoName(c.from))}</b>${fmtText(c.text)}</div>`).join('')}<form class="cform" data-cform="${owner}|${idx}"><input aria-label="${t('c_ph')}" placeholder="${t('c_ph')}" maxlength="140"><button>${t('comment_send')}</button></form></div>` : '';
   return `<article class="post">${media}<div class="post-body">${body}<span class="post-meta">${esc(tx(p.date))}</span></div><div class="reacts">${reacts}<button class="react add" data-react-add="${owner}|${idx}" aria-label="${t('react_with')}">+</button><button class="react link" data-toggle-comments="${owner}|${idx}">${p.comments.length === 1 ? t('comments_1') : t('comments', {n:p.comments.length})}</button></div>${cm}</article>`;
 }
 function draftHTML(){
@@ -886,7 +904,7 @@ function profileBody(owner){
       ${me ? draftHTML() : ''}${pr.posts.map((p, k) => postHTML(owner, p, k)).join('')}
       ${me ? `<p class="small">${t('wall_note')}</p>` : ''}</section>
     <section class="sec"><div class="sec-title"><h3>${t('guestbook')}</h3><span>${pr.guestbook.length}</span></div>
-      <div class="post"><div class="comments" style="border-top:0">${pr.guestbook.map(c => `<div class="comment"><b>${esc(whoName(c.from))}</b>${esc(tx(c.text))}</div>`).join('')}
+      <div class="post"><div class="comments" style="border-top:0">${pr.guestbook.map(c => `<div class="comment"><b>${esc(whoName(c.from))}</b>${fmtText(c.text)}</div>`).join('')}
       ${me ? '' : `<form class="cform" data-cform="${owner}|gb"><input aria-label="${esc(t('gb_ph', {name}))}" placeholder="${esc(t('gb_ph', {name}))}" maxlength="140"><button>${t('comment_send')}</button></form>`}</div></div></section>`;
   if (me){
     const owned = CAT.filter(e => S.owned[e.id]).length;
@@ -894,6 +912,7 @@ function profileBody(owner){
     h += `<section class="sec"><div class="sec-title"><h3>${t('numbers')}</h3><span>${t('only_you_see')}</span></div><div class="stats">${stat(S.sent, t('s_sent'))}${stat(S.recv, t('s_recv'))}${stat(owned, t('s_emo'))}${stat(S.crush.size + '/3', t('s_crush'))}</div></section>
       <section class="sec"><div class="sec-title"><h3>${t('settings')}</h3></div><div class="settings">
         <label class="setting"><input type="checkbox" id="quiet" ${S.quiet ? 'checked' : ''}><span>${t('quiet')}</span><small>${t('quiet_note')}</small></label>
+        <div class="setting"><span></span><span>${t('sc_title')}</span><small>${t('sc_intro')} <button class="link-btn" data-shortcuts>${t('sc_all')}</button></small></div>
         <div class="setting"><span></span><span>${t('ageband')}</span><small>${t('ageband_note')}</small></div>
         <div class="setting"><span></span><label for="nickInput">${t('nickname')}</label><small><input id="nickInput" class="field" maxlength="24" value="${esc(S.nick)}" style="margin-top:6px"></small></div>
       </div></section>`;
@@ -951,11 +970,56 @@ function openCustomize(){
 }
 
 /* ---------- Chat ---------- */
+function codeTable(){
+  const m = new Map();
+  CAT.forEach(e => { if (e.sc) m.set(e.sc.toLowerCase(), {ids:[e.id]}); if (e.code) m.set(':' + e.code + ':', {ids:[e.id]}); });
+  MACROS.forEach(x => m.set(x.code, {ids:x.ids}));
+  return m;
+}
 function withShortcuts(s){
-  return esc(s).replace(SC_RE, (m, pre, code) => {
-    const e = SC.find(x => x.sc === code);
-    return S.owned[e.id] ? pre + `<span class="emo-inline" title="${esc(nm(e))}">${emoSVG(e.s, 22)}</span>` : m;
-  });
+  const tbl = codeTable();
+  const re = new RegExp('(^|\\s)(' + [...tbl.keys()].sort((a, b) => b.length - a.length).map(reEsc).join('|') + ')(?=\\s|$|[.,!?])', 'gi');
+  let out = '', last = 0, m;
+  while ((m = re.exec(s))){
+    const start = m.index + m[1].length, hit = tbl.get(m[2].toLowerCase());
+    out += esc(s.slice(last, start));
+    if (hit.ids.every(id => S.owned[id])){
+      const e0 = E(hit.ids[0]);
+      out += hit.ids.length > 1 ? `<span class="emo-inline seq">${hit.ids.map((id, k) => itemSVG(E(id), 26, k)).join('')}</span>` : `<span class="emo-inline" title="${esc(nm(e0))}">${itemSVG(e0, 22)}</span>`;
+    } else out += esc(m[2]);
+    last = start + m[2].length;
+  }
+  return out + esc(s.slice(last));
+}
+const fmtText = v => typeof v === 'string' ? withShortcuts(v) : esc(tx(v));
+function suggestFor(text){
+  const m = text.match(/(?:^|\s)(:[a-z0-9]*|\([a-z]*)$/i); if (!m) return [];
+  const tok = m[1].toLowerCase(); if (tok.length < 2) return [];
+  const out = [];
+  if (tok[0] === ':'){ const q = tok.slice(1); CAT.filter(e => S.owned[e.id] && e.code && e.code.startsWith(q)).forEach(e => out.push({tok, code:':' + e.code + ':', ids:[e.id]})); }
+  else {
+    MACROS.filter(x => x.code.startsWith(tok) && x.ids.every(id => S.owned[id])).forEach(x => out.push({tok, code:x.code, ids:x.ids}));
+    CAT.filter(e => S.owned[e.id] && e.sc && e.sc.toLowerCase().startsWith(tok)).forEach(e => out.push({tok, code:e.sc, ids:[e.id]}));
+  }
+  return out.slice(0, 8);
+}
+function renderSuggest(){
+  const inp = $('#msgInput'), list = suggestFor(inp.value.slice(0, inp.selectionStart ?? inp.value.length)), bar = $('#suggest');
+  S.sug = list; bar.hidden = !list.length;
+  bar.innerHTML = list.map((x, k) => `<button type="button" class="sug" data-sug="${k}">${x.ids.length > 1 ? `<span class="emo-inline seq">${x.ids.map((id, j) => itemSVG(E(id), 20, j, false)).join('')}</span>` : itemSVG(E(x.ids[0]), 22, 0, false)}<code>${esc(x.code)}</code></button>`).join('');
+}
+function applySuggest(k){
+  const x = S.sug[k], inp = $('#msgInput'), caret = inp.selectionStart ?? inp.value.length;
+  const before = inp.value.slice(0, caret - x.tok.length), after = inp.value.slice(caret);
+  inp.value = before + x.code + ' ' + after; const pos = (before + x.code + ' ').length;
+  inp.focus(); inp.setSelectionRange(pos, pos); renderSuggest();
+}
+function openShortcuts(){
+  const owned = CAT.filter(e => S.owned[e.id] && (e.sc || e.code));
+  const rows = owned.map(e => `<div class="sc-row">${itemSVG(e, 28, 0, false)}<span>${esc(nm(e))}</span><span class="codes">${e.sc ? `<code>${esc(e.sc)}</code>` : ''}<code>:${esc(e.code)}:</code></span></div>`).join('');
+  const sets = MACROS.map(x => { const ok = x.ids.every(id => S.owned[id]); return `<div class="sc-row ${ok ? '' : 'locked'}"><span class="emo-inline seq">${x.ids.map((id, k) => itemSVG(E(id), 20, k, false)).join('')}</span><span>${ok ? '' : t('sc_need_all')}</span><span class="codes"><code>${x.code}</code></span></div>`; }).join('');
+  const locked = CAT.filter(e => !S.owned[e.id]).length;
+  sheet(`<h3>${t('sc_title')}</h3><p class="small">${t('sc_intro')}</p><div class="sc-list">${rows}</div><span class="opt-label">${t('sc_sets')}</span><div class="sc-list">${sets}</div><p class="small">${t('sc_locked', {n:locked})}</p><button class="btn ghost" data-close-sheet>${t('close')}</button>`);
 }
 const stripHTML = (ids, size) => `<div class="strip ${ids.length === 1 ? 'single' : ''}">${ids.map((id, k) => itemSVG(E(id), size, k)).join('')}</div>`;
 function msgHTML(m, idx){
@@ -995,8 +1059,8 @@ function renderChat(){
 function renderTyping(){ $('#typing').textContent = S.typing && S.typing === S.chat ? t('typing', {name:F[S.chat].name}) : ''; }
 function renderTray(){
   const owned = CAT.filter(e => S.owned[e.id]);
-  const btns = list => list.map(e => `<button type="button" data-add-mix="${e.id}" aria-label="${esc(nm(e))}" title="${esc(nm(e))}${e.sc ? ' ' + e.sc : ''}">${itemSVG(e, 32, 0, false)}</button>`).join('');
-  $('#tray').innerHTML = `<p class="tray-hint">${t('mix_hint')}</p><div class="tray-label">${t('mix_faces')}</div><div class="tray-grid">${btns(owned.filter(e => !e.piece))}</div><div class="tray-label">${t('mix_parts')}</div><div class="tray-grid">${btns(owned.filter(e => e.piece))}</div>`;
+  const btns = list => list.map(e => `<button type="button" data-add-mix="${e.id}" aria-label="${esc(nm(e))}" title="${esc(nm(e))} ${e.sc ? e.sc + ' ' : ''}:${e.code}:">${itemSVG(e, 32, 0, false)}</button>`).join('');
+  $('#tray').innerHTML = `<p class="tray-hint">${t('mix_hint')} <button type="button" class="link-btn" data-shortcuts>${t('sc_all')}</button></p><div class="tray-label">${t('mix_faces')}</div><div class="tray-grid">${btns(owned.filter(e => !e.piece))}</div><div class="tray-label">${t('mix_parts')}</div><div class="tray-grid">${btns(owned.filter(e => e.piece))}</div>`;
 }
 function renderMix(){
   const bar = $('#mixbar');
@@ -1158,12 +1222,15 @@ function openEmo(id){
 function submitEmo(){
   const name = S.studioName.trim();
   if (!name){ toast(t('need_name')); $('#emoName') && $('#emoName').focus(); return; }
-  const c = {id:'u' + Date.now(), name, spec:{...S.studio}, ok:false};
-  S.creations.unshift(c); S.studioName = ''; renderScreen();
+  let code = (S.studioCode || name).toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 12);
+  if (code.length < 2) code = 'my' + (Date.now() % 1000);
+  if (codeTable().has(':' + code + ':') || S.creations.some(x => x.code === code)){ toast(t('code_taken')); return; }
+  const c = {id:'u' + Date.now(), name, code, spec:{...S.studio}, ok:false};
+  S.creations.unshift(c); S.studioName = ''; S.studioCode = ''; renderScreen();
   toast(t('sent_review'));
   setTimeout(() => {
     c.ok = true;
-    CAT.push({id:c.id, name:c.name, r:'noncomune', s:c.spec, creator:true});
+    CAT.push({id:c.id, name:c.name, code:c.code, r:'noncomune', s:c.spec, creator:true});
     S.owned[c.id] = {from:'me', date:'today', pz:true}; renderTray(); popSound();
     toast(t('approved_toast', {name:c.name}));
     if (S.tab === 'studio' || S.tab === 'album') renderScreen();
@@ -1213,6 +1280,8 @@ document.addEventListener('click', ev => {
   else if (d.emo) openEmo(d.emo);
   else if (d.vetrina){ S.me.vetrina = [d.vetrina, ...S.me.vetrina.filter(x => x !== d.vetrina)].slice(0, 3); closeSheet(); toast(t('showcased')); if (S.tab === 'profilo') renderScreen(); }
   else if (d.opt){ S.studio[d.opt] = d.val; renderScreen(); }
+  else if (d.sug !== undefined) applySuggest(+d.sug);
+  else if ('shortcuts' in d) openShortcuts();
   else if ('toggleMissing' in d){ S.showMissing = !S.showMissing; renderScreen(); }
   else if ('submitEmo' in d) submitEmo();
   else if (d.react){ const [o, k, id] = d.react.split('|'); toggleReact(o, +k, id); }
@@ -1238,7 +1307,7 @@ document.addEventListener('click', ev => {
 });
 document.addEventListener('submit', ev => {
   const f = ev.target;
-  if (f.id === 'composer'){ ev.preventDefault(); const inp = $('#msgInput'); sendMessage(inp.value); inp.value = ''; return; }
+  if (f.id === 'composer'){ ev.preventDefault(); const inp = $('#msgInput'); sendMessage(inp.value); inp.value = ''; renderSuggest(); return; }
   if (f.dataset.cform){
     ev.preventDefault();
     const input = f.querySelector('input'), text = input.value.trim(); if (!text) return;
@@ -1254,6 +1323,8 @@ document.addEventListener('keydown', ev => {
 document.addEventListener('input', ev => {
   const el = ev.target;
   if (el.id === 'emoName') S.studioName = el.value;
+  else if (el.id === 'emoCode') S.studioCode = el.value;
+  else if (el.id === 'msgInput') renderSuggest();
   else if (el.id === 'nickInput'){ S.nick = el.value || '~*Simo*~'; renderMe(); }
   else if (el.id === 'pmInput'){ S.pm = el.value; S.pmEdited = true; }
   else if (el.id === 'draftText') S.draft.text = el.value;
