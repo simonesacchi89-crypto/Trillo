@@ -78,6 +78,25 @@ Su MSN le emoticon di base le disegnavano i designer di Microsoft, ma c'erano an
 ### Brand (dopo, se l'app prende piede)
 Non nell'MVP, ma progetta il catalogo in modo che sia possibile: un brand può lanciare una **serie di emoticon sponsorizzata** come evento a tempo (pochi possessori iniziali, poi si diffonde tra amici). Regole fisse: sempre segnalata come sponsorizzata, mai a pagamento per gli utenti, nessuna profilazione dei minori.
 
+### Drops di piccoli brand e negozi
+Una sezione **Drops** nella barra principale: uscite limitate di piccoli brand e negozi locali, che oggi vanno molto.
+- Ogni drop ha un negozio verificato, pochi pezzi, un'ora di uscita e un'**emoticon esclusiva** inclusa. L'emoticon poi gira tra amici come le altre, ed è la pubblicità che il brand ottiene.
+- Stati del drop: **in arrivo** (promemoria 10 minuti prima), **live** (conto alla rovescia e pezzi rimasti), **in negozio** (un QR alla cassa, che cambia ogni minuto, regala l'emoticon a chi passa di persona).
+- **Prenotazione** con ritiro in negozio o spedizione. Per i 14-17enni l'acquisto lo approva un genitore. Pagamento con Revolut Pay, carta, Apple Pay o Google Pay, da verificare con le regole degli store.
+- I negozi **non possono** scrivere, aggiungere o vedere chi sono i ragazzi: ricevono solo totali (promemoria, prenotazioni, quanto ha girato l'emoticon).
+- Dashboard web per i brand, con pagamento per drop tramite carta o Revolut Business. Dettagli in `docs/strategia.md`.
+
+---
+
+## Skin
+L'app ha più skin, che cambiano colori, font e decorazioni ma **mai la posizione dei comandi**:
+- **Sky** (base): azzurro lucido, 2026 con vibes 2005;
+- **Classic 2005**: barre da finestra, Verdana, angoli squadrati, per chi ha usato MSN;
+- **Y2K Chrome**: scura, cromata e neon, per la Gen Z;
+- **Clean**: bianca e tranquilla, per chi vuole solo le funzioni.
+
+Implementale come set di design token (colori, font, raggi, ombre) sopra gli stessi componenti.
+
 ---
 
 ## Vincolo importante sugli asset

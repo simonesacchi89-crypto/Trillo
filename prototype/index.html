@@ -9,7 +9,10 @@
   --sky-top:#4cb6ff; --sky-mid:#a6e0ff; --sky-low:#eaf8ff;
   --aqua:#1a96e6; --aqua-deep:#0f6fbf; --ink:#13304f; --muted:#56739a;
   --paper:#ffffff; --panel:#f3f8fc; --line:#d3e5f3; --pink:#ff4f9a; --pink-deep:#c21f6a;
-  --lime:#7fdc2f; --lime-deep:#4fa816; --sun:#ffc62e; --cream:#fff6d1;
+  --lime:#7fdc2f; --lime-deep:#4fa816; --sun:#ffc62e; --cream:#fff6d1; --on:#fff; --night:#13304f;
+  --bar:linear-gradient(180deg, #5cc2ff 0%, #1a96e6 60%, #0f6fbf 100%); --bar-gloss:linear-gradient(180deg, rgb(255 255 255 / .35), rgb(255 255 255 / .03));
+  --bar-ink:#fff; --bar-ink-inv:#0f6fbf; --soft:#e6f3fd; --mine:linear-gradient(180deg, #effde2, #d3f5b0); --mine-line:#b5e08a;
+  --bubble-gloss:linear-gradient(180deg, rgb(255 255 255 / .7), rgb(255 255 255 / 0)); --btn:linear-gradient(180deg, #6cc8ff 0%, #1a96e6 60%, #0f6fbf 100%); --btn-shadow:#0b4f8a; --rb:16px;
   --font-display:"Unbounded","Arial Black",system-ui,sans-serif;
   --font-body:"Figtree","Segoe UI",system-ui,sans-serif;
   --font-pixel:"VT323",ui-monospace,monospace;
@@ -45,32 +48,32 @@ svg{overflow:visible}
 .phone{
   position:relative; display:flex; flex-direction:column; overflow:hidden;
   height:min(800px, calc(100dvh - 48px)); min-height:600px;
-  background:var(--paper); border-radius:30px; border:3px solid var(--paper);
+  background:var(--paper); color:var(--ink); font-family:var(--font-body); border-radius:30px; border:3px solid var(--paper);
   box-shadow:0 0 0 1.5px var(--aqua), 0 24px 50px rgb(19 48 79 / .3);
 }
 .topbar{
   position:relative; display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:10px; align-items:center;
-  padding:12px 14px 10px; color:var(--paper);
-  background:linear-gradient(180deg, #5cc2ff 0%, var(--aqua) 60%, var(--aqua-deep) 100%);
+  padding:12px 14px 10px; color:var(--bar-ink);
+  background:var(--bar);
 }
-.topbar::after{content:""; position:absolute; inset:0 0 55% 0; background:linear-gradient(180deg, rgb(255 255 255 / .35), rgb(255 255 255 / .03)); pointer-events:none}
+.topbar::after{content:""; position:absolute; inset:0 0 55% 0; background:var(--bar-gloss); pointer-events:none}
 .topbar > *{position:relative; z-index:1}
 .me-nick{font-weight:800; font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 .me-row{display:flex; gap:6px; align-items:center; min-width:0}
-.status-select{appearance:none; border:1px solid rgb(255 255 255 / .55); background:rgb(255 255 255 / .18); color:var(--paper); border-radius:999px; padding:0 9px; font-size:11.5px; font-weight:700; max-width:118px}
+.status-select{appearance:none; border:1px solid color-mix(in srgb, var(--bar-ink) 50%, transparent); background:color-mix(in srgb, var(--bar-ink) 15%, transparent); color:var(--bar-ink); border-radius:999px; padding:0 9px; font-size:11.5px; font-weight:700; max-width:118px}
 .status-select option{color:var(--ink)}
-.pm{width:100%; border:0; border-bottom:1px dashed transparent; background:transparent; color:var(--paper); font-size:12px; padding:2px 0; font-style:italic}
-.pm::placeholder{color:rgb(255 255 255 / .75)}
+.pm{width:100%; border:0; border-bottom:1px dashed transparent; background:transparent; color:var(--bar-ink); font-size:12px; padding:2px 0; font-style:italic}
+.pm::placeholder{color:color-mix(in srgb, var(--bar-ink) 70%, transparent)}
 .pm:focus{outline:none; border-bottom-color:rgb(255 255 255 / .8)}
 .brand{display:grid; justify-items:end; gap:5px}
-.logo{font-family:var(--font-display); font-weight:700; font-size:17px; line-height:1; letter-spacing:-.02em; color:var(--paper); text-shadow:0 1px 0 var(--aqua-deep)}
-.lang{display:flex; border-radius:999px; border:1px solid rgb(255 255 255 / .55); overflow:hidden}
-.lang button{border:0; background:transparent; color:var(--paper); font-size:10.5px; font-weight:800; padding:1px 7px}
-.lang button.on{background:var(--paper); color:var(--aqua-deep)}
+.logo{font-family:var(--font-display); font-weight:700; font-size:17px; line-height:1; letter-spacing:-.02em; color:var(--bar-ink)}
+.lang{display:flex; border-radius:999px; border:1px solid color-mix(in srgb, var(--bar-ink) 50%, transparent); overflow:hidden}
+.lang button{border:0; background:transparent; color:var(--bar-ink); font-size:10.5px; font-weight:800; padding:1px 7px}
+.lang button.on{background:var(--bar-ink); color:var(--bar-ink-inv)}
 
 .ava{
   --c:var(--aqua); flex:none; position:relative; width:40px; height:40px; border-radius:50%;
-  display:grid; place-items:center; font-family:var(--font-display); font-weight:700; font-size:15px; color:var(--paper);
+  display:grid; place-items:center; font-family:var(--font-display); font-weight:700; font-size:15px; color:var(--on);
   background:radial-gradient(circle at 34% 26%, rgb(255 255 255 / .7) 0 14%, transparent 32%), var(--c);
   box-shadow:inset 0 -3px 6px rgb(0 0 0 / .16), 0 0 0 2px var(--paper);
   text-shadow:0 1px 2px rgb(0 0 0 / .25);
@@ -80,11 +83,71 @@ svg{overflow:visible}
 .dot{position:absolute; right:-2px; bottom:-2px; width:13px; height:13px; border-radius:50%; background:var(--s); border:2.5px solid var(--paper)}
 
 .screens{flex:1; overflow-y:auto; background:var(--panel); overscroll-behavior:contain}
-.tabs{display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); background:var(--paper); padding:5px 6px 7px}
+.tabs{display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--line); background:var(--paper); padding:5px 6px 7px}
 .tab{position:relative; display:grid; justify-items:center; gap:1px; padding:5px 0; border:0; background:transparent; border-radius:12px; font-size:11px; font-weight:700; color:var(--muted)}
 .tab svg{width:21px; height:21px}
-.tab.on{color:var(--aqua-deep); background:#e6f3fd}
-.tab .badge{position:absolute; top:1px; right:30%}
+.tab.on{color:var(--aqua-deep); background:var(--soft)}
+.tab .badge{position:absolute; top:1px; right:22%}
+
+/* ---------- Skin: cambiano colori, font e decorazioni, mai la posizione dei comandi ---------- */
+.phone[data-skin="classic"]{
+  --bar:linear-gradient(180deg, #7fb2f0 0%, #3b78d8 48%, #2459b8 52%, #3b78d8 100%); --bar-gloss:linear-gradient(180deg, rgb(255 255 255 / .55), rgb(255 255 255 / .1));
+  --panel:#eaf1fb; --line:#a9c0df; --soft:#dbe7f8; --mine:linear-gradient(180deg, #ffffff, #eef4ff); --mine-line:#a9c0df;
+  --btn:linear-gradient(180deg, #a6e07a 0%, #5bb52a 55%, #3d8a12 100%); --btn-shadow:#2f6d0b; --rb:5px; --aqua-deep:#1f4fae;
+  --font-display:"Trebuchet MS","Verdana",sans-serif; --font-body:"Verdana","Tahoma","Segoe UI",sans-serif;
+  font-size:13px; border-radius:12px;
+}
+.phone[data-skin="classic"] .logo{font-style:italic; letter-spacing:0}
+.phone[data-skin="classic"] .msgs{background:linear-gradient(180deg, #f4f8ff, #e3ecf9)}
+.phone[data-skin="classic"] .ava{border-radius:6px}
+.phone[data-skin="chrome"]{
+  --paper:#161a2c; --panel:#0c0f1d; --ink:#e9edff; --muted:#9aa5c9; --line:#2a3156; --soft:#222a4a; --cream:#2b2440;
+  --bar:linear-gradient(180deg, #f4f6fa 0%, #b9c2d2 42%, #6c7891 52%, #d5dbe6 100%); --bar-gloss:none; --bar-ink:#0c0f1d; --bar-ink-inv:#f4f6fa;
+  --mine:linear-gradient(180deg, #ff6fb5, #b8185f); --mine-line:#ff8cc6; --bubble-gloss:linear-gradient(180deg, rgb(255 255 255 / .2), rgb(255 255 255 / 0));
+  --btn:linear-gradient(180deg, #8ad8ff 0%, #2b84ff 60%, #1452b8 100%); --btn-shadow:#0a2a66; --aqua-deep:#7fd0ff; --rb:14px;
+  color-scheme:dark; box-shadow:0 0 0 1.5px #7fd0ff, 0 0 40px rgb(127 208 255 / .35), 0 24px 50px rgb(0 0 0 / .45);
+}
+.phone[data-skin="chrome"] .msgs{background:radial-gradient(rgb(127 208 255 / .18) 1px, transparent 1.4px) 0 0 / 18px 18px, var(--panel)}
+.phone[data-skin="chrome"] .logo{background:linear-gradient(180deg, #1a1e33, #4a5577); -webkit-background-clip:text; background-clip:text; color:transparent}
+.phone[data-skin="clean"]{
+  --bar:var(--paper); --bar-gloss:none; --bar-ink:var(--ink); --bar-ink-inv:var(--paper); --panel:#f6f7f9; --line:#e5e8ee; --soft:#eef1f5;
+  --mine:#e8f2ff; --mine-line:#d3e4fa; --bubble-gloss:none; --btn:#13304f; --btn-shadow:transparent; --rb:18px; --font-display:"Figtree",system-ui,sans-serif;
+  box-shadow:0 0 0 1px #d5dbe5, 0 24px 50px rgb(19 48 79 / .18);
+}
+.phone[data-skin="clean"] .topbar, .phone[data-skin="clean"] .chat-head, .phone[data-skin="clean"] .prof-head{border-bottom:1px solid var(--line)}
+.phone[data-skin="clean"] .msgs{background:var(--panel)}
+.phone[data-skin="clean"] .grab{background:var(--sun); box-shadow:none}
+.skins{display:flex; gap:6px; flex-wrap:wrap; margin-top:10px}
+.skin-btn{border:1px solid var(--line); background:var(--paper); border-radius:999px; padding:5px 12px; font-size:12.5px; font-weight:700; color:var(--ink)}
+.skin-btn.on{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.skin-card{display:grid; grid-template-columns:auto minmax(0,1fr); gap:10px; align-items:center; text-align:left; width:100%; border:1px solid var(--line); background:var(--paper); color:var(--ink); border-radius:14px; padding:8px 10px; margin-top:6px}
+.skin-card.on{border:2px solid var(--pink)}
+.skin-card small{display:block; color:var(--muted); font-size:11.5px; font-weight:400}
+.skin-swatch{width:44px; height:44px; border-radius:10px; border:1px solid var(--line)}
+
+/* ---------- Drops ---------- */
+.drops-note{margin:10px 16px 0; padding:9px 12px; border-radius:14px; background:var(--soft); font-size:12px; color:var(--muted)}
+.drop{margin:10px 16px 0; border-radius:18px; background:var(--paper); border:1px solid var(--line); overflow:hidden}
+.drop-img{position:relative; aspect-ratio:16/9; max-width:100%; display:grid; place-items:center}
+.drop-tag{position:absolute; left:10px; top:10px; background:rgb(0 0 0 / .55); color:#fff; font-size:10.5px; font-weight:800; letter-spacing:.8px; text-transform:uppercase; padding:3px 8px; border-radius:999px}
+.drop-tag.live{background:#ff2d55}
+.drop-tag.live::before{content:""; display:inline-block; width:6px; height:6px; border-radius:50%; background:#fff; margin-right:5px; vertical-align:1px; animation:sync-pulse .9s infinite}
+.drop-body{padding:10px 12px 12px; display:grid; gap:6px}
+.shop-row{display:flex; align-items:center; gap:8px; border:0; background:transparent; padding:0; text-align:left; color:var(--ink); font-weight:700; font-size:13px}
+.shop-logo{width:24px; height:24px; border-radius:7px; display:grid; place-items:center; color:#fff; font-family:var(--font-display); font-weight:700; font-size:11px; background:var(--c)}
+.verified{font-size:10px; font-weight:800; color:var(--aqua-deep); background:var(--soft); padding:1px 7px; border-radius:999px}
+.drop-title{font-family:var(--font-display); font-weight:700; font-size:15px; letter-spacing:-.01em; margin:0}
+.drop-meta{display:flex; justify-content:space-between; align-items:center; gap:8px; font-size:12.5px; color:var(--muted); flex-wrap:wrap}
+.drop-meta b{color:var(--ink); font-size:14px}
+.stock{height:6px; border-radius:999px; background:var(--soft); overflow:hidden}
+.stock i{display:block; height:100%; background:linear-gradient(90deg, var(--pink), var(--sun))}
+.excl{display:flex; align-items:center; gap:6px; font-size:12px; color:var(--muted)}
+.drop .btn{margin-top:2px}
+.countdown{font-variant-numeric:tabular-nums; font-weight:800; color:#ff2d55}
+.b2b{margin:14px 16px 16px; padding:12px 14px; border-radius:16px; border:1px dashed var(--line); background:var(--paper); font-size:13px}
+.b2b h3{font-size:14px; margin-bottom:4px}
+.checkout-row{display:flex; justify-content:space-between; font-size:13.5px; padding:4px 0; border-bottom:1px solid var(--line)}
+.pay-note{font-size:11.5px; color:var(--muted)}
 
 /* ---------- Amici ---------- */
 .stories{display:flex; gap:12px; overflow-x:auto; padding:12px 14px 10px; background:var(--paper); border-bottom:1px solid var(--line)}
@@ -104,30 +167,30 @@ svg{overflow:visible}
 .f-pm{font-size:12px; color:var(--muted); font-style:italic}
 .f-listen{font-size:11px; color:var(--aqua-deep)}
 .f-listen::before{content:"\266B  "}
-.badge{display:inline-grid; place-items:center; min-width:19px; height:19px; padding:0 6px; border-radius:999px; background:var(--pink); color:var(--paper); font-size:10.5px; font-weight:800}
+.badge{display:inline-grid; place-items:center; min-width:19px; height:19px; padding:0 6px; border-radius:999px; background:var(--pink); color:var(--on); font-size:10.5px; font-weight:800}
 .badge.zing{background:var(--sun); color:var(--ink); animation:wiggle 1.2s infinite}
 .bell{border:1px dashed var(--aqua); background:var(--paper); color:var(--aqua-deep); border-radius:999px; font-size:11px; font-weight:800; padding:3px 9px; white-space:nowrap}
-.bell.on{border-style:solid; background:#e6f3fd}
+.bell.on{border-style:solid; background:var(--soft)}
 
 /* ---------- Chat ---------- */
 .chat{position:absolute; inset:0; z-index:5; display:flex; flex-direction:column; background:var(--panel)}
-.chat-head, .prof-head{position:relative; display:grid; grid-template-columns:auto auto minmax(0,1fr) auto; gap:9px; align-items:center; padding:10px 12px 9px; color:var(--paper); background:linear-gradient(180deg, #5cc2ff 0%, var(--aqua) 60%, var(--aqua-deep) 100%)}
-.chat-head::after, .prof-head::after{content:""; position:absolute; inset:0 0 55% 0; background:linear-gradient(180deg, rgb(255 255 255 / .32), rgb(255 255 255 / .03)); pointer-events:none}
+.chat-head, .prof-head{position:relative; display:grid; grid-template-columns:auto auto minmax(0,1fr) auto; gap:9px; align-items:center; padding:10px 12px 9px; color:var(--bar-ink); background:var(--bar)}
+.chat-head::after, .prof-head::after{content:""; position:absolute; inset:0 0 55% 0; background:var(--bar-gloss); pointer-events:none}
 .chat-head > *, .prof-head > *{position:relative; z-index:1}
 .ch-ava{border:0; background:transparent; padding:0; border-radius:50%}
-.ch-info{min-width:0; border:0; background:transparent; color:var(--paper); text-align:left; padding:2px 4px; border-radius:10px}
-.ch-info:hover{background:rgb(255 255 255 / .12)}
+.ch-info{min-width:0; border:0; background:transparent; color:var(--bar-ink); text-align:left; padding:2px 4px; border-radius:10px}
+.ch-info:hover{background:color-mix(in srgb, var(--bar-ink) 12%, transparent)}
 .ch-info b{display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 .ch-info small{display:block; font-size:11.5px; opacity:.9; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-.icon-btn{display:grid; place-items:center; width:36px; height:36px; border-radius:50%; border:1px solid rgb(255 255 255 / .55); background:rgb(255 255 255 / .16); color:var(--paper); padding:0}
+.icon-btn{display:grid; place-items:center; width:36px; height:36px; border-radius:50%; border:1px solid color-mix(in srgb, var(--bar-ink) 50%, transparent); background:color-mix(in srgb, var(--bar-ink) 14%, transparent); color:var(--bar-ink); padding:0}
 .icon-btn svg{width:18px; height:18px}
-.icon-btn.heart.on{background:var(--pink); border-color:var(--paper)}
+.icon-btn.heart.on{background:var(--pink); border-color:var(--pink); color:#fff}
 .msgs{flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:7px; padding:12px; background:radial-gradient(var(--line) 1px, transparent 1.4px) 0 0 / 18px 18px, var(--panel)}
 .msg{display:flex}
 .msg.mine{justify-content:flex-end}
-.bubble{position:relative; max-width:82%; padding:7px 11px; border-radius:16px; background:var(--paper); border:1px solid var(--line); display:grid; gap:4px; justify-items:start; min-width:0}
-.bubble::before{content:""; position:absolute; inset:2px 8px auto 8px; height:40%; border-radius:12px; background:linear-gradient(180deg, rgb(255 255 255 / .7), rgb(255 255 255 / 0)); pointer-events:none}
-.msg.mine .bubble{background:linear-gradient(180deg, #effde2, #d3f5b0); border-color:#b5e08a; border-bottom-right-radius:5px; justify-items:end}
+.bubble{position:relative; max-width:82%; padding:7px 11px; border-radius:var(--rb); background:var(--paper); border:1px solid var(--line); display:grid; gap:4px; justify-items:start; min-width:0}
+.bubble::before{content:""; position:absolute; inset:2px 8px auto 8px; height:40%; border-radius:12px; background:var(--bubble-gloss); pointer-events:none}
+.msg.mine .bubble{background:var(--mine); border-color:var(--mine-line); border-bottom-right-radius:5px; justify-items:end}
 .msg.theirs .bubble{border-bottom-left-radius:5px}
 .bubble p{margin:0; position:relative; overflow-wrap:anywhere}
 .emo-inline svg{vertical-align:-5px}
@@ -140,10 +203,10 @@ svg{overflow:visible}
 .grab{border:0; border-radius:999px; padding:5px 14px; font-size:13px; font-weight:800; color:var(--ink); background:linear-gradient(180deg, #fff2a8 0%, var(--sun) 55%, #f2a400 100%); box-shadow:inset 0 1px 1px rgb(255 255 255 / .7), 0 2px 0 #c98700}
 .took{font-size:11.5px; font-weight:800; color:var(--lime-deep)}
 .took.muted{color:var(--muted)}
-.rar-chip{--r:var(--muted); display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.6px; color:var(--paper); background:var(--r); padding:2px 8px; border-radius:999px}
+.rar-chip{--r:var(--muted); display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.6px; color:var(--on); background:var(--r); padding:2px 8px; border-radius:999px}
 .sys{align-self:center; max-width:90%; text-align:center; font-size:12px; font-weight:600; color:var(--muted); background:var(--paper); border:1px solid var(--line); border-radius:999px; padding:3px 11px}
 .zing-pill{font-family:var(--font-pixel); font-size:17px; color:var(--ink); background:var(--cream); border:1.5px dashed var(--sun)}
-.combo-pill{color:var(--paper); background:var(--ink); border:0; font-weight:800; letter-spacing:.4px}
+.combo-pill{color:var(--on); background:var(--night); border:0; font-weight:800; letter-spacing:.4px}
 .typing{min-height:18px; padding:0 14px; font-size:11.5px; font-style:italic; color:var(--muted)}
 .suggest{display:flex; gap:6px; overflow-x:auto; padding:6px 10px; background:var(--paper); border-top:1px solid var(--line)}
 .sug{flex:none; display:inline-flex; align-items:center; gap:6px; border:1px solid var(--line); background:var(--panel); border-radius:999px; padding:3px 10px 3px 4px}
@@ -170,7 +233,7 @@ svg{overflow:visible}
 .composer .icon-btn{border-color:var(--line); background:var(--panel); color:var(--aqua-deep)}
 .composer input{min-width:0; border:1px solid var(--line); border-radius:999px; padding:8px 13px; background:var(--panel)}
 .composer input:focus{outline:none; border-color:var(--aqua)}
-.zing-btn{position:relative; display:grid; place-items:center; width:40px; height:40px; border-radius:50%; border:0; padding:0; color:var(--paper); font-weight:800; font-size:12px; background:linear-gradient(180deg, #ff9ccb 0%, var(--pink) 55%, var(--pink-deep) 100%); box-shadow:inset 0 1px 1px rgb(255 255 255 / .6), 0 2px 0 #8e0f4b}
+.zing-btn{position:relative; display:grid; place-items:center; width:40px; height:40px; border-radius:50%; border:0; padding:0; color:var(--on); font-weight:800; font-size:12px; background:linear-gradient(180deg, #ff9ccb 0%, var(--pink) 55%, var(--pink-deep) 100%); box-shadow:inset 0 1px 1px rgb(255 255 255 / .6), 0 2px 0 #8e0f4b}
 .zing-btn svg{width:20px; height:20px}
 .zing-btn:disabled{filter:grayscale(.75); opacity:.7; cursor:default}
 .chat-foot{padding:2px 14px 8px; background:var(--paper); font-family:var(--font-pixel); font-size:14.5px; color:var(--muted)}
@@ -196,18 +259,18 @@ h3{font-family:var(--font-display); font-weight:700; font-size:16px; letter-spac
 .tile.missing svg *, .silhouette svg *{animation:none !important}
 
 .studio-hero{display:grid; grid-template-columns:auto minmax(0,1fr); gap:14px; align-items:center; margin-bottom:6px}
-.preview{display:grid; place-items:center; width:104px; height:104px; border-radius:22px; background:radial-gradient(circle at 50% 40%, var(--paper), #dcefff); border:1px solid var(--line)}
+.preview{display:grid; place-items:center; width:104px; height:104px; border-radius:22px; background:radial-gradient(circle at 50% 40%, var(--paper), var(--soft)); border:1px solid var(--line)}
 .opt{margin-top:10px}
 .opt-label{display:block; font-family:var(--font-pixel); font-size:16px; color:var(--muted); margin:12px 0 5px; letter-spacing:.3px}
 .opt .opt-label{margin-top:0}
 .chips{display:flex; flex-wrap:wrap; gap:5px}
 .chip{display:grid; place-items:center; min-width:40px; height:40px; border-radius:12px; border:1px solid var(--line); background:var(--paper); padding:0 8px; font-size:12px; font-weight:700}
-.chip.on{border:2px solid var(--pink); background:#fff0f7}
+.chip.on{border:2px solid var(--pink); background:color-mix(in srgb, var(--pink) 10%, var(--paper))}
 .sw{width:22px; height:22px; border-radius:50%; box-shadow:inset 0 -3px 5px rgb(0 0 0 / .2), inset 0 3px 3px rgb(255 255 255 / .6)}
 .field{width:100%; border:1px solid var(--line); border-radius:12px; padding:9px 11px; background:var(--paper)}
 .field:focus{outline:none; border-color:var(--aqua)}
 textarea.field{resize:vertical; min-height:64px}
-.btn{display:block; width:100%; margin-top:10px; border:0; border-radius:999px; padding:10px 16px; font-weight:800; font-size:14px; color:var(--paper); background:linear-gradient(180deg, #6cc8ff 0%, var(--aqua) 60%, var(--aqua-deep) 100%); box-shadow:inset 0 1px 1px rgb(255 255 255 / .55), 0 2px 0 #0b4f8a}
+.btn{display:block; width:100%; margin-top:10px; border:0; border-radius:999px; padding:10px 16px; font-weight:800; font-size:14px; color:var(--on); background:var(--btn); box-shadow:inset 0 1px 1px rgb(255 255 255 / .4), 0 2px 0 var(--btn-shadow)}
 .btn.pink{background:linear-gradient(180deg, #ff9ccb 0%, var(--pink) 55%, var(--pink-deep) 100%); box-shadow:inset 0 1px 1px rgb(255 255 255 / .55), 0 2px 0 #8e0f4b}
 .btn.ghost{background:var(--paper); color:var(--aqua-deep); border:1px solid var(--line); box-shadow:none}
 .creations{display:grid; gap:8px; margin-top:14px}
@@ -268,11 +331,11 @@ textarea.field{resize:vertical; min-height:64px}
 .comment b{margin-right:4px}
 .cform{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:6px}
 .cform input{min-width:0; border:1px solid var(--line); border-radius:999px; padding:6px 12px; background:var(--paper); font-size:13px}
-.cform button{border:0; border-radius:999px; padding:6px 12px; background:var(--accent, var(--aqua)); color:var(--paper); font-weight:800; font-size:12.5px}
+.cform button{border:0; border-radius:999px; padding:6px 12px; background:var(--accent, var(--aqua)); color:var(--on); font-weight:800; font-size:12.5px}
 .composer-card{border-radius:16px; background:var(--paper); border:1px dashed var(--line); padding:10px 12px; margin-bottom:10px; display:grid; gap:8px}
 .seg{display:flex; gap:4px}
 .seg button{border:1px solid var(--line); background:var(--panel); border-radius:999px; padding:4px 12px; font-size:12.5px; font-weight:700}
-.seg button.on{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.seg button.on{background:var(--pink); color:var(--on); border-color:var(--pink)}
 .scenes{display:flex; flex-wrap:wrap; gap:6px; align-items:center}
 .scene-btn{width:44px; height:33px; border-radius:8px; border:2px solid transparent; padding:0}
 .scene-btn.on{border-color:var(--pink)}
@@ -300,20 +363,20 @@ textarea.field{resize:vertical; min-height:64px}
 .card-fig .strip{justify-content:center}
 .card-fig .btn{margin-top:6px}
 .fig-tag{font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:1.2px; color:var(--muted)}
-.sync{display:grid; justify-items:center; gap:10px; text-align:center; color:var(--paper)}
+.sync{display:grid; justify-items:center; gap:10px; text-align:center; color:var(--on)}
 .sync-avas{display:flex; align-items:center}
 .sync-avas .ava{box-shadow:0 0 0 3px rgb(255 255 255 / .9), 0 0 30px rgb(255 79 154 / .5); animation:sync-pulse 1.6s ease-in-out infinite}
 .sync-avas .ava + .ava{margin-left:-18px}
-.sync h2{font-size:24px; color:var(--paper)}
+.sync h2{font-size:24px; color:var(--on)}
 .sync p{margin:0; max-width:26ch; font-size:13.5px; opacity:.85}
-.sync-btn{margin-top:4px; border:1px solid rgb(255 255 255 / .7); background:transparent; color:var(--paper); border-radius:999px; padding:7px 22px; font-weight:800}
+.sync-btn{margin-top:4px; border:1px solid rgb(255 255 255 / .7); background:transparent; color:var(--on); border-radius:999px; padding:7px 22px; font-weight:800}
 .gift{display:grid; justify-items:center; gap:4px; padding:10px 16px; border-radius:18px; background:rgb(255 255 255 / .1); border:1px solid rgb(255 255 255 / .3)}
-.story-view{position:relative; width:100%; height:100%; display:grid; grid-template-rows:auto auto 1fr auto; padding:12px 16px 26px; color:var(--paper)}
+.story-view{position:relative; width:100%; height:100%; display:grid; grid-template-rows:auto auto 1fr auto; padding:12px 16px 26px; color:var(--on)}
 .sv-bar{height:3px; border-radius:3px; background:rgb(255 255 255 / .35); overflow:hidden}
 .sv-bar i{display:block; height:100%; width:0; background:var(--paper); animation:fill 7s linear forwards}
 .sv-head{display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:10px; align-items:center; margin-top:10px}
 .sv-head small{display:block; font-size:11.5px; opacity:.85}
-.sv-x{width:34px; height:34px; border-radius:50%; border:0; background:rgb(0 0 0 / .2); color:var(--paper); font-size:20px; line-height:1}
+.sv-x{width:34px; height:34px; border-radius:50%; border:0; background:rgb(0 0 0 / .2); color:var(--on); font-size:20px; line-height:1}
 .sv-text{align-self:center; margin:0; text-align:center; font-family:var(--font-display); font-weight:700; font-size:24px; line-height:1.1; letter-spacing:-.01em; text-wrap:balance}
 .sv-sticker{justify-self:center; display:grid; justify-items:center; gap:6px; padding:10px 16px; border-radius:20px; background:rgb(255 255 255 / .92); color:var(--ink); transform:rotate(-4deg); box-shadow:0 8px 20px rgb(0 0 0 / .2)}
 .sv-sticker span{font-weight:800; font-size:12.5px}
@@ -429,6 +492,16 @@ try { const saved = localStorage.getItem('zing-lang'); if (saved === 'it' || sav
 const STR = {
   en:{
     st_online:'Online', st_occupato:'Busy', st_torno:'Be right back', st_telefono:'On the phone', st_pranzo:'Out to lunch', st_invisibile:'Appear offline', st_offline:'Offline',
+    tab_drops:'Drops', drops_sub:'Limited releases from small brands and local shops.', drops_rules:'Shops on Zing can’t message you, add you or see who you are. Every drop is labelled.',
+    live:'live', soon:'soon', in_store:'in store', ends_in:'ends in {t}', left:'{n} of {m} left', reserve:'Reserve', reserved:'Reserved', remind:'Remind me', reminding:'Reminder on', remind_toast:'We’ll remind you 10 minutes before.',
+    excl:'Comes with an exclusive emoticon', scan:'I’m at the counter: scan the QR', scan_note:'Only works in the shop: the code changes every minute.', verified:'Verified shop', follow:'Follow', following:'Following',
+    checkout:'Checkout', pickup:'Delivery', pickup_v:'Pick up in store', parent_need:'You’re 14-17, so a parent approves purchases.', ask_parent:'Ask a parent to approve',
+    pay_note:'Demo: nothing is charged. In the real app: Revolut Pay, card, Apple Pay or Google Pay.', parent_sent:'Request sent to your parent.', parent_ok:'Approved. It’s reserved for you.',
+    b2b_title:'Run a shop or a small brand?', b2b_text:'Launch a drop on Zing: limited stock, your own emoticon that spreads between friends, a QR at the counter. You only see totals, never who the kids are.', b2b_btn:'How it works',
+    b2b_steps:['Create the drop from the web dashboard: product, number of pieces, date and time.','Design the exclusive emoticon, or ask one of our artists.','Optional: an in-store QR that only works at your counter.','Pay per drop by card or Revolut Business. You get totals: reminders, reservations, how far the emoticon travelled.'],
+    skin:'Skin', g_skins:'try a skin', skin_note:'Skins change colors and fonts, never where things are.',
+    sk_sky:'Sky', skd_sky:'The default: glossy blue, 2026 with 2005 vibes.', sk_classic:'Classic 2005', skd_classic:'Window bars, Verdana, square corners. For those who remember.',
+    sk_chrome:'Y2K Chrome', skd_chrome:'Dark, chrome and neon. For Gen Z.', sk_clean:'Clean', skd_clean:'White and calm. Just the features.',
     tab_amici:'Friends', tab_album:'Album', tab_studio:'Studio', tab_profilo:'Profile',
     pm_ph:'Write a personal message', pm_aria:'Personal message', status_aria:'Your status', sections:'Sections', app_aria:'Zing app prototype',
     grp_online:'online ({n})', grp_offline:'offline ({n})', badge_zing:'zing', notify:'Notify me', notifying:'Will do', story_of:'Story by {name}', open_wall:'Open {name}’s wall',
@@ -460,7 +533,7 @@ const STR = {
     in_showcase:'It’s already in your showcase.', put_showcase:'Add to showcase', close:'Close', ok:'OK', showcased:'Added to your showcase.',
     need_name:'Give your emoticon a name first.', sent_review:'Sent for review. It usually doesn’t take long.', approved_toast:'"{name}" was approved. You can send it to friends now.',
     notify_set:'We’ll tell you when {name} comes online.', is_online:'{name} is online', starter:'Starter pack', today:'today', oct:'26 October', community:'Community', destiny_from:'It’s mutual',
-    wall:'Wall', posts:'{n} posts', guestbook:'Guestbook', gb_ph:'Write on {name}’s wall', c_ph:'Add a comment', comment_send:'Post', comments:'{n} comments', comments_1:'1 comment', mood:'mood: {m}', playing:'now playing',
+    wall:'Wall', posts:'{n} posts', posts_1:'1 post', guestbook:'Guestbook', gb_ph:'Write on {name}’s wall', c_ph:'Add a comment', comment_send:'Post', comments:'{n} comments', comments_1:'1 comment', mood:'mood: {m}', playing:'now playing',
     chat:'Chat', zing:'Zing', edit_profile:'Customize', photo:'Photo', blog:'Blog', caption_ph:'Say something about it', title_ph:'Title', body_ph:'Write your post', add_photo:'Upload a photo', or_scene:'or pick a scene',
     publish:'Publish', published:'Posted on your wall.', need_post:'Write something first.', reacted:'{name} reacted to your post', react_with:'React with an emoticon you own', wall_note:'Only friends can see your wall.', upload_note:'Your photo stays in this browser: nothing is uploaded.',
     customize:'Customize your page', theme:'Theme', song:'Profile song', song_ph:'Song – Artist', mood_l:'Mood', save:'Save', saved:'Your page is updated.',
@@ -475,11 +548,22 @@ const STR = {
       'In <b>Profile</b>, customize your page like it’s MySpace and publish a post. You can add a real photo.',
       'In Giuly’s chat, tap the heart: that’s the <b>secret crush</b>.',
       'Type <code>:)</code>, or <code>:lo</code> to get suggestions. <code>(H)</code> stays text until someone passes you Cool. Grab Marco’s train, then type <code>(train)</code>. <code>QQ</code> is the teary one.',
-      'Make your own emoticon in the <b>Studio</b>, including how it moves.'
+      'Make your own emoticon in the <b>Studio</b>, including how it moves.',
+      'Open <b>Drops</b>: reserve the live beanie drop, set a reminder, or scan the QR at Caffè Pixel.'
     ]
   },
   it:{
     st_online:'Online', st_occupato:'Occupato', st_torno:'Torno subito', st_telefono:'Al telefono', st_pranzo:'A pranzo', st_invisibile:'Invisibile', st_offline:'Offline',
+    tab_drops:'Drops', drops_sub:'Uscite limitate di piccoli brand e negozi.', drops_rules:'I negozi su Zing non possono scriverti, aggiungerti né vedere chi sei. Ogni drop è segnalato.',
+    live:'live', soon:'presto', in_store:'in negozio', ends_in:'finisce tra {t}', left:'ne restano {n} su {m}', reserve:'Prenota', reserved:'Prenotato', remind:'Ricordamelo', reminding:'Promemoria attivo', remind_toast:'Ti avvisiamo 10 minuti prima.',
+    excl:'Include un’emoticon esclusiva', scan:'Sono alla cassa: scansiona il QR', scan_note:'Funziona solo in negozio: il codice cambia ogni minuto.', verified:'Negozio verificato', follow:'Segui', following:'Lo segui',
+    checkout:'Riepilogo', pickup:'Consegna', pickup_v:'Ritiro in negozio', parent_need:'Hai 14-17 anni, quindi gli acquisti li approva un genitore.', ask_parent:'Chiedi l’ok a un genitore',
+    pay_note:'Demo: non si paga niente. Nell’app vera: Revolut Pay, carta, Apple Pay o Google Pay.', parent_sent:'Richiesta inviata al tuo genitore.', parent_ok:'Approvato. È prenotato per te.',
+    b2b_title:'Hai un negozio o un piccolo brand?', b2b_text:'Lancia un drop su Zing: pezzi limitati, la tua emoticon che gira tra amici, un QR alla cassa. Vedi solo i totali, mai chi sono i ragazzi.', b2b_btn:'Come funziona',
+    b2b_steps:['Crei il drop dalla dashboard web: prodotto, numero di pezzi, data e ora.','Disegni l’emoticon esclusiva, o la chiedi a uno dei nostri artisti.','Facoltativo: un QR che funziona solo alla tua cassa.','Paghi per drop con carta o Revolut Business. Ricevi i totali: promemoria, prenotazioni, quanto ha girato l’emoticon.'],
+    skin:'Skin', g_skins:'prova una skin', skin_note:'Le skin cambiano colori e font, mai la posizione dei comandi.',
+    sk_sky:'Sky', skd_sky:'Quella di base: azzurro lucido, 2026 con vibes 2005.', sk_classic:'Classic 2005', skd_classic:'Barre da finestra, Verdana, angoli squadrati. Per chi se lo ricorda.',
+    sk_chrome:'Y2K Chrome', skd_chrome:'Scura, cromata e neon. Per la Gen Z.', sk_clean:'Clean', skd_clean:'Bianca e tranquilla. Solo le funzioni.',
     tab_amici:'Amici', tab_album:'Album', tab_studio:'Studio', tab_profilo:'Profilo',
     pm_ph:'Scrivi un messaggio personale', pm_aria:'Messaggio personale', status_aria:'Il tuo stato', sections:'Sezioni', app_aria:'Prototipo dell’app Zing',
     grp_online:'online ({n})', grp_offline:'offline ({n})', badge_zing:'zing', notify:'Avvisami', notifying:'Ti avviso', story_of:'Storia di {name}', open_wall:'Apri la bacheca di {name}',
@@ -511,7 +595,7 @@ const STR = {
     in_showcase:'È già nella tua vetrina.', put_showcase:'Metti in vetrina', close:'Chiudi', ok:'Ok', showcased:'Messa in vetrina.',
     need_name:'Prima dai un nome alla tua emoticon.', sent_review:'Inviata alla Redazione. Di solito ci vuole poco.', approved_toast:'"{name}" è stata approvata. Ora puoi mandarla agli amici.',
     notify_set:'Ti avviso quando {name} si collega.', is_online:'{name} è online', starter:'Pacchetto iniziale', today:'oggi', oct:'26 ottobre', community:'Community', destiny_from:'It’s mutual',
-    wall:'Bacheca', posts:'{n} post', guestbook:'Messaggi in bacheca', gb_ph:'Scrivi sulla bacheca di {name}', c_ph:'Scrivi un commento', comment_send:'Invia', comments:'{n} commenti', comments_1:'1 commento', mood:'mood: {m}', playing:'in riproduzione',
+    wall:'Bacheca', posts:'{n} post', posts_1:'1 post', guestbook:'Messaggi in bacheca', gb_ph:'Scrivi sulla bacheca di {name}', c_ph:'Scrivi un commento', comment_send:'Invia', comments:'{n} commenti', comments_1:'1 commento', mood:'mood: {m}', playing:'in riproduzione',
     chat:'Chat', zing:'Zing', edit_profile:'Personalizza', photo:'Foto', blog:'Blog', caption_ph:'Scrivi qualcosa', title_ph:'Titolo', body_ph:'Scrivi il tuo post', add_photo:'Carica una foto', or_scene:'o scegli una scena',
     publish:'Pubblica', published:'Pubblicato sulla tua bacheca.', need_post:'Prima scrivi qualcosa.', reacted:'{name} ha reagito al tuo post', react_with:'Reagisci con un’emoticon che hai', wall_note:'La tua bacheca la vedono solo gli amici.', upload_note:'La foto resta in questo browser: non viene caricata da nessuna parte.',
     customize:'Personalizza la tua pagina', theme:'Tema', song:'Canzone del profilo', song_ph:'Canzone – Artista', mood_l:'Mood', save:'Salva', saved:'Pagina aggiornata.',
@@ -526,7 +610,8 @@ const STR = {
       'Nel <b>Profilo</b> personalizza la tua pagina come su MySpace e pubblica un post. Puoi aggiungere una foto vera.',
       'Nella chat con Giuly tocca il cuore: è la <b>cotta segreta</b>.',
       'Scrivi <code>:)</code>, oppure <code>:lo</code> per i suggerimenti. <code>(H)</code> resta testo finché qualcuno non ti passa Cool. Prendi il treno di Marco e poi scrivi <code>(train)</code>. <code>QQ</code> sono i lacrimoni.',
-      'Crea la tua emoticon nello <b>Studio</b>, compreso come si muove.'
+      'Crea la tua emoticon nello <b>Studio</b>, compreso come si muove.',
+      'Apri <b>Drops</b>: prenota il drop live dei berretti, attiva un promemoria o scansiona il QR del Caffè Pixel.'
     ]
   }
 };
@@ -582,6 +667,7 @@ const ACC_FRONT = {
   blush: `<ellipse cx="15.5" cy="39" rx="5" ry="3" fill="#ff6f9f" opacity=".55"/><ellipse cx="48.5" cy="39" rx="5" ry="3" fill="#ff6f9f" opacity=".55"/>`,
   crown: `<path d="M17 12 L19 -1 L26 7 L32 -4 L38 7 L45 -1 L47 12Z" fill="#ffd21f" stroke="#b78500" stroke-width="1.5" stroke-linejoin="round"/><circle cx="32" cy="6" r="1.8" fill="#ff2d6f"/>`,
   headphones: `<path d="M6 34 A26 26 0 0 1 58 34" fill="none" stroke="#2b2f48" stroke-width="5"/><rect x="0" y="27" width="11" height="17" rx="5" fill="#ff4f9a" stroke="#2b2f48" stroke-width="2"/><rect x="53" y="27" width="11" height="17" rx="5" fill="#ff4f9a" stroke="#2b2f48" stroke-width="2"/>`,
+  beanie: `<path d="M9 23 C9 1 55 1 55 23Z" fill="#ff4f9a" stroke="#b01d62" stroke-width="1.5"/><path d="M18 21 V9 M25 21 V5 M32 21 V4 M39 21 V5 M46 21 V9" stroke="#c21f6a" stroke-width="1.2" opacity=".55"/><rect x="6" y="18" width="52" height="9" rx="4.5" fill="#ffc2dc" stroke="#b01d62" stroke-width="1.5"/><circle cx="32" cy="-1" r="5" fill="#fff" stroke="#c9cfe0" stroke-width="1.2"/>`,
   flower: `<g transform="translate(51 11)"><circle cx="0" cy="-4.5" r="4" fill="#ff8cc6"/><circle cx="4.3" cy="-1.4" r="4" fill="#ff8cc6"/><circle cx="2.6" cy="3.6" r="4" fill="#ff8cc6"/><circle cx="-2.6" cy="3.6" r="4" fill="#ff8cc6"/><circle cx="-4.3" cy="-1.4" r="4" fill="#ff8cc6"/><circle r="2.8" fill="#ffd84a"/></g>`
 };
 let gid = 0;
@@ -655,6 +741,10 @@ const CAT = [
   {id:'lacrimoni', name:n2('Teary','Lacrimoni'), r:'noncomune', s:{color:'#9fd8ff', eyes:'teary', mouth:'pout', anim:'shiver'}},
   {id:'supplica', name:n2('Pretty Please','Ti prego'), r:'rara', s:{color:'#ffc4dc', eyes:'puppy', mouth:'tiny', acc:'blush', anim:'pulse'}},
   {id:'miciodolce', name:n2('Sweet Kitty','Micio dolce'), r:'epica', s:{color:'#ffab4a', eyes:'puppy', mouth:'cat', acc:'blush', anim:'float'}},
+  {id:'beanie', name:n2('Beanie Season','Beanie Season'), r:'rara', s:{color:Y, eyes:'happy', mouth:'smile', acc:'beanie', anim:'bounce'}},
+  {id:'vinyl', name:n2('Side B','Lato B'), r:'rara', s:{color:'#5fe0d6', eyes:'sleepy', mouth:'smile', acc:'headphones', anim:'float'}},
+  {id:'kumo', name:n2('Cloud Sticker','Sticker nuvola'), r:'noncomune', s:{color:'#e8ecff', eyes:'puppy', mouth:'tiny', acc:'blush', anim:'float'}},
+  {id:'pixelcafe', name:n2('Pixel Latte','Latte Pixel'), r:'epica', s:{color:'#c98a5a', eyes:'dot', mouth:'grin', acc:'shades', anim:'wobble'}},
   {id:'angelo', name:n2('Angel','Angioletto'), r:'rara', sc:'(A)', s:{color:'#f4f7ff', eyes:'happy', mouth:'smile', acc:'halo', anim:'float'}},
   {id:'diavoletto', name:n2('Little Devil','Diavoletto'), r:'rara', sc:'(6)', s:{color:'#ff5a4f', eyes:'wink', mouth:'grin', acc:'horns', anim:'shiver'}},
   {id:'innamorato', name:n2('Crushing','Cotto'), r:'rara', s:{color:Y, eyes:'heart', mouth:'smile', anim:'pulse'}},
@@ -679,7 +769,7 @@ const CAT = [
 const E = id => CAT.find(e => e.id === id);
 const nm = e => tx(e.name);
 const CODES = {sorriso:'smile', occhiolino:'wink', risata:'lol', linguaccia:'tongue', stupito:'wow', triste:'sad', sonno:'sleepy', imbarazzo:'blush',
-  cool:'cool', fiore:'flower', cuffie:'headphones', sudato:'sweaty', gatto:'kitty', occhidolci:'puppy', lacrimoni:'teary', supplica:'pleading', miciodolce:'sweetkitty', angelo:'angel', diavoletto:'devil', innamorato:'crush', stellare:'starry',
+  cool:'cool', fiore:'flower', cuffie:'headphones', sudato:'sweaty', gatto:'kitty', occhidolci:'puppy', lacrimoni:'teary', supplica:'pleading', miciodolce:'sweetkitty', beanie:'beanie', vinyl:'sideb', kumo:'cloud', pixelcafe:'latte', angelo:'angel', diavoletto:'devil', innamorato:'crush', stellare:'starry',
   smeraldo:'emerald', invito:'welcome', corona:'royal', alieno:'alien', fantasma:'ghost', cometa:'comet', galassia:'galaxy',
   bughead:'bughead', bugseg:'bugbody', bugtail:'bugtail', loco:'loco', wagon:'wagon', caboose:'caboose', nose:'nose', body:'rocketbody', booster:'booster'};
 const EXTRA_SC = {innamorato:'<3', fiore:'(F)', cuffie:'(8)', stellare:'(*)', lacrimoni:'QQ'};
@@ -739,6 +829,22 @@ const P = {
     guestbook:[]}
 };
 
+/* ---------- Negozi e drop (brand inventati) ---------- */
+const SHOPS = {
+  nova:{name:'NOVA knit', c:'#ff4f9a', bio:n2('Small-batch knitwear, made in Bologna.','Maglieria in piccole serie, fatta a Bologna.')},
+  tape:{name:'Tape Deck Records', c:'#1a96e6', bio:n2('Indie label. Vinyl and tapes only.','Etichetta indie. Solo vinili e cassette.')},
+  kumo:{name:'kumo studio', c:'#9a45f5', bio:n2('Stickers and pins by two illustrators.','Sticker e spille di due illustratrici.')},
+  pixel:{name:'Caffè Pixel', c:'#a8683c', bio:n2('Café with retro games, Via Roma 12.','Caffè con giochi retrò, Via Roma 12.')}
+};
+const DROPS = [
+  {id:'d1', shop:'nova', kind:'live', title:n2('Beanie Season, 120 pieces','Beanie Season, 120 pezzi'), price:'€28', stock:37, total:120, ends:Date.now() + 14 * 60000 + 32000, emo:'beanie', bg:'linear-gradient(135deg,#ffc2dc,#ff6fb5)'},
+  {id:'d2', shop:'tape', kind:'soon', title:n2('“Side B” vinyl reissue','Ristampa in vinile di “Lato B”'), price:'€24', when:n2('drops Friday 18:00','esce venerdì alle 18:00'), emo:'vinyl', bg:'linear-gradient(135deg,#9ad8ff,#1a96e6)'},
+  {id:'d3', shop:'kumo', kind:'soon', title:n2('Cloud sticker pack','Pacchetto di sticker nuvola'), price:'€6', when:n2('drops tomorrow 10:00','esce domani alle 10:00'), emo:'kumo', bg:'linear-gradient(135deg,#eef1ff,#b07cff)'},
+  {id:'d4', shop:'pixel', kind:'store', title:n2('In-store drop: Pixel Latte','Drop in negozio: Latte Pixel'), place:'Caffè Pixel · Via Roma 12', emo:'pixelcafe', bg:'linear-gradient(135deg,#f3d9b8,#c98a5a)'}
+];
+const SKINS = ['sky','classic','chrome','clean'];
+const SKIN_SW = {sky:'linear-gradient(180deg,#5cc2ff,#0f6fbf)', classic:'linear-gradient(180deg,#7fb2f0,#2459b8 52%,#a6e07a 53%,#3d8a12)', chrome:'linear-gradient(160deg,#f4f6fa,#6c7891 50%,#161a2c 51%,#ff6fb5)', clean:'linear-gradient(180deg,#ffffff,#eef1f5)'};
+
 /* ---------- Stato ---------- */
 const S = {
   tab:'amici', chat:null, profOpen:null, nick:'~*Simo*~', pm:'', status:'online',
@@ -746,8 +852,9 @@ const S = {
   cool:{}, lastMine:{}, lastTheirs:{}, sent:12, recv:17, today:0, mix:[],
   crush:new Set(), matched:{}, passes:{}, creations:[], quiet:true, typing:null,
   studio:{color:Y, eyes:'dot', mouth:'smile', acc:'none', anim:'bounce'}, studioName:'',
-  draft:{mode:'photo', scene:'sunset', img:null, text:'', title:''}, reactTarget:null
+  draft:{mode:'photo', scene:'sunset', img:null, text:'', title:''}, reactTarget:null, skin:'sky', follows:{}
 };
+try { const sk = localStorage.getItem('zing-skin'); if (SKINS.includes(sk)) S.skin = sk; } catch(e){}
 S.me = {theme:'sky', mood:0, song:'', tags:n2(['music','Y2K'],['musica','Y2K']), vetrina:['risata','occhiolino','sudato'],
   posts:[{kind:'blog', title:n2('first post, be nice','primo post, siate buoni'), text:n2('setting up my wall like it’s 2006. who remembers glitter text?','sto sistemando la mia bacheca come nel 2006. chi si ricorda le scritte glitterate?'), date:n2('today','oggi'), reacts:{risata:2, occhiolino:1}, comments:[]}],
   guestbook:[{from:'giulia', text:n2('omg your wall is so 2006, I love it','oddio la tua bacheca è così 2006, la adoro')}]};
@@ -795,7 +902,8 @@ const ICON = {
   profilo:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 21c0-4.6 3.8-7.4 8.5-7.4s8.5 2.8 8.5 7.4z"/></svg>',
   back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4 7 12l8 8"/></svg>',
   heart:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-8.5-5.3-8.5-11.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 8.5 3.2C20.5 15.7 12 21 12 21z"/></svg>',
-  bolt:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 2 4 13.5h6.5L9 22l10-12.5h-6.6z"/></svg>'
+  bolt:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 2 4 13.5h6.5L9 22l10-12.5h-6.6z"/></svg>',
+  drops:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 7h12l1.4 13.2a1.6 1.6 0 0 1-1.6 1.8H6.2a1.6 1.6 0 0 1-1.6-1.8z" opacity=".35"/><path d="M8.5 9V6.5a3.5 3.5 0 0 1 7 0V9h-1.8V6.5a1.7 1.7 0 0 0-3.4 0V9z"/><path d="M12 11.5l1.1 2.3 2.5.3-1.8 1.7.5 2.5-2.3-1.3-2.3 1.3.5-2.5-1.8-1.7 2.5-.3z"/></svg>'
 };
 
 /* ---------- Render ---------- */
@@ -813,15 +921,15 @@ function renderStatic(){
   $('#trayBtn').setAttribute('aria-label', t('my_emos')); $('#sendBtn').setAttribute('aria-label', t('send')); $('#zingBtn').setAttribute('aria-label', t('zing_aria'));
   document.querySelectorAll('#lang button').forEach(b => { b.classList.toggle('on', b.dataset.lang === L); b.setAttribute('aria-pressed', b.dataset.lang === L); });
   $('#guide').setAttribute('aria-label', L === 'it' ? 'Come provare il prototipo' : 'How to try the prototype');
-  $('#guide').innerHTML = `<h1>zing</h1><p class="tag">${t('g_tag')}</p><ol>${t('g_steps').map(s => `<li>${s}</li>`).join('')}</ol><button class="btn pink" data-sim>${t('g_sim')}</button><p class="note">${t('g_note')}</p>`;
+  $('#guide').innerHTML = `<h1>zing</h1><p class="tag">${t('g_tag')}</p><ol>${t('g_steps').map(s => `<li>${s}</li>`).join('')}</ol><p class="tag" style="margin:16px 0 0">${t('g_skins')}</p><div class="skins">${SKINS.map(k => `<button class="skin-btn ${S.skin === k ? 'on' : ''}" data-skin="${k}">${t('sk_' + k)}</button>`).join('')}</div><button class="btn pink" data-sim>${t('g_sim')}</button><p class="note">${t('g_note')}</p>`;
 }
 function renderMe(){ $('#meNick').textContent = S.nick; $('#meAva').textContent = myInitial(); }
 function renderTabs(){
   const unread = Object.keys(F).filter(i => S.unread[i] || S.zingedMe[i]).length;
   const cur = S.tab === 'album' ? 'profilo' : S.tab;
-  $('#tabs').innerHTML = ['amici','studio','profilo'].map(k => `<button class="tab ${cur === k ? 'on' : ''}" data-tab="${k}" ${cur === k ? 'aria-current="page"' : ''}>${ICON[k]}${t('tab_' + k)}${k === 'amici' && unread ? `<span class="badge">${unread}</span>` : ''}</button>`).join('');
+  $('#tabs').innerHTML = ['amici','drops','studio','profilo'].map(k => `<button class="tab ${cur === k ? 'on' : ''}" data-tab="${k}" ${cur === k ? 'aria-current="page"' : ''}>${ICON[k]}${t('tab_' + k)}${k === 'amici' && unread ? `<span class="badge">${unread}</span>` : ''}</button>`).join('');
 }
-function renderScreen(){ $('#screens').innerHTML = {amici:viewAmici, album:viewAlbum, studio:viewStudio, profilo:viewProfilo}[S.tab](); }
+function renderScreen(){ $('#screens').innerHTML = {amici:viewAmici, drops:viewDrops, album:viewAlbum, studio:viewStudio, profilo:viewProfilo}[S.tab](); }
 function renderAll(){
   renderTabs(); renderScreen();
   if (!$('#chat').hidden){ renderChat(); renderTray(); renderMix(); }
@@ -880,6 +988,54 @@ function viewStudio(){
     ${cr ? `<div class="creations">${cr}</div>` : ''}</div>`;
 }
 
+/* ---------- Drops ---------- */
+const fmtLeft = ms => { const x = Math.max(0, Math.floor(ms / 1000)); return String(Math.floor(x / 60)).padStart(2, '0') + ':' + String(x % 60).padStart(2, '0'); };
+function dropCard(d){
+  const sh = SHOPS[d.shop], e = E(d.emo);
+  const tag = d.kind === 'live' ? `<span class="drop-tag live">${t('live')}</span>` : `<span class="drop-tag">${t(d.kind === 'soon' ? 'soon' : 'in_store')}</span>`;
+  let meta = '', act = '';
+  if (d.kind === 'live'){
+    meta = `<div class="drop-meta"><b>${d.price}</b><span>${t('ends_in', {t:`<span class="countdown" data-countdown="${d.id}">${fmtLeft(d.ends - Date.now())}</span>`})}</span></div><div class="stock"><i data-stockbar="${d.id}" style="width:${d.stock / d.total * 100}%"></i></div><div class="drop-meta"><span data-stock="${d.id}">${t('left', {n:d.stock, m:d.total})}</span></div>`;
+    act = d.reserved ? `<button class="btn ghost" disabled>${t('reserved')}</button>` : `<button class="btn pink" data-reserve="${d.id}">${t('reserve')}</button>`;
+  } else if (d.kind === 'soon'){
+    meta = `<div class="drop-meta"><b>${d.price}</b><span>${esc(tx(d.when))}</span></div>`;
+    act = `<button class="btn ${d.remind ? 'ghost' : ''}" data-remind="${d.id}">${d.remind ? t('reminding') : t('remind')}</button>`;
+  } else {
+    meta = `<div class="drop-meta"><span>${esc(d.place)}</span></div><p class="small" style="margin:0">${t('scan_note')}</p>`;
+    act = S.owned[d.emo] ? `<button class="btn ghost" disabled>${t('have')}</button>` : `<button class="btn" data-scan="${d.id}">${t('scan')}</button>`;
+  }
+  return `<article class="drop"><div class="drop-img" style="background:${d.bg}">${tag}${emoSVG(e.s, 84)}</div><div class="drop-body"><button class="shop-row" data-shop="${d.shop}"><span class="shop-logo" style="--c:${sh.c}">${sh.name[0].toUpperCase()}</span>${esc(sh.name)}<span class="verified">${t('verified')}</span></button><h3 class="drop-title">${esc(tx(d.title))}</h3>${meta}<div class="excl">${emoSVG(e.s, 20, false)}<span>${t('excl')}: <b>${esc(nm(e))}</b></span></div>${act}</div></article>`;
+}
+function viewDrops(){
+  return `<div class="pad" style="padding-bottom:0"><h2>Drops</h2><p class="small">${t('drops_sub')}</p></div><div class="drops-note">${t('drops_rules')}</div>${DROPS.map(dropCard).join('')}
+    <div class="b2b"><h3>${t('b2b_title')}</h3><p class="small">${t('b2b_text')}</p><button class="btn ghost" data-b2b>${t('b2b_btn')}</button></div>`;
+}
+function grantDrop(d, extra){
+  const sh = SHOPS[d.shop];
+  if (!S.owned[d.emo]) S.owned[d.emo] = {from:sh.name, date:'today'};
+  renderTray(); popSound(); buzz(30); showCard([d.emo], sh.name, extra || '');
+}
+function openCheckout(d){
+  const e = E(d.emo);
+  sheet(`<h3>${t('checkout')}</h3><div class="checkout-row"><span>${esc(tx(d.title))}</span><b>${d.price}</b></div><div class="checkout-row"><span>${t('pickup')}</span><span>${t('pickup_v')}</span></div><div class="excl">${emoSVG(e.s, 22, false)}<span>${t('excl')}: <b>${esc(nm(e))}</b></span></div><p class="small">${t('parent_need')}</p><button class="btn pink" data-parent="${d.id}">${t('ask_parent')}</button><p class="pay-note">${t('pay_note')}</p><button class="btn ghost" data-close-sheet>${t('not_now')}</button>`);
+}
+function openShop(k){
+  const sh = SHOPS[k], f = S.follows[k];
+  sheet(`<div class="center"><span class="shop-logo" style="--c:${sh.c}; width:56px; height:56px; font-size:22px; border-radius:16px">${sh.name[0].toUpperCase()}</span><h3>${esc(sh.name)}</h3><span class="verified">${t('verified')}</span><p>${esc(tx(sh.bio))}</p></div><button class="btn ${f ? 'ghost' : ''}" data-follow="${k}">${f ? t('following') : t('follow')}</button><p class="small">${t('drops_rules')}</p><button class="btn ghost" data-close-sheet>${t('close')}</button>`);
+}
+function openB2B(){
+  sheet(`<h3>${t('b2b_title')}</h3><ol class="small" style="padding-left:18px; display:grid; gap:6px">${t('b2b_steps').map(x => `<li>${x}</li>`).join('')}</ol><button class="btn ghost" data-close-sheet>${t('close')}</button>`);
+}
+function tickDrops(){
+  const d = DROPS[0]; if (d.ends < Date.now()) d.ends = Date.now() + 15 * 60000;
+  if (Math.random() < .06 && d.stock > 3) d.stock--;
+  document.querySelectorAll('[data-countdown]').forEach(el => el.textContent = fmtLeft(d.ends - Date.now()));
+  document.querySelectorAll('[data-stock]').forEach(el => el.textContent = t('left', {n:d.stock, m:d.total}));
+  document.querySelectorAll('[data-stockbar]').forEach(el => el.style.width = (d.stock / d.total * 100) + '%');
+}
+setInterval(tickDrops, 1000);
+function applySkin(){ $('#phone').dataset.skin = S.skin; try { localStorage.setItem('zing-skin', S.skin); } catch(e){} }
+
 /* ---------- Bacheca ---------- */
 function postHTML(owner, p, idx){
   const reacts = Object.entries(p.reacts).filter(([, n]) => n > 0).map(([id, n]) => `<button class="react ${p.mine && p.mine.includes(id) ? 'on' : ''}" data-react="${owner}|${idx}|${id}" aria-label="${esc(nm(E(id)))} ${n}">${emoSVG(E(id).s, 20, false)}<span>${n}</span></button>`).join('');
@@ -913,7 +1069,7 @@ function profileBody(owner){
     <div class="prof-actions">${actions}</div>
     <section class="sec"><div class="sec-title"><h3>${t('showcase')}</h3>${me ? `<span>${t('showcase_note')}</span>` : ''}</div><div class="vetrina">${pr.vetrina.map(id => `<button class="tile" data-emo="${id}">${itemSVG(E(id), 44)}<span>${esc(nm(E(id)))}</span></button>`).join('')}</div></section>
     ${me ? `<section class="sec"><div class="sec-title"><h3>${t('collection')}</h3><button class="link-btn" data-tab="album">${t('see_all', {n:CAT.filter(e => S.owned[e.id]).length})}</button></div><div class="coll-row">${CAT.filter(e => S.owned[e.id]).slice(-8).reverse().map(e => itemSVG(e, 34, 0, false)).join('')}</div></section>` : ''}
-    <section class="sec"><div class="sec-title"><h3>${t('wall')}</h3><span>${t('posts', {n:pr.posts.length})}</span></div>
+    <section class="sec"><div class="sec-title"><h3>${t('wall')}</h3><span>${pr.posts.length === 1 ? t('posts_1') : t('posts', {n:pr.posts.length})}</span></div>
       ${me ? draftHTML() : ''}${pr.posts.map((p, k) => postHTML(owner, p, k)).join('')}
       ${me ? `<p class="small">${t('wall_note')}</p>` : ''}</section>
     <section class="sec"><div class="sec-title"><h3>${t('guestbook')}</h3><span>${pr.guestbook.length}</span></div>
@@ -923,6 +1079,7 @@ function profileBody(owner){
     const owned = CAT.filter(e => S.owned[e.id]).length;
     const stat = (n, l) => `<div class="stat"><b>${n}</b><span>${l}</span></div>`;
     h += `<section class="sec"><div class="sec-title"><h3>${t('numbers')}</h3><span>${t('only_you_see')}</span></div><div class="stats">${stat(S.sent, t('s_sent'))}${stat(S.recv, t('s_recv'))}${stat(owned, t('s_emo'))}${stat(S.crush.size + '/3', t('s_crush'))}</div></section>
+      <section class="sec"><div class="sec-title"><h3>${t('skin')}</h3></div>${SKINS.map(k => `<button class="skin-card ${S.skin === k ? 'on' : ''}" data-skin="${k}"><span class="skin-swatch" style="background:${SKIN_SW[k]}"></span><span><b>${t('sk_' + k)}</b><small>${t('skd_' + k)}</small></span></button>`).join('')}<p class="small">${t('skin_note')}</p></section>
       <section class="sec"><div class="sec-title"><h3>${t('settings')}</h3></div><div class="settings">
         <label class="setting"><input type="checkbox" id="quiet" ${S.quiet ? 'checked' : ''}><span>${t('quiet')}</span><small>${t('quiet_note')}</small></label>
         <div class="setting"><span></span><span>${t('sc_title')}</span><small>${t('sc_intro')} <button class="link-btn" data-shortcuts>${t('sc_all')}</button></small></div>
@@ -1295,6 +1452,17 @@ document.addEventListener('click', ev => {
   else if (d.emo) openEmo(d.emo);
   else if (d.vetrina){ S.me.vetrina = [d.vetrina, ...S.me.vetrina.filter(x => x !== d.vetrina)].slice(0, 3); closeSheet(); toast(t('showcased')); if (S.tab === 'profilo') renderScreen(); }
   else if (d.opt){ S.studio[d.opt] = d.val; renderScreen(); }
+  else if (d.skin){ S.skin = d.skin; applySkin(); renderStatic(); renderAll(); }
+  else if (d.reserve) openCheckout(DROPS.find(x => x.id === d.reserve));
+  else if (d.parent){
+    const dr = DROPS.find(x => x.id === d.parent); closeSheet(); toast(t('parent_sent'));
+    setTimeout(() => { dr.reserved = true; dr.stock = Math.max(0, dr.stock - 1); if (S.tab === 'drops') renderScreen(); grantDrop(dr, t('parent_ok')); }, 1800);
+  }
+  else if (d.remind){ const dr = DROPS.find(x => x.id === d.remind); dr.remind = !dr.remind; if (dr.remind) toast(t('remind_toast')); renderScreen(); }
+  else if (d.scan){ const dr = DROPS.find(x => x.id === d.scan); grantDrop(dr); }
+  else if (d.shop) openShop(d.shop);
+  else if (d.follow){ S.follows[d.follow] = !S.follows[d.follow]; openShop(d.follow); }
+  else if ('b2b' in d) openB2B();
   else if (d.sug !== undefined) applySuggest(+d.sug);
   else if ('shortcuts' in d) openShortcuts();
   else if ('toggleMissing' in d){ S.showMissing = !S.showMissing; renderScreen(); }
@@ -1357,6 +1525,6 @@ document.addEventListener('change', ev => {
 });
 
 $('#trayBtn').innerHTML = emoSVG(E('sorriso').s, 24, false);
-renderStatic(); renderMe(); renderAll();
+applySkin(); renderStatic(); renderMe(); renderAll();
 })();
 </script>
