@@ -1,0 +1,819 @@
+<title>Trillo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Nunito:wght@400;600;800&family=VT323&display=swap">
+<style>
+/* Layout: telefono glossy al centro su un cielo Y2K, guida accanto su desktop e sotto su telefono. Un solo look, chiaro, voluto. */
+:root{
+  --sky-top:#4cb6ff; --sky-mid:#a6e0ff; --sky-low:#eaf8ff;
+  --aqua:#1a96e6; --aqua-deep:#0f6fbf; --ink:#13304f; --muted:#56739a;
+  --paper:#ffffff; --panel:#f2f9ff; --line:#c6e3f8; --pink:#ff4f9a; --pink-deep:#c21f6a;
+  --lime:#7fdc2f; --lime-deep:#4fa816; --sun:#ffc62e; --cream:#fff6d1;
+  --font-display:"Bagel Fat One","Arial Rounded MT Bold","Trebuchet MS",sans-serif;
+  --font-body:"Nunito","Trebuchet MS",system-ui,sans-serif;
+  --font-pixel:"VT323",ui-monospace,monospace;
+  color-scheme:light;
+}
+html,body{height:100%}
+body{
+  margin:0; color:var(--ink); font-family:var(--font-body); font-size:15px; line-height:1.4;
+  background:
+    radial-gradient(circle at 10% 16%, rgb(255 255 255 / .8) 0 56px, transparent 57px),
+    radial-gradient(circle at 18% 22%, rgb(255 255 255 / .55) 0 28px, transparent 29px),
+    radial-gradient(circle at 88% 10%, rgb(255 255 255 / .6) 0 90px, transparent 91px),
+    radial-gradient(circle at 80% 86%, rgb(255 255 255 / .5) 0 130px, transparent 131px),
+    linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-low) 100%);
+  background-color:var(--sky-mid);
+  background-attachment:fixed;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:24px;
+  box-sizing:border-box;
+}
+*,*::before,*::after{box-sizing:inherit}
+[hidden]{display:none !important}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--pink); outline-offset:2px}
+
+.stage{display:grid; grid-template-columns:minmax(0,400px) minmax(0,330px); gap:40px; justify-content:center; align-items:start; max-width:820px; margin:0 auto}
+@media (max-width:800px){ .stage{grid-template-columns:minmax(0,430px); gap:24px} }
+
+/* ---------- Telefono ---------- */
+.phone{
+  position:relative; display:flex; flex-direction:column; overflow:hidden;
+  height:min(800px, calc(100dvh - 48px)); min-height:600px;
+  background:var(--paper); border-radius:34px; border:3px solid var(--paper);
+  box-shadow:0 0 0 2px var(--aqua), 0 28px 60px rgb(19 48 79 / .35);
+}
+.topbar{
+  position:relative; display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:10px; align-items:center;
+  padding:14px 14px 12px; color:var(--paper);
+  background:linear-gradient(180deg, #5cc2ff 0%, var(--aqua) 55%, var(--aqua-deep) 100%);
+}
+.topbar::after{content:""; position:absolute; inset:0 0 52% 0; background:linear-gradient(180deg, rgb(255 255 255 / .45), rgb(255 255 255 / .05)); pointer-events:none}
+.topbar > *{position:relative; z-index:1}
+.me-nick{font-weight:800; font-size:16px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.me-row{display:flex; gap:6px; align-items:center}
+.status-select{appearance:none; border:1px solid rgb(255 255 255 / .6); background:rgb(255 255 255 / .2); color:var(--paper); border-radius:999px; padding:1px 10px; font-size:12px; font-weight:800}
+.status-select option{color:var(--ink)}
+.pm{width:100%; border:0; border-bottom:1px dashed transparent; background:transparent; color:var(--paper); font-size:12.5px; padding:2px 0; font-style:italic}
+.pm::placeholder{color:rgb(255 255 255 / .75)}
+.pm:focus{outline:none; border-bottom-color:rgb(255 255 255 / .8)}
+.logo{font-family:var(--font-display); font-size:24px; letter-spacing:.5px; color:var(--paper); text-shadow:0 2px 0 var(--pink-deep), 0 0 12px rgb(255 79 154 / .5); transform:rotate(-4deg)}
+
+.ava{
+  --c:var(--aqua); flex:none; position:relative; width:44px; height:44px; border-radius:50%;
+  display:grid; place-items:center; font-family:var(--font-display); font-size:19px; color:var(--paper);
+  background:radial-gradient(circle at 34% 26%, rgb(255 255 255 / .75) 0 16%, transparent 34%), var(--c);
+  box-shadow:inset 0 -4px 8px rgb(0 0 0 / .18), 0 0 0 2px var(--paper);
+  text-shadow:0 1px 2px rgb(0 0 0 / .3);
+}
+.ava.sm{width:36px; height:36px; font-size:16px}
+.ava.xl{width:96px; height:96px; font-size:42px}
+.dot{position:absolute; right:-2px; bottom:-2px; width:14px; height:14px; border-radius:50%; background:var(--s); border:2.5px solid var(--paper); box-shadow:inset 0 2px 2px rgb(255 255 255 / .6)}
+
+.screens{flex:1; overflow-y:auto; background:var(--panel); overscroll-behavior:contain}
+.tabs{display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--line); background:var(--paper); padding:6px 6px 8px}
+.tab{position:relative; display:grid; justify-items:center; gap:2px; padding:6px 0; border:0; background:transparent; border-radius:14px; font-size:11.5px; font-weight:800; color:var(--muted)}
+.tab svg{width:24px; height:24px}
+.tab.on{color:var(--aqua-deep); background:linear-gradient(180deg, #e3f4ff, #c9e8ff)}
+.tab .badge{position:absolute; top:2px; right:22%}
+
+/* ---------- Amici ---------- */
+.stories{display:flex; gap:14px; overflow-x:auto; padding:14px 14px 10px; background:var(--paper); border-bottom:1px solid var(--line)}
+.story{display:grid; justify-items:center; gap:4px; border:0; background:transparent; padding:0; width:64px; flex:none}
+.ring{padding:3px; border-radius:50%; background:conic-gradient(var(--pink), var(--sun), var(--lime), var(--aqua), var(--pink))}
+.story.seen .ring{background:var(--line)}
+.story .ava{width:52px; height:52px; font-size:22px}
+.story-name{font-size:11px; font-weight:600; max-width:64px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.group{font-family:var(--font-pixel); font-size:19px; color:var(--muted); padding:12px 16px 4px; letter-spacing:.5px}
+.friend{display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:6px; padding:0 10px 0 0}
+.friend-main{display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:12px; align-items:center; text-align:left; border:0; background:transparent; padding:9px 6px 9px 16px; border-radius:16px; min-width:0}
+.friend-main:hover{background:rgb(26 150 230 / .07)}
+.f-name{font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.f-pm{font-size:12.5px; color:var(--muted); font-style:italic; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.f-listen{font-size:11.5px; color:var(--aqua-deep); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.f-listen::before{content:"\266B  "}
+.badge{display:inline-grid; place-items:center; min-width:20px; height:20px; padding:0 6px; border-radius:999px; background:var(--pink); color:var(--paper); font-size:11px; font-weight:800; box-shadow:inset 0 2px 2px rgb(255 255 255 / .45)}
+.badge.trill{background:var(--sun); color:var(--ink); animation:wiggle 1.2s infinite}
+.bell{border:1.5px dashed var(--aqua); background:var(--paper); color:var(--aqua-deep); border-radius:999px; font-size:11.5px; font-weight:800; padding:4px 10px}
+.bell.on{border-style:solid; background:#e3f4ff}
+
+/* ---------- Chat ---------- */
+.chat{position:absolute; inset:0; z-index:5; display:flex; flex-direction:column; background:var(--panel)}
+.chat-head{position:relative; display:grid; grid-template-columns:auto auto minmax(0,1fr) auto; gap:10px; align-items:center; padding:12px 12px 10px; color:var(--paper); background:linear-gradient(180deg, #5cc2ff 0%, var(--aqua) 55%, var(--aqua-deep) 100%)}
+.chat-head::after{content:""; position:absolute; inset:0 0 52% 0; background:linear-gradient(180deg, rgb(255 255 255 / .4), rgb(255 255 255 / .04)); pointer-events:none}
+.chat-head > *{position:relative; z-index:1}
+.ch-info{min-width:0}
+.ch-info b{display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.ch-info small{display:block; font-size:12px; opacity:.9; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.icon-btn{display:grid; place-items:center; width:38px; height:38px; border-radius:50%; border:1.5px solid rgb(255 255 255 / .6); background:rgb(255 255 255 / .18); color:var(--paper); padding:0}
+.icon-btn svg{width:20px; height:20px}
+.icon-btn.heart.on{background:var(--pink); border-color:var(--paper)}
+.msgs{flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:8px; padding:14px 12px; background:radial-gradient(var(--line) 1px, transparent 1.4px) 0 0 / 18px 18px, var(--panel)}
+.msg{display:flex}
+.msg.me{justify-content:flex-end}
+.bubble{position:relative; max-width:78%; padding:8px 12px; border-radius:18px; background:var(--paper); border:1.5px solid var(--line); box-shadow:0 2px 0 rgb(19 48 79 / .06); display:grid; gap:4px; justify-items:start}
+.bubble::before{content:""; position:absolute; inset:2px 8px auto 8px; height:40%; border-radius:14px; background:linear-gradient(180deg, rgb(255 255 255 / .8), rgb(255 255 255 / 0)); pointer-events:none}
+.msg.me .bubble{background:linear-gradient(180deg, #ecffd9, #c9f3a0); border-color:#a6dc74; border-bottom-right-radius:6px; justify-items:end}
+.msg.them .bubble{border-bottom-left-radius:6px}
+.bubble p{margin:0; position:relative; overflow-wrap:anywhere}
+.emo-inline svg{vertical-align:-6px}
+.emo-big{position:relative; animation:pop .5s cubic-bezier(.3,1.6,.5,1)}
+.emo-name{font-size:11.5px; font-weight:800; color:var(--muted)}
+.prendila{border:0; border-radius:999px; padding:6px 16px; font-weight:800; color:var(--ink); background:linear-gradient(180deg, #fff2a8 0%, var(--sun) 55%, #f2a400 100%); box-shadow:inset 0 2px 1px rgb(255 255 255 / .7), 0 2px 0 #c98700; animation:bob 1.6s ease-in-out infinite}
+.took{font-size:12px; font-weight:800; color:var(--lime-deep)}
+.took.muted{color:var(--muted)}
+.rar-chip{--r:var(--muted); display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.6px; color:var(--paper); background:var(--r); padding:2px 9px; border-radius:999px; box-shadow:inset 0 2px 1px rgb(255 255 255 / .45)}
+.sys{align-self:center; max-width:90%; text-align:center; font-size:12.5px; font-weight:600; color:var(--muted); background:var(--paper); border:1px solid var(--line); border-radius:999px; padding:4px 12px}
+.trillo-pill{font-family:var(--font-pixel); font-size:19px; color:var(--ink); background:var(--cream); border:2px dashed var(--sun)}
+.combo-pill{font-family:var(--font-display); font-size:15px; color:var(--paper); background:linear-gradient(90deg, var(--pink), var(--sun)); border:0; letter-spacing:1px}
+.typing{min-height:20px; padding:0 14px; font-size:12px; font-style:italic; color:var(--muted)}
+.tray{display:flex; flex-wrap:wrap; gap:6px; padding:8px 10px; background:var(--paper); border-top:1px solid var(--line); max-height:150px; overflow-y:auto}
+.tray button{border:1px solid transparent; background:transparent; border-radius:12px; padding:3px}
+.tray button:hover{background:var(--panel); border-color:var(--line)}
+.composer{display:grid; grid-template-columns:auto minmax(0,1fr) auto auto; gap:6px; align-items:center; padding:8px 10px 4px; background:var(--paper); border-top:1px solid var(--line)}
+.composer .icon-btn{border-color:var(--line); background:var(--panel); color:var(--aqua-deep)}
+.composer input{min-width:0; border:1.5px solid var(--line); border-radius:999px; padding:9px 14px; background:var(--panel)}
+.composer input:focus{outline:none; border-color:var(--aqua)}
+.trillo-btn{border:0; border-radius:999px; padding:9px 14px; min-width:86px; font-family:var(--font-display); font-size:15px; letter-spacing:.5px; color:var(--paper); background:linear-gradient(180deg, #ff9ccb 0%, var(--pink) 55%, var(--pink-deep) 100%); box-shadow:inset 0 2px 1px rgb(255 255 255 / .6), 0 3px 0 #8e0f4b}
+.trillo-btn:disabled{filter:grayscale(.7); opacity:.75; cursor:default}
+.chat-foot{padding:2px 14px 8px; background:var(--paper); font-family:var(--font-pixel); font-size:16px; color:var(--muted)}
+
+/* ---------- Album, Studio, Profilo ---------- */
+.pad{padding:16px}
+h2{font-family:var(--font-display); font-weight:400; font-size:26px; margin:0; color:var(--aqua-deep); text-wrap:balance}
+h3{font-family:var(--font-display); font-weight:400; font-size:22px; margin:0; color:var(--aqua-deep); text-wrap:balance}
+.small{font-size:12.5px; color:var(--muted); margin:4px 0 0}
+.prog{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; align-items:center; margin-top:10px; font-family:var(--font-pixel); font-size:19px}
+.prog-bar{height:16px; border-radius:999px; background:var(--paper); border:1.5px solid var(--line); overflow:hidden}
+.prog-bar i{display:block; height:100%; border-radius:999px; background:linear-gradient(180deg, #c8ff8a, var(--lime) 55%, var(--lime-deep))}
+.rar-sec{padding:6px 16px 10px}
+.rar-title{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-family:var(--font-pixel); font-size:18px; color:var(--muted)}
+.emo-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(70px,1fr)); gap:8px}
+.tile{display:grid; justify-items:center; gap:2px; padding:8px 4px 6px; border-radius:16px; border:1.5px solid var(--line); background:var(--paper); font-size:11px; font-weight:800; color:var(--ink); min-width:0}
+.tile span{max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.tile:hover{border-color:var(--aqua)}
+.tile.missing{background:transparent; border-style:dashed; color:var(--muted)}
+.tile.missing svg, .silhouette svg{filter:brightness(0); opacity:.13}
+
+.studio-hero{display:grid; grid-template-columns:auto minmax(0,1fr); gap:14px; align-items:center; margin-bottom:8px}
+.preview{display:grid; place-items:center; width:128px; height:128px; border-radius:26px; background:radial-gradient(circle at 50% 40%, var(--paper), #d7eeff); border:2px solid var(--line)}
+.opt{margin-top:12px}
+.opt-label{display:block; font-family:var(--font-pixel); font-size:18px; color:var(--muted); margin:14px 0 6px; letter-spacing:.3px}
+.opt .opt-label{margin-top:0}
+.chips{display:flex; flex-wrap:wrap; gap:6px}
+.chip{display:grid; place-items:center; width:46px; height:46px; border-radius:14px; border:1.5px solid var(--line); background:var(--paper); padding:0}
+.chip.on{border:2.5px solid var(--pink); background:#fff0f7}
+.sw{width:26px; height:26px; border-radius:50%; box-shadow:inset 0 -3px 5px rgb(0 0 0 / .2), inset 0 3px 3px rgb(255 255 255 / .6)}
+.field{width:100%; border:1.5px solid var(--line); border-radius:14px; padding:10px 12px; background:var(--paper)}
+.field:focus{outline:none; border-color:var(--aqua)}
+.btn-gloss{display:block; width:100%; margin-top:12px; border:0; border-radius:999px; padding:12px 18px; font-family:var(--font-display); font-size:17px; letter-spacing:.4px; color:var(--paper); background:linear-gradient(180deg, #7fd0ff 0%, var(--aqua) 55%, var(--aqua-deep) 100%); box-shadow:inset 0 2px 1px rgb(255 255 255 / .6), 0 3px 0 #0b4f8a}
+.btn-gloss.pink{background:linear-gradient(180deg, #ff9ccb 0%, var(--pink) 55%, var(--pink-deep) 100%); box-shadow:inset 0 2px 1px rgb(255 255 255 / .6), 0 3px 0 #8e0f4b}
+.creations{display:grid; gap:8px; margin-top:16px}
+.creation{display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:10px; align-items:center; padding:8px 12px; border-radius:16px; background:var(--paper); border:1.5px solid var(--line)}
+.state{font-size:11px; font-weight:800; padding:3px 9px; border-radius:999px; background:var(--cream); color:var(--ink)}
+.state.ok{background:var(--lime); color:var(--ink)}
+
+.profile{display:grid; justify-items:center; text-align:center; padding:20px 16px}
+.profile > .field, .profile > .opt-label, .profile > .vetrina, .profile > .stats, .profile > .settings{justify-self:stretch; text-align:left}
+.pf-ava{padding:6px; border-radius:50%; background:conic-gradient(from 200deg, var(--r), var(--paper), var(--r), var(--paper), var(--r)); box-shadow:0 6px 18px rgb(19 48 79 / .2); margin-bottom:8px}
+.vetrina{display:grid; grid-template-columns:repeat(3,1fr); gap:8px}
+.stats{display:grid; grid-template-columns:repeat(2,1fr); gap:8px}
+.stat{padding:10px 12px; border-radius:16px; background:var(--paper); border:1.5px solid var(--line)}
+.stat b{display:block; font-family:var(--font-display); font-weight:400; font-size:24px; color:var(--pink); font-variant-numeric:tabular-nums}
+.stat span{font-size:12px; font-weight:600; color:var(--muted)}
+.settings{display:grid; gap:8px}
+.setting{display:grid; grid-template-columns:auto minmax(0,1fr); gap:4px 10px; align-items:start; padding:10px 12px; border-radius:16px; background:var(--paper); border:1.5px solid var(--line); font-weight:600}
+.setting small{grid-column:2; font-weight:400; color:var(--muted); font-size:12px}
+.setting input{margin-top:3px; accent-color:var(--pink)}
+
+/* ---------- Overlay, sheet, toast ---------- */
+.overlay{position:absolute; inset:0; z-index:20; display:grid; place-items:center; padding:20px; background:rgb(19 48 79 / .55); backdrop-filter:blur(3px)}
+.overlay.story{padding:0; background:var(--ink)}
+.card-fig{--r:var(--aqua); width:min(250px,100%); display:grid; justify-items:center; gap:6px; padding:22px 18px 18px; text-align:center; border-radius:22px; background:var(--paper); border:6px solid var(--r); box-shadow:0 0 0 3px var(--paper), 0 18px 40px rgb(0 0 0 / .35); animation:flip .7s cubic-bezier(.3,1.4,.5,1)}
+.card-fig p{margin:0; font-size:13px}
+.fig-tag{font-family:var(--font-pixel); font-size:20px; color:var(--pink); letter-spacing:2px}
+.combo, .destiny{display:grid; justify-items:center; gap:8px; text-align:center; color:var(--paper)}
+.combo h2, .destiny h2{font-size:44px; line-height:.95; color:var(--paper); text-shadow:0 3px 0 var(--pink-deep), 0 0 24px rgb(255 198 46 / .8); animation:zoom .6s cubic-bezier(.3,1.6,.5,1)}
+.combo p, .destiny p{margin:0; max-width:28ch; font-weight:600}
+.combo .btn-gloss, .destiny .btn-gloss{max-width:240px}
+.combo-emos{display:flex; gap:4px}
+.ce.left{animation:clashL .8s ease-in-out 2}
+.ce.right{animation:clashR .8s ease-in-out 2}
+.hearts{font-family:var(--font-display); font-size:64px; color:var(--pink); text-shadow:0 0 0 var(--paper); animation:beat 1s ease-in-out infinite}
+.gift{display:grid; justify-items:center; gap:4px; padding:12px 18px; border-radius:20px; background:rgb(255 255 255 / .14); border:1.5px solid rgb(255 255 255 / .4)}
+.story-view{position:relative; width:100%; height:100%; display:grid; grid-template-rows:auto auto 1fr auto; padding:12px 16px 28px; color:var(--paper)}
+.sv-bar{height:4px; border-radius:4px; background:rgb(255 255 255 / .35); overflow:hidden}
+.sv-bar i{display:block; height:100%; width:0; background:var(--paper); animation:fill 7s linear forwards}
+.sv-head{display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:10px; align-items:center; margin-top:10px}
+.sv-head small{display:block; font-size:12px; opacity:.85}
+.sv-x{width:38px; height:38px; border-radius:50%; border:0; background:rgb(0 0 0 / .2); color:var(--paper); font-size:22px; line-height:1}
+.sv-text{align-self:center; margin:0; text-align:center; font-family:var(--font-display); font-size:34px; line-height:1.05; text-shadow:0 3px 0 rgb(0 0 0 / .2); text-wrap:balance}
+.sv-sticker{justify-self:center; display:grid; justify-items:center; gap:6px; padding:12px 18px; border-radius:22px; background:rgb(255 255 255 / .9); color:var(--ink); transform:rotate(-5deg); box-shadow:0 8px 20px rgb(0 0 0 / .2)}
+.sv-sticker span{font-weight:800; font-size:13px}
+.sv-sticker em{font-size:12px; color:var(--muted)}
+.sheet-wrap{position:absolute; inset:0; z-index:15; display:flex; align-items:flex-end; background:rgb(19 48 79 / .4)}
+.sheet{width:100%; display:grid; gap:6px; padding:20px 18px calc(22px + env(safe-area-inset-bottom, 0px)); border-radius:24px 24px 0 0; background:var(--paper); animation:up .3s ease-out; max-height:85%; overflow-y:auto}
+.sheet p{margin:0}
+.sheet .center{display:grid; justify-items:center; gap:6px; text-align:center}
+.toast{position:absolute; top:84px; left:14px; right:14px; z-index:25; display:flex; align-items:center; gap:10px; text-align:left; padding:10px 14px; border-radius:16px; border:2px solid var(--aqua); background:var(--paper); box-shadow:0 10px 26px rgb(19 48 79 / .25); font-weight:700; animation:down .3s ease-out}
+
+/* ---------- Guida ---------- */
+.guide{padding:22px; border-radius:26px; background:rgb(255 255 255 / .82); border:2px solid var(--paper); box-shadow:0 14px 34px rgb(19 48 79 / .18); min-width:0}
+.guide h1{font-family:var(--font-display); font-weight:400; font-size:52px; line-height:1; margin:0; color:var(--aqua); text-shadow:0 3px 0 var(--aqua-deep); transform:rotate(-3deg); transform-origin:left}
+.guide .tag{font-family:var(--font-pixel); font-size:20px; color:var(--pink); margin:8px 0 14px}
+.guide ol{margin:0; padding-left:20px; display:grid; gap:8px}
+.guide li{padding-left:2px}
+.guide code{font-family:var(--font-pixel); font-size:18px; background:var(--cream); padding:0 5px; border-radius:6px}
+.guide .note{font-size:12.5px; color:var(--muted); margin:14px 0 0}
+
+/* ---------- Animazioni ---------- */
+@keyframes shake{0%,100%{transform:translate(0,0)}10%{transform:translate(-10px,3px) rotate(-1deg)}20%{transform:translate(9px,-4px) rotate(1deg)}30%{transform:translate(-8px,4px)}40%{transform:translate(8px,-2px) rotate(.6deg)}50%{transform:translate(-6px,3px)}60%{transform:translate(5px,-3px)}70%{transform:translate(-3px,2px)}80%{transform:translate(3px,-1px)}90%{transform:translate(-1px,1px)}}
+.shake{animation:shake .65s}
+@keyframes pop{0%{transform:scale(.3)}100%{transform:scale(1)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes wiggle{0%,100%{transform:rotate(0)}20%{transform:rotate(-8deg)}40%{transform:rotate(8deg)}60%{transform:rotate(-4deg)}}
+@keyframes flip{0%{transform:perspective(600px) rotateY(180deg) scale(.6)}100%{transform:perspective(600px) rotateY(0) scale(1)}}
+@keyframes zoom{0%{transform:scale(.2) rotate(-10deg)}100%{transform:scale(1) rotate(-3deg)}}
+@keyframes clashL{0%,100%{transform:translateX(0)}50%{transform:translateX(18px) rotate(12deg)}}
+@keyframes clashR{0%,100%{transform:translateX(0)}50%{transform:translateX(-18px) rotate(-12deg)}}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+@keyframes fill{to{width:100%}}
+@keyframes up{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes down{from{transform:translateY(-30px); opacity:0}to{transform:translateY(0); opacity:1}}
+@keyframes flash{50%{filter:brightness(1.3) saturate(1.4)}}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important; animation-iteration-count:1 !important}
+  .shake{animation:flash .6s !important}
+}
+@media (max-width:440px){ .phone{border-radius:26px} .guide h1{font-size:44px} }
+</style>
+
+<div class="stage">
+  <main class="phone" id="phone" aria-label="Prototipo dell'app Trillo">
+    <header class="topbar">
+      <span class="ava" id="meAva" style="--c:var(--pink)">S</span>
+      <div style="min-width:0">
+        <div class="me-row"><span class="me-nick" id="meNick"></span>
+          <select id="status" class="status-select" aria-label="Il tuo stato">
+            <option value="online">Online</option><option value="occupato">Occupato</option><option value="torno">Torno subito</option><option value="telefono">Al telefono</option><option value="pranzo">A pranzo</option><option value="invisibile">Invisibile</option>
+          </select>
+        </div>
+        <input id="pmInput" class="pm" maxlength="60" aria-label="Messaggio personale" placeholder="Scrivi un messaggio personale">
+      </div>
+      <span class="logo" aria-hidden="true">trillo</span>
+    </header>
+    <section class="screens" id="screens"></section>
+    <nav class="tabs" id="tabs" aria-label="Sezioni"></nav>
+
+    <div class="chat" id="chat" hidden>
+      <div class="chat-head" id="chatHead"></div>
+      <div class="msgs" id="msgs" aria-live="polite"></div>
+      <div class="typing" id="typing"></div>
+      <div class="tray" id="tray" hidden></div>
+      <form class="composer" id="composer">
+        <button type="button" class="icon-btn" data-tray aria-label="Le tue emoticon" id="trayBtn"></button>
+        <input id="msgInput" autocomplete="off" placeholder="Scrivi... prova :) o (H)">
+        <button type="submit" class="icon-btn" aria-label="Invia"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5 21.5 12 3 3.5v6.6L15 12 3 13.9z"/></svg></button>
+        <button type="button" class="trillo-btn" id="trilloBtn" data-trillo>Trillo!</button>
+      </form>
+      <div class="chat-foot" id="chatFoot"></div>
+    </div>
+
+    <div class="sheet-wrap" id="sheetWrap" hidden><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+    <div class="overlay" id="overlay" hidden></div>
+    <button class="toast" id="toast" hidden></button>
+  </main>
+
+  <aside class="guide" aria-label="Come provare il prototipo">
+    <h1>trillo</h1>
+    <p class="tag">prototipo · app 2026, vibes 2005</p>
+    <ol>
+      <li>Apri la chat con <b>MaRkO_xX</b> e tocca <b>Prendila!</b> sotto gli occhiali smeraldo.</li>
+      <li>Manda un <b>Trillo!</b> a <b>*~Giuly~*</b>. Se te lo rimanda entro 3 secondi parte la combo.</li>
+      <li>Nella chat con Giuly tocca il cuore in alto: è la <b>cotta segreta</b>.</li>
+      <li>Scrivi <code>:)</code> e poi <code>(H)</code>. La seconda resta testo finché qualcuno non ti passa l'emoticon Cool.</li>
+      <li>Guarda le <b>storie</b> in alto nella lista amici: gli sticker si possono prendere.</li>
+      <li>Crea la tua emoticon nello <b>Studio</b> e mandala alla Redazione.</li>
+      <li>Tocca <b>Avvisami</b> accanto a ~luKa~ per sapere quando si collega.</li>
+    </ol>
+    <button class="btn-gloss pink" data-sim>Simula un trillo in arrivo</button>
+    <p class="note">Amici e messaggi sono finti e tutto gira nel tuo browser: non viene inviato niente a nessuno. Le emoticon sono originali, generate con il codice.</p>
+  </aside>
+</div>
+
+<script>
+(function(){
+const $ = s => document.querySelector(s);
+const esc = t => String(t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pick = a => a[Math.floor(Math.random()*a.length)];
+
+/* ---------- Emoticon originali, disegnate in SVG ---------- */
+const INK = '#1d2433', MOUTH = '#7a1736';
+function mix(hex, t){
+  const n = parseInt(hex.slice(1), 16); const tg = t > 0 ? 255 : 0, a = Math.abs(t);
+  const ch = v => Math.round(v + (tg - v) * a);
+  return `rgb(${ch(n >> 16)},${ch(n >> 8 & 255)},${ch(n & 255)})`;
+}
+const line = (d, w = 3.2) => `<path d="${d}" fill="none" stroke="${INK}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+const HEART = 'M0 3.2 C-6 -1.5 -3.5 -7 0 -3.6 C3.5 -7 6 -1.5 0 3.2Z';
+const STAR = '0,-5 1.5,-1.6 5,-1.5 2.3,.8 3.1,4.5 0,2.4 -3.1,4.5 -2.3,.8 -5,-1.5 -1.5,-1.6';
+const EYES = {
+  dot: `<ellipse cx="23" cy="30" rx="3.4" ry="4.8" fill="${INK}"/><ellipse cx="41" cy="30" rx="3.4" ry="4.8" fill="${INK}"/><circle cx="24.3" cy="28.2" r="1.3" fill="#fff"/><circle cx="42.3" cy="28.2" r="1.3" fill="#fff"/>`,
+  wink: `<ellipse cx="23" cy="30" rx="3.4" ry="4.8" fill="${INK}"/><circle cx="24.3" cy="28.2" r="1.3" fill="#fff"/>` + line('M36 31 q5 -5 10 0'),
+  happy: line('M18 32 q5 -7 10 0 M36 32 q5 -7 10 0'),
+  heart: `<path transform="translate(23 30) scale(1.55)" d="${HEART}" fill="#ff2d6f" stroke="#b3123f" stroke-width=".8"/><path transform="translate(41 30) scale(1.55)" d="${HEART}" fill="#ff2d6f" stroke="#b3123f" stroke-width=".8"/>`,
+  star: `<polygon transform="translate(23 30) scale(1.4)" points="${STAR}" fill="#fff59a" stroke="#c99a00" stroke-width=".8"/><polygon transform="translate(41 30) scale(1.4)" points="${STAR}" fill="#fff59a" stroke="#c99a00" stroke-width=".8"/>`,
+  big: `<circle cx="23" cy="29" r="6.5" fill="#fff" stroke="${INK}" stroke-width="1.6"/><circle cx="41" cy="29" r="6.5" fill="#fff" stroke="${INK}" stroke-width="1.6"/><circle cx="24" cy="30" r="3.2" fill="${INK}"/><circle cx="42" cy="30" r="3.2" fill="${INK}"/>`,
+  sleepy: line('M18 31 q5 3 10 0 M36 31 q5 3 10 0')
+};
+const MOUTHS = {
+  smile: line('M21 41 q11 11 22 0'),
+  grin: `<path d="M19 40 h26 q-2 12 -13 12 q-11 0 -13 -12z" fill="${MOUTH}" stroke="${INK}" stroke-width="1.6" stroke-linejoin="round"/><path d="M21.5 41 h21 l-.4 2.6 h-20.2z" fill="#fff"/>`,
+  o: `<ellipse cx="32" cy="45" rx="5" ry="6" fill="${MOUTH}" stroke="${INK}" stroke-width="1.6"/>`,
+  tongue: line('M21 41 q11 11 22 0') + `<path d="M27 45 q5 9 10 0z" fill="#ff6f8e" stroke="${INK}" stroke-width="1.2"/>`,
+  flat: line('M24 45 h16'),
+  sad: line('M22 48 q10 -9 20 0'),
+  cat: line('M23 42 q4.5 5 9 0 q4.5 5 9 0')
+};
+const ACC_BACK = {
+  horns: `<path d="M14 18 L9 -2 L25 11Z M50 18 L55 -2 L39 11Z" fill="#d42a46" stroke="#8c1028" stroke-width="1.5" stroke-linejoin="round"/>`
+};
+const ACC_FRONT = {
+  shades: `<path d="M12 24 h17 v6 q0 6 -7 6 h-3 q-7 0 -7 -6z M35 24 h17 v6 q0 6 -7 6 h-3 q-7 0 -7 -6z" fill="#14161f"/><path d="M29 26 h6" stroke="#14161f" stroke-width="2.5"/><path d="M15 26.8 h6 M38 26.8 h6" stroke="#fff" stroke-width="1.6" opacity=".7" stroke-linecap="round"/>`,
+  cap: `<path d="M8 25 C8 3 56 3 56 25Z" fill="#ff4f9a" stroke="#b01d62" stroke-width="1.5"/><path d="M30 25 h29 q-1 5 -8 5 h-21z" fill="#ff7ab5" stroke="#b01d62" stroke-width="1.5"/><circle cx="32" cy="8" r="2.5" fill="#b01d62"/>`,
+  halo: `<ellipse cx="32" cy="2" rx="15" ry="4" fill="none" stroke="#ffd84a" stroke-width="3.5"/>`,
+  sweat: `<path d="M52 12 q5 8 0 11 q-5 -3 0 -11z" fill="#8fd8ff" stroke="#3aa0d8" stroke-width="1.2"/>`,
+  blush: `<ellipse cx="15.5" cy="39" rx="5" ry="3" fill="#ff6f9f" opacity=".55"/><ellipse cx="48.5" cy="39" rx="5" ry="3" fill="#ff6f9f" opacity=".55"/>`,
+  crown: `<path d="M17 12 L19 -1 L26 7 L32 -4 L38 7 L45 -1 L47 12Z" fill="#ffd21f" stroke="#b78500" stroke-width="1.5" stroke-linejoin="round"/><circle cx="32" cy="6" r="1.8" fill="#ff2d6f"/>`,
+  headphones: `<path d="M6 34 A26 26 0 0 1 58 34" fill="none" stroke="#2b2f48" stroke-width="5"/><rect x="0" y="27" width="11" height="17" rx="5" fill="#ff4f9a" stroke="#2b2f48" stroke-width="2"/><rect x="53" y="27" width="11" height="17" rx="5" fill="#ff4f9a" stroke="#2b2f48" stroke-width="2"/>`,
+  flower: `<g transform="translate(51 11)"><circle cx="0" cy="-4.5" r="4" fill="#ff8cc6"/><circle cx="4.3" cy="-1.4" r="4" fill="#ff8cc6"/><circle cx="2.6" cy="3.6" r="4" fill="#ff8cc6"/><circle cx="-2.6" cy="3.6" r="4" fill="#ff8cc6"/><circle cx="-4.3" cy="-1.4" r="4" fill="#ff8cc6"/><circle r="2.8" fill="#ffd84a"/></g>`
+};
+let gid = 0;
+function emoSVG(s, size){
+  const id = 'eg' + (gid++), d = mix(s.color, -.38), l = mix(s.color, .62);
+  return `<svg width="${size}" height="${size}" viewBox="-2 -6 68 70" aria-hidden="true"><defs><radialGradient id="${id}" cx="38%" cy="30%" r="78%"><stop offset="0" stop-color="${l}"/><stop offset=".55" stop-color="${s.color}"/><stop offset="1" stop-color="${d}"/></radialGradient></defs>${ACC_BACK[s.acc] || ''}<circle cx="32" cy="34" r="27" fill="url(#${id})" stroke="${d}" stroke-width="2"/><ellipse cx="23" cy="19" rx="13" ry="6.5" fill="#fff" opacity=".55" transform="rotate(-24 23 19)"/>${EYES[s.eyes]}${MOUTHS[s.mouth]}${ACC_FRONT[s.acc] || ''}</svg>`;
+}
+
+const RAR = {
+  comune:{l:'Comune', pl:'comuni', c:'#7f9bb8'},
+  noncomune:{l:'Non comune', pl:'non comuni', c:'#38b544'},
+  rara:{l:'Rara', pl:'rare', c:'#2b84ff'},
+  epica:{l:'Epica', pl:'epiche', c:'#9a45f5'},
+  leggendaria:{l:'Leggendaria', pl:'leggendarie', c:'#f0a000'}
+};
+const Y = '#ffd93b';
+const CAT = [
+  {id:'sorriso', name:'Sorriso', r:'comune', sc:':)', s:{color:Y, eyes:'dot', mouth:'smile'}},
+  {id:'occhiolino', name:'Occhiolino', r:'comune', sc:';)', s:{color:Y, eyes:'wink', mouth:'smile'}},
+  {id:'risata', name:'Risata', r:'comune', sc:':D', s:{color:Y, eyes:'happy', mouth:'grin'}},
+  {id:'linguaccia', name:'Linguaccia', r:'comune', sc:':P', s:{color:Y, eyes:'dot', mouth:'tongue'}},
+  {id:'stupito', name:'Stupito', r:'comune', sc:':O', s:{color:Y, eyes:'big', mouth:'o'}},
+  {id:'triste', name:'Triste', r:'comune', sc:':(', s:{color:'#8fd0ff', eyes:'dot', mouth:'sad'}},
+  {id:'sonno', name:'Sonno', r:'comune', sc:'|)', s:{color:'#c7b6ff', eyes:'sleepy', mouth:'flat'}},
+  {id:'imbarazzo', name:'Imbarazzo', r:'comune', sc:':$', s:{color:'#ffb3d1', eyes:'happy', mouth:'smile', acc:'blush'}},
+  {id:'cool', name:'Cool', r:'noncomune', sc:'(H)', s:{color:Y, eyes:'dot', mouth:'smile', acc:'shades'}},
+  {id:'fiore', name:'Fiorellino', r:'noncomune', s:{color:Y, eyes:'happy', mouth:'smile', acc:'flower'}},
+  {id:'cuffie', name:'Cuffie', r:'noncomune', s:{color:'#5fe0d6', eyes:'happy', mouth:'smile', acc:'headphones'}},
+  {id:'sudato', name:'Sudato', r:'noncomune', s:{color:Y, eyes:'dot', mouth:'flat', acc:'sweat'}},
+  {id:'gatto', name:'Micio', r:'noncomune', sc:':3', s:{color:'#ffab4a', eyes:'happy', mouth:'cat'}},
+  {id:'angelo', name:'Angioletto', r:'rara', sc:'(A)', s:{color:'#f4f7ff', eyes:'happy', mouth:'smile', acc:'halo'}},
+  {id:'diavoletto', name:'Diavoletto', r:'rara', sc:'(6)', s:{color:'#ff5a4f', eyes:'wink', mouth:'grin', acc:'horns'}},
+  {id:'innamorato', name:'Cotto', r:'rara', s:{color:Y, eyes:'heart', mouth:'smile'}},
+  {id:'stellare', name:'Stellare', r:'rara', s:{color:'#b07cff', eyes:'star', mouth:'grin'}},
+  {id:'smeraldo', name:'Occhiali Smeraldo', r:'rara', s:{color:'#5ed36a', eyes:'dot', mouth:'grin', acc:'shades'}},
+  {id:'invito', name:'Benvenuto', r:'rara', s:{color:'#5fe0d6', eyes:'wink', mouth:'tongue', acc:'cap'}},
+  {id:'corona', name:'Reuccio', r:'epica', s:{color:'#ffc21a', eyes:'happy', mouth:'smile', acc:'crown'}},
+  {id:'alieno', name:'Alieno', r:'epica', s:{color:'#b6f04a', eyes:'big', mouth:'o'}},
+  {id:'fantasma', name:'Fantasmino', r:'epica', s:{color:'#e8ecff', eyes:'sleepy', mouth:'o', acc:'blush'}},
+  {id:'cometa', name:'Cuore Cometa', r:'leggendaria', s:{color:'#ff6fb5', eyes:'heart', mouth:'grin', acc:'halo'}},
+  {id:'galassia', name:'Galassia', r:'leggendaria', s:{color:'#4a5cff', eyes:'star', mouth:'smile', acc:'crown'}}
+];
+const E = id => CAT.find(e => e.id === id);
+const SC = CAT.filter(e => e.sc);
+const SC_RE = new RegExp('(^|\\s)(' + SC.map(e => e.sc.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')(?=\\s|$)', 'g');
+
+const ST = {
+  online:{l:'Online', c:'#3ccf4e'}, occupato:{l:'Occupato', c:'#ff4747'}, torno:{l:'Torno subito', c:'#ffad1f'},
+  telefono:{l:'Al telefono', c:'#ffad1f'}, pranzo:{l:'A pranzo', c:'#ffad1f'}, invisibile:{l:'Invisibile', c:'#a9b8c8'}, offline:{l:'Offline', c:'#a9b8c8'}
+};
+
+/* ---------- Amici finti ---------- */
+const F = {
+  giulia:{name:'*~Giuly~*', c:'#ff6fb5', status:'online', pm:'chi mi trilla vince', listen:'Playlist "estate 2006 ma siamo nel 2026"',
+    story:{text:'concerto stasera!!!', bg:'linear-gradient(160deg,#ff6fb5,#ffc62e)', emo:'cuffie'},
+    pool:['innamorato','cuffie','fiore'], replies:['ahahah','noo dai','ci vediamo dopo scuola?','mi hai fatto morire','sei il top','oddio raccontami tutto'], back:.85, mutual:true},
+  marco:{name:'MaRkO_xX', c:'#1a96e6', status:'occupato', pm:'verifica di mate domani AIUTO',
+    story:{text:'studio mode: ON', bg:'linear-gradient(160deg,#1a96e6,#7fdc2f)', emo:'sudato'},
+    pool:['cool','smeraldo','diavoletto'], replies:['raga sono morto','ok ma la verifica','top','vabbè','fra non ci credo'], back:.35},
+  ale:{name:'Ale!!', c:'#9a45f5', status:'pranzo', pm:'nuovo taglio, non giudicate', listen:'Lo-fi per fare finta di studiare',
+    story:{text:'giudicate pure', bg:'linear-gradient(160deg,#9a45f5,#ff4f9a)', emo:'stellare'},
+    pool:['gatto','stellare','alieno'], replies:['sto mangiando, arrivo','ahah giuro','che fai sabato?','mandami la foto'], back:.5},
+  sara:{name:'sara.xo', c:'#ffab4a', status:'torno', pm:'torno subito... forse',
+    pool:['angelo','fiore'], replies:['eccomi!','scusa ero sparita','ma davvero??','dai che ce la facciamo'], back:.5},
+  luca:{name:'~luKa~', c:'#38b544', status:'offline', pm:'sk8 o niente',
+    pool:['cool','sudato'], replies:['bella!','oh ci sei?','appena tornato dallo skatepark'], back:.4}
+};
+const initial = i => (F[i].name.match(/[a-z0-9]/i) || ['?'])[0].toUpperCase();
+
+/* ---------- Stato ---------- */
+const S = {
+  tab:'amici', chat:null, nick:'~*Simo*~', pm:'trillatemi pure', status:'online',
+  owned:{}, unread:{giulia:1, marco:1, ale:1}, trilledMe:{giulia:true}, seenStory:{}, notify:{},
+  cool:{}, lastMine:{}, lastTheirs:{}, sent:12, recv:17, today:0,
+  crush:new Set(), matched:{}, passes:{}, creations:[], vetrina:['risata','occhiolino','sudato'],
+  quiet:true, typing:null, studio:{color:Y, eyes:'dot', mouth:'smile', acc:'none'}, studioName:''
+};
+['sorriso','occhiolino','risata','linguaccia','stupito','triste','sonno','imbarazzo','sudato'].forEach(id => S.owned[id] = {from:'Pacchetto iniziale', date:'26 ottobre'});
+S.chats = {
+  giulia:[{from:'giulia', text:'ciaooo'}, {t:'trillo', from:'giulia'}, {from:'me', text:'ahah ciao Giuly :D'}, {from:'giulia', text:'stasera ci sei su trillo?'}],
+  marco:[{from:'marco', text:'oh hai visto la verifica??'}, {from:'me', text:'nooo non dirmelo :('}, {from:'marco', text:'tranquillo, ho gli occhiali portafortuna', emo:'smeraldo'}],
+  ale:[{from:'ale', text:'guarda che carino', emo:'gatto'}],
+  sara:[{from:'sara', text:'torno subito, mia mamma mi chiama'}],
+  luca:[]
+};
+const passesOf = i => S.passes[i] || (S.passes[i] = {noncomune:10, rara:3, epica:1, leggendaria:1});
+
+/* ---------- Suoni originali (WebAudio) ---------- */
+let actx = null;
+function ac(){ try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); if (actx.state === 'suspended') actx.resume(); return actx; } catch(e){ return null; } }
+function tone(a, type, freqs, start, dur, vol){
+  const o = a.createOscillator(), g = a.createGain(); o.type = type;
+  freqs.forEach(([f, at]) => o.frequency.setValueAtTime(f, start + at));
+  g.gain.setValueAtTime(.0001, start); g.gain.exponentialRampToValueAtTime(vol, start + .02);
+  g.gain.setValueAtTime(vol, start + dur - .08); g.gain.exponentialRampToValueAtTime(.0001, start + dur);
+  o.connect(g).connect(a.destination); o.start(start); o.stop(start + dur + .02);
+  return g;
+}
+function trillSound(delay = 0){
+  const a = ac(); if (!a) return; const t = a.currentTime + delay;
+  const g = tone(a, 'square', [[740,0],[988,.16],[1245,.3]], t, .5, .07);
+  const lfo = a.createOscillator(), lg = a.createGain(); lfo.frequency.value = 26; lg.gain.value = .05;
+  lfo.connect(lg).connect(g.gain); lfo.start(t); lfo.stop(t + .52);
+}
+function popSound(){ const a = ac(); if (!a) return; const t = a.currentTime; tone(a, 'sine', [[520,0],[780,.06],[1040,.12]], t, .26, .12); }
+function onlineSound(){ const a = ac(); if (!a) return; const t = a.currentTime; tone(a, 'triangle', [[660,0]], t, .18, .12); tone(a, 'triangle', [[990,0]], t + .14, .3, .12); }
+function buzz(p){ try { navigator.vibrate && navigator.vibrate(p); } catch(e){} }
+function shakeEl(el){ el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }
+function trillFx(el){ trillSound(); buzz([90,40,90,40,160]); shakeEl(el); }
+
+/* ---------- Icone ---------- */
+const ICON = {
+  amici:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="8" r="3.6"/><path d="M2 20c0-4 3.2-6.4 7-6.4s7 2.4 7 6.4z"/><circle cx="17" cy="9" r="2.8" opacity=".6"/><path d="M15.5 13.8c3.4-.2 6.5 1.8 6.5 5.6h-4.4c0-2.3-.8-4.2-2.1-5.6z" opacity=".6"/></svg>',
+  album:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5a1.5 1.5 0 0 0 0 3H20v0H6.5A2.5 2.5 0 0 1 4 19.5z" opacity=".35"/><rect x="7" y="5" width="4.5" height="4.5" rx="1.2"/><rect x="13" y="5" width="4.5" height="4.5" rx="1.2"/><rect x="7" y="11" width="4.5" height="4.5" rx="1.2"/><rect x="13" y="11" width="4.5" height="4.5" rx="1.2" opacity=".5"/></svg>',
+  studio:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.8 3.6a2 2 0 0 1 2.8 0l2.8 2.8a2 2 0 0 1 0 2.8L9.6 20H4v-5.6z"/><path d="M3 22h18v-1.6H3z" opacity=".4"/></svg>',
+  profilo:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 21c0-4.6 3.8-7.4 8.5-7.4s8.5 2.8 8.5 7.4z"/></svg>',
+  back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4 7 12l8 8"/></svg>',
+  heart:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-8.5-5.3-8.5-11.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 8.5 3.2C20.5 15.7 12 21 12 21z"/></svg>'
+};
+
+/* ---------- Render ---------- */
+function renderMe(){
+  $('#meNick').textContent = S.nick;
+  $('#meAva').textContent = (S.nick.match(/[a-z0-9]/i) || ['?'])[0].toUpperCase();
+  $('#pmInput').value = S.pm; $('#status').value = S.status;
+}
+function renderTabs(){
+  const unread = Object.keys(F).filter(i => S.unread[i] || S.trilledMe[i]).length;
+  const tabs = [['amici','Amici'],['album','Album'],['studio','Studio'],['profilo','Profilo']];
+  $('#tabs').innerHTML = tabs.map(([k, l]) => `<button class="tab ${S.tab === k ? 'on' : ''}" data-tab="${k}" ${S.tab === k ? 'aria-current="page"' : ''}>${ICON[k]}${l}${k === 'amici' && unread ? `<span class="badge">${unread}</span>` : ''}</button>`).join('');
+}
+function renderScreen(){
+  const v = {amici:viewAmici, album:viewAlbum, studio:viewStudio, profilo:viewProfilo}[S.tab];
+  $('#screens').innerHTML = v();
+}
+function renderAll(){ renderTabs(); renderScreen(); if (!$('#chat').hidden) renderChat(); }
+
+function avaHTML(i, cls = ''){ const st = ST[F[i].status]; return `<span class="ava ${cls}" style="--c:${F[i].c}">${initial(i)}<i class="dot" style="--s:${st.c}"></i></span>`; }
+
+function viewAmici(){
+  const ids = Object.keys(F);
+  const stories = ids.filter(i => F[i].story).map(i => `<button class="story ${S.seenStory[i] ? 'seen' : ''}" data-story="${i}" aria-label="Storia di ${esc(F[i].name)}"><span class="ring"><span class="ava" style="--c:${F[i].c}">${initial(i)}</span></span><span class="story-name">${esc(F[i].name)}</span></button>`).join('');
+  const on = ids.filter(i => F[i].status !== 'offline'), off = ids.filter(i => F[i].status === 'offline');
+  const row = i => {
+    const f = F[i];
+    const badge = S.trilledMe[i] ? '<span class="badge trill">trillo!</span>' : S.unread[i] ? `<span class="badge">${S.unread[i]}</span>` : '';
+    const bell = f.status === 'offline' ? `<button class="bell ${S.notify[i] ? 'on' : ''}" data-notify="${i}">${S.notify[i] ? 'Ti avviso' : 'Avvisami'}</button>` : '';
+    return `<div class="friend"><button class="friend-main" data-open="${i}">${avaHTML(i)}<span style="min-width:0"><span class="f-name" style="display:block">${esc(f.name)}</span><span class="f-pm" style="display:block">${esc(f.pm)}</span>${f.listen ? `<span class="f-listen" style="display:block">${esc(f.listen)}</span>` : ''}</span>${badge}</button>${bell}</div>`;
+  };
+  return `<div class="stories">${stories}</div>
+    <div class="group">Online (${on.length})</div>${on.map(row).join('')}
+    <div class="group">Offline (${off.length})</div>${off.map(row).join('')}<div style="height:12px"></div>`;
+}
+
+function viewAlbum(){
+  const own = CAT.filter(e => S.owned[e.id]).length;
+  let h = `<div class="pad"><h2>Album</h2><div class="prog"><div class="prog-bar"><i style="width:${own / CAT.length * 100}%"></i></div><span>${own} su ${CAT.length}</span></div><p class="small">Le emoticon non si comprano: te le deve mandare qualcuno.</p></div>`;
+  for (const r of Object.keys(RAR)){
+    const list = CAT.filter(e => e.r === r); if (!list.length) continue;
+    const n = list.filter(e => S.owned[e.id]).length;
+    h += `<section class="rar-sec"><div class="rar-title"><span class="rar-chip" style="--r:${RAR[r].c}">${RAR[r].l}</span><span>${n}/${list.length}</span></div><div class="emo-grid">${list.map(e => {
+      const has = !!S.owned[e.id], show = has || r === 'comune' || r === 'noncomune';
+      return `<button class="tile ${has ? '' : 'missing'}" data-emo="${e.id}" aria-label="${has ? esc(e.name) : 'Emoticon mancante'}">${emoSVG(e.s, 46)}<span>${show ? esc(e.name) : '???'}</span></button>`;
+    }).join('')}</div></section>`;
+  }
+  return h + '<div style="height:12px"></div>';
+}
+
+const OPT = {
+  color:['#ffd93b','#ffab4a','#ff6fb5','#ff5a4f','#b07cff','#4a5cff','#5fe0d6','#5ed36a','#b6f04a','#e8ecff'],
+  eyes:['dot','wink','happy','heart','star','big','sleepy'],
+  mouth:['smile','grin','o','tongue','flat','sad','cat'],
+  acc:['none','shades','cap','halo','sweat','blush','crown','horns','headphones','flower']
+};
+function viewStudio(){
+  const sp = S.studio;
+  const grp = (k, label) => `<div class="opt"><span class="opt-label">${label}</span><div class="chips">${OPT[k].map(v => `<button class="chip ${sp[k] === v ? 'on' : ''}" data-opt="${k}" data-val="${v}" aria-label="${label}: ${v}" aria-pressed="${sp[k] === v}">${k === 'color' ? `<i class="sw" style="background:${v}"></i>` : emoSVG({...sp, [k]:v}, 36)}</button>`).join('')}</div></div>`;
+  const cr = S.creations.map(c => `<div class="creation">${emoSVG(c.spec, 40)}<span style="min-width:0"><b>${esc(c.name)}</b><span class="small" style="display:block">${c.ok ? 'Sei Paziente Zero. Ora puoi passarla agli amici.' : 'La Redazione la sta guardando...'}</span></span><span class="state ${c.ok ? 'ok' : ''}">${c.ok ? 'Approvata' : 'In revisione'}</span></div>`).join('');
+  return `<div class="pad"><div class="studio-hero"><div class="preview">${emoSVG(sp, 112)}</div><div style="min-width:0"><h2>Studio</h2><p class="small">Crea la tua emoticon con i pezzi dello Studio. Se la Redazione la approva entra in circolo, e tu sei Paziente Zero.</p></div></div>
+    ${grp('color','Colore')}${grp('eyes','Occhi')}${grp('mouth','Bocca')}${grp('acc','Accessorio')}
+    <label class="opt-label" for="emoName">Nome</label><input id="emoName" class="field" maxlength="20" placeholder="Es. Faccia da verifica" value="${esc(S.studioName)}">
+    <button class="btn-gloss pink" data-submit-emo>Invia alla Redazione</button>
+    <p class="small">Niente immagini caricate: solo pezzi dello Studio, così la moderazione resta semplice e sicura.</p>
+    ${cr ? `<div class="creations">${cr}</div>` : ''}</div>`;
+}
+
+function viewProfilo(){
+  const top = ['leggendaria','epica','rara','noncomune','comune'].find(r => CAT.some(e => e.r === r && S.owned[e.id]));
+  const owned = CAT.filter(e => S.owned[e.id]).length;
+  const stat = (n, l) => `<div class="stat"><b>${n}</b><span>${l}</span></div>`;
+  return `<div class="profile"><div class="pf-ava" style="--r:${RAR[top].c}"><span class="ava xl" style="--c:var(--pink)">${(S.nick.match(/[a-z0-9]/i) || ['?'])[0].toUpperCase()}</span></div>
+    <span class="rar-chip" style="--r:${RAR[top].c}">Cornice ${RAR[top].l}</span>
+    <p class="small">La cornice cambia con l'emoticon più rara che possiedi.</p>
+    <label class="opt-label" for="nickInput">Nickname</label><input id="nickInput" class="field" maxlength="24" value="${esc(S.nick)}">
+    <span class="opt-label">Vetrina</span>
+    <div class="vetrina">${S.vetrina.map(id => `<button class="tile" data-emo="${id}">${emoSVG(E(id).s, 54)}<span>${esc(E(id).name)}</span></button>`).join('')}</div>
+    <p class="small" style="justify-self:stretch; text-align:left">Per cambiarla tocca un'emoticon nell'album.</p>
+    <span class="opt-label">I tuoi numeri · li vedi solo tu</span>
+    <div class="stats">${stat(S.sent, 'Trilli inviati')}${stat(S.recv, 'Trilli ricevuti')}${stat(owned, 'Emoticon')}${stat(S.crush.size + '/3', 'Cotte segrete')}</div>
+    <span class="opt-label">Impostazioni</span>
+    <div class="settings">
+      <label class="setting"><input type="checkbox" id="quiet" ${S.quiet ? 'checked' : ''}><span>Ore di silenzio 23:00–07:00</span><small>Di notte i trilli arrivano senza suono né vibrazione.</small></label>
+      <div class="setting"><span></span><span>Fascia d'età: 14-17</span><small>La cotta segreta funziona solo con chi è nella tua fascia.</small></div>
+    </div></div>`;
+}
+
+/* ---------- Chat ---------- */
+function withShortcuts(t){
+  return esc(t).replace(SC_RE, (m, pre, code) => {
+    const e = SC.find(x => x.sc === code);
+    return S.owned[e.id] ? pre + `<span class="emo-inline" title="${esc(e.name)}">${emoSVG(e.s, 24)}</span>` : m;
+  });
+}
+function msgHTML(m, idx){
+  const i = S.chat;
+  if (m.t === 'trillo') return `<div class="sys trillo-pill">${m.from === 'me' ? '~ Hai mandato un trillo! ~' : '~ ' + esc(F[i].name) + ' ti ha mandato un trillo! ~'}</div>`;
+  if (m.t === 'combo') return '<div class="sys combo-pill">TRILLO COMBO!</div>';
+  if (m.t === 'sys') return `<div class="sys">${esc(m.text)}</div>`;
+  const side = m.from === 'me' ? 'me' : 'them';
+  let b = '';
+  if (m.text) b += `<p>${side === 'me' ? withShortcuts(m.text) : esc(m.text)}</p>`;
+  if (m.emo){
+    const e = E(m.emo);
+    b += `<div class="emo-big">${emoSVG(e.s, 64)}</div><span class="emo-name">${esc(e.name)}</span>`;
+    if (side === 'them'){
+      if (m.taken) b += '<span class="took">Presa! È nel tuo album</span>';
+      else if (S.owned[e.id]) b += '<span class="took muted">Ce l\'hai già</span>';
+      else b += `<span class="rar-chip" style="--r:${RAR[e.r].c}">${RAR[e.r].l}</span><button class="prendila" data-take="${idx}">Prendila!</button>`;
+    }
+  }
+  return `<div class="msg ${side}"><div class="bubble">${b}</div></div>`;
+}
+function renderMessages(){
+  const box = $('#msgs');
+  box.innerHTML = S.chats[S.chat].map(msgHTML).join('') || `<div class="sys">Nessun messaggio. Rompi il ghiaccio con un trillo.</div>`;
+  box.scrollTop = box.scrollHeight;
+}
+function renderChat(){
+  const i = S.chat, f = F[i], st = ST[f.status];
+  $('#chatHead').innerHTML = `<button class="icon-btn" data-close-chat aria-label="Torna agli amici">${ICON.back}</button>${avaHTML(i, 'sm')}<div class="ch-info"><b>${esc(f.name)}</b><small>${st.l} · ${esc(f.pm)}</small></div><button class="icon-btn heart ${S.crush.has(i) ? 'on' : ''}" data-crush aria-label="Cotta segreta">${ICON.heart}</button>`;
+  renderMessages(); renderTyping(); updateTrilloBtn();
+}
+function renderTyping(){ $('#typing').textContent = S.typing && S.typing === S.chat ? F[S.chat].name + ' sta scrivendo...' : ''; }
+function renderTray(){
+  $('#tray').innerHTML = CAT.filter(e => S.owned[e.id]).map(e => `<button data-send-emo="${e.id}" aria-label="Manda ${esc(e.name)}" title="${esc(e.name)}${e.sc ? ' ' + e.sc : ''}">${emoSVG(e.s, 36)}</button>`).join('');
+}
+function updateTrilloBtn(){
+  if (!S.chat) return;
+  const left = (S.cool[S.chat] || 0) - Date.now(), btn = $('#trilloBtn');
+  btn.disabled = left > 0; btn.textContent = left > 0 ? Math.ceil(left / 1000) + ' s' : 'Trillo!';
+  $('#chatFoot').textContent = `trilli oggi ${S.today}/30 · pausa di 5 s tra un trillo e l'altro`;
+}
+setInterval(updateTrilloBtn, 250);
+
+function openChat(i){
+  S.chat = i; S.unread[i] = 0; S.trilledMe[i] = false;
+  $('#chat').hidden = false; $('#tray').hidden = true; renderTray();
+  if (F[i].status === 'offline' && !S.chats[i].length) S.chats[i].push({t:'sys', text:F[i].name + ' è offline: leggerà quando si collega.'});
+  renderChat(); renderTabs();
+}
+function closeChat(){ $('#chat').hidden = true; S.chat = null; renderAll(); }
+
+function addMsg(i, m, quiet){
+  S.chats[i].push(m);
+  const open = S.chat === i && !$('#chat').hidden;
+  if (open) renderMessages();
+  else {
+    if (m.from !== 'me' && !m.t) { S.unread[i] = (S.unread[i] || 0) + 1; if (!quiet) toast(`${F[i].name}: ${m.text || 'ti ha mandato un\'emoticon'}`, i); }
+    renderTabs(); if (S.tab === 'amici') renderScreen();
+  }
+}
+const timers = {};
+function scheduleReply(i, delay){
+  const f = F[i]; if (f.status === 'offline') return;
+  clearTimeout(timers[i]);
+  timers[i] = setTimeout(() => {
+    S.typing = i; if (S.chat === i) renderTyping();
+    timers[i] = setTimeout(() => {
+      S.typing = null; if (S.chat === i) renderTyping();
+      const m = {from:i, text:pick(f.replies)};
+      if (Math.random() < .4) m.emo = pick(f.pool);
+      addMsg(i, m);
+    }, 1200 + Math.random() * 900);
+  }, delay);
+}
+function sendText(text){
+  const i = S.chat; text = text.trim(); if (!text) return;
+  addMsg(i, {from:'me', text}); scheduleReply(i, 900);
+}
+
+/* ---------- Trilli ---------- */
+function sendTrillo(){
+  const i = S.chat, now = Date.now();
+  if ((S.cool[i] || 0) > now) return;
+  if (S.today >= 30){ toast('Hai finito i trilli di oggi. Domani si ricomincia!'); return; }
+  S.today++; S.sent++; S.cool[i] = now + 5000; S.lastMine[i] = now;
+  addMsg(i, {t:'trillo', from:'me'}); trillFx($('#chat')); updateTrilloBtn();
+  if (now - (S.lastTheirs[i] || 0) < 3000){ addMsg(i, {t:'combo'}); setTimeout(() => showCombo(i), 450); return; }
+  const f = F[i]; if (f.status === 'offline') return;
+  if (Math.random() < f.back) setTimeout(() => incomingTrillo(i), 900 + Math.random() * 1500);
+  else scheduleReply(i, 2000);
+}
+function incomingTrillo(i){
+  const now = Date.now(), open = S.chat === i && !$('#chat').hidden;
+  S.recv++; S.lastTheirs[i] = now;
+  if (!open) S.trilledMe[i] = true;
+  addMsg(i, {t:'trillo', from:i}, true);
+  trillFx(open ? $('#chat') : $('#phone'));
+  if (!open) toast(`${F[i].name} ti ha mandato un trillo!`, i);
+  if (now - (S.lastMine[i] || 0) < 3000){ addMsg(i, {t:'combo'}); setTimeout(() => showCombo(i), 450); }
+  else if (open) toast('Rimandaglielo entro 3 secondi per la combo!');
+}
+function showCombo(i){
+  trillSound(); trillSound(.2); buzz([60,30,60,30,60,30,200]);
+  overlay(`<div class="combo"><div class="combo-emos"><span class="ce left">${emoSVG(E('risata').s, 92)}</span><span class="ce right">${emoSVG(E('occhiolino').s, 92)}</span></div><h2>TRILLO<br>COMBO!</h2><p>Tu e ${esc(F[i].name)} vi siete trillati a vicenda in meno di 3 secondi.</p><button class="btn-gloss pink" data-close-overlay>Troppo forte</button></div>`);
+}
+
+/* ---------- Emoticon: prendila ---------- */
+function takeEmo(i, id){
+  const e = E(id); if (S.owned[id]) return null;
+  let extra = '';
+  if (e.r !== 'comune'){
+    const p = passesOf(i);
+    if (p[e.r] <= 0){ toast(`${F[i].name} ha finito i passaggi ${RAR[e.r].pl} per ${e.r === 'leggendaria' ? 'questo mese' : 'questa settimana'}. Riprova più avanti!`); return null; }
+    p[e.r]--;
+    extra = `${F[i].name} può passare ancora ${p[e.r]} ${RAR[e.r].pl} ${e.r === 'leggendaria' ? 'questo mese' : 'questa settimana'}.`;
+  }
+  S.owned[id] = {from:F[i].name, date:'oggi'}; popSound(); buzz(30); renderTray();
+  return extra;
+}
+function showCard(e, from, extra){
+  overlay(`<div class="card-fig" style="--r:${RAR[e.r].c}"><span class="fig-tag">NUOVA!</span>${emoSVG(e.s, 120)}<h3>${esc(e.name)}</h3><span class="rar-chip" style="--r:${RAR[e.r].c}">${RAR[e.r].l}</span><p>Ricevuta da <b>${esc(from)}</b> · oggi</p>${extra ? `<p class="small">${esc(extra)}</p>` : ''}<button class="btn-gloss" data-close-overlay>Nell'album!</button></div>`);
+}
+
+/* ---------- Cotta segreta ---------- */
+function openCrush(){
+  const i = S.chat, f = F[i], has = S.crush.has(i);
+  sheet(`<h3>Cotta segreta</h3><p>Nessuno saprà mai che hai scelto ${esc(f.name)}. Se anche ${esc(f.name)} sceglie te, vi arriva un <b>trillo del destino</b>. Se no, non succede niente.</p><p class="small">Cotte usate: ${S.crush.size}/3 · Funziona solo con chi è nella tua fascia d'età.</p><button class="btn-gloss pink" data-crush-toggle>${has ? 'Togli la cotta' : 'Scegli ' + esc(f.name)}</button><button class="btn-gloss" data-close-sheet>Non ora</button>`);
+}
+function toggleCrush(){
+  const i = S.chat, f = F[i]; closeSheet();
+  if (S.crush.has(i)){ S.crush.delete(i); toast('Cotta tolta. Nessuno lo saprà.'); renderChat(); return; }
+  if (S.crush.size >= 3){ toast('Hai già 3 cotte segrete. Togline una per sceglierne un\'altra.'); return; }
+  S.crush.add(i); renderChat();
+  if (f.mutual && !S.matched[i]) setTimeout(() => showDestiny(i), 1400);
+  else toast('Fatto. Rimane un segreto tra te e l\'app.');
+}
+function showDestiny(i){
+  S.matched[i] = true;
+  const e = E('cometa'); const fresh = !S.owned.cometa;
+  if (fresh) S.owned.cometa = {from:'Trillo del destino', date:'oggi'};
+  renderTray(); addMsg(i, {t:'sys', text:'Trillo del destino: vi siete scelti a vicenda'});
+  trillSound(); trillSound(.25); buzz([120,60,120,60,300]); shakeEl($('#phone'));
+  overlay(`<div class="destiny"><div class="hearts" aria-hidden="true">&lt;3 &lt;3</div><h2>Trillo del<br>destino</h2><p>Tu e ${esc(F[i].name)} vi siete scelti a vicenda. Ora lo sapete entrambi.</p>${fresh ? `<div class="gift">${emoSVG(e.s, 84)}<b>${esc(e.name)}</b><span class="rar-chip" style="--r:${RAR[e.r].c}">${RAR[e.r].l} · solo per voi due</span></div>` : ''}<button class="btn-gloss pink" data-close-overlay>Che emozione</button></div>`);
+}
+
+/* ---------- Storie ---------- */
+let storyTimer = null;
+function openStory(i){
+  const f = F[i], st = f.story, e = E(st.emo); S.seenStory[i] = true;
+  overlay(`<div class="story-view" style="background:${st.bg}"><div class="sv-bar"><i></i></div><div class="sv-head"><span class="ava sm" style="--c:${f.c}">${initial(i)}</span><span style="min-width:0"><b>${esc(f.name)}</b><small>2 h fa · solo amici</small></span><button class="sv-x" data-close-overlay aria-label="Chiudi la storia">&times;</button></div><p class="sv-text">${esc(st.text)}</p><div class="sv-sticker">${emoSVG(e.s, 96)}<span>${esc(e.name)}</span>${S.owned[e.id] ? '<em>Ce l\'hai già</em>' : `<button class="prendila" data-take-story="${i}">Prendila!</button>`}</div></div>`, 'story');
+  storyTimer = setTimeout(closeOverlay, 7000);
+  if (S.tab === 'amici') renderScreen();
+}
+
+/* ---------- Album: dettaglio ---------- */
+function holders(e){ const base = {comune:41200, noncomune:8300, rara:940, epica:118, leggendaria:14}[e.r]; let h = 0; for (const c of e.id) h = (h * 31 + c.charCodeAt(0)) % 997; return Math.round(base * (.7 + h / 1660)); }
+function openEmo(id){
+  const e = E(id), o = S.owned[id];
+  if (!o){
+    const show = e.r === 'comune' || e.r === 'noncomune';
+    sheet(`<div class="center"><div class="silhouette">${emoSVG(e.s, 96)}</div><h3>${show ? esc(e.name) : '???'}</h3><span class="rar-chip" style="--r:${RAR[e.r].c}">${RAR[e.r].l}</span><p>Non ce l'hai ancora. L'unico modo per averla è che un amico te la mandi.</p><p class="small">Ce l'hanno ${holders(e).toLocaleString('it-IT')} persone in tutta Italia.</p></div><button class="btn-gloss" data-close-sheet>Ok</button>`);
+    return;
+  }
+  const inV = S.vetrina.includes(id);
+  const who = e.creator ? 'Solo tu, per ora.' : `Ce l'hanno ${holders(e).toLocaleString('it-IT')} persone · passata di mano ${(holders(e) * 3).toLocaleString('it-IT')} volte.`;
+  sheet(`<div class="center">${emoSVG(e.s, 96)}<h3>${esc(e.name)}</h3><span class="rar-chip" style="--r:${RAR[e.r].c}">${RAR[e.r].l}${e.creator ? ' · Community' : ''}</span>${e.sc ? `<p class="small">Scorciatoia: <b>${esc(e.sc)}</b></p>` : ''}<p>${o.pz ? 'Creata da te: sei Paziente Zero' : `Ricevuta da <b>${esc(o.from)}</b>, ${esc(o.date)}`}</p><p class="small">${who}</p></div>${inV ? '<p class="small" style="text-align:center">È già nella tua vetrina.</p>' : `<button class="btn-gloss pink" data-vetrina="${id}">Metti in vetrina</button>`}<button class="btn-gloss" data-close-sheet>Chiudi</button>`);
+}
+
+/* ---------- Studio ---------- */
+function submitEmo(){
+  const name = S.studioName.trim();
+  if (!name){ toast('Dai un nome alla tua emoticon prima di inviarla.'); $('#emoName') && $('#emoName').focus(); return; }
+  const c = {id:'u' + Date.now(), name, spec:{...S.studio}, ok:false};
+  S.creations.unshift(c); S.studioName = ''; renderScreen();
+  toast('Inviata alla Redazione. Di solito ci vuole poco.');
+  setTimeout(() => {
+    c.ok = true;
+    CAT.push({id:c.id, name:c.name, r:'noncomune', s:c.spec, creator:true});
+    S.owned[c.id] = {from:'Te', date:'oggi', pz:true}; renderTray(); popSound();
+    toast(`La Redazione ha approvato "${c.name}"! Ora puoi mandarla agli amici.`);
+    if (S.tab === 'studio' || S.tab === 'album') renderScreen();
+  }, 3500);
+}
+
+/* ---------- Overlay, sheet, toast ---------- */
+function overlay(html, cls = ''){ clearTimeout(storyTimer); const o = $('#overlay'); o.className = 'overlay ' + cls; o.innerHTML = html; o.hidden = false; const b = o.querySelector('button'); b && b.focus({preventScroll:true}); }
+function closeOverlay(){ clearTimeout(storyTimer); $('#overlay').hidden = true; $('#overlay').innerHTML = ''; if ($('#chat').hidden) renderScreen(); }
+function sheet(html){ $('#sheet').innerHTML = html; $('#sheetWrap').hidden = false; }
+function closeSheet(){ $('#sheetWrap').hidden = true; }
+let toastT = null;
+function toast(text, open){
+  const t = $('#toast'); t.textContent = text; t.dataset.toastOpen = open || ''; t.hidden = false;
+  t.style.animation = 'none'; void t.offsetWidth; t.style.animation = '';
+  clearTimeout(toastT); toastT = setTimeout(() => t.hidden = true, 2800);
+}
+
+/* ---------- Eventi ---------- */
+document.addEventListener('click', ev => {
+  const ov = $('#overlay');
+  if (ev.target === ov){ closeOverlay(); return; }
+  if (ev.target === $('#sheetWrap')){ closeSheet(); return; }
+  const b = ev.target.closest('button'); if (!b) return;
+  const d = b.dataset;
+  if (d.tab){ S.tab = d.tab; if (!$('#chat').hidden){ $('#chat').hidden = true; S.chat = null; } renderAll(); $('#screens').scrollTop = 0; }
+  else if (d.open) openChat(d.open);
+  else if ('closeChat' in d) closeChat();
+  else if ('trillo' in d) sendTrillo();
+  else if ('tray' in d){ $('#tray').hidden = !$('#tray').hidden; }
+  else if (d.sendEmo){ addMsg(S.chat, {from:'me', emo:d.sendEmo}); $('#tray').hidden = true; scheduleReply(S.chat, 1000); }
+  else if (d.take !== undefined){
+    const m = S.chats[S.chat][+d.take], extra = takeEmo(S.chat, m.emo);
+    if (extra !== null){ m.taken = true; renderMessages(); showCard(E(m.emo), F[S.chat].name, extra); }
+  }
+  else if (d.takeStory){
+    const i = d.takeStory, e = E(F[i].story.emo), extra = takeEmo(i, e.id);
+    if (extra !== null) showCard(e, F[i].name, extra);
+  }
+  else if ('crush' in d) openCrush();
+  else if ('crushToggle' in d) toggleCrush();
+  else if (d.story) openStory(d.story);
+  else if (d.emo) openEmo(d.emo);
+  else if (d.vetrina){ S.vetrina = [d.vetrina, ...S.vetrina.filter(x => x !== d.vetrina)].slice(0, 3); closeSheet(); toast('Messa in vetrina: la vedono i tuoi amici sul profilo.'); }
+  else if (d.opt){ S.studio[d.opt] = d.val; renderScreen(); }
+  else if ('submitEmo' in d) submitEmo();
+  else if (d.notify){
+    const i = d.notify; if (S.notify[i]) return;
+    S.notify[i] = true; renderScreen(); toast(`Ti avviso quando ${F[i].name} si collega.`);
+    setTimeout(() => { F[i].status = 'online'; S.notify[i] = false; onlineSound(); buzz(40); toast(`${F[i].name} è online!`, i); renderAll(); }, 6000);
+  }
+  else if ('closeOverlay' in d) closeOverlay();
+  else if ('closeSheet' in d) closeSheet();
+  else if ('sim' in d){ incomingTrillo('sara'); }
+  else if (b.id === 'toast'){ b.hidden = true; if (d.toastOpen) openChat(d.toastOpen); }
+});
+document.addEventListener('keydown', ev => {
+  if (ev.key !== 'Escape') return;
+  if (!$('#overlay').hidden) closeOverlay(); else if (!$('#sheetWrap').hidden) closeSheet();
+});
+$('#composer').addEventListener('submit', ev => { ev.preventDefault(); const inp = $('#msgInput'); sendText(inp.value); inp.value = ''; });
+document.addEventListener('input', ev => {
+  const t = ev.target;
+  if (t.id === 'emoName') S.studioName = t.value;
+  else if (t.id === 'nickInput'){ S.nick = t.value || '~*Simo*~'; $('#meNick').textContent = S.nick; }
+  else if (t.id === 'pmInput') S.pm = t.value;
+});
+document.addEventListener('change', ev => {
+  const t = ev.target;
+  if (t.id === 'status') S.status = t.value;
+  else if (t.id === 'quiet') S.quiet = t.checked;
+  else if (t.id === 'nickInput') renderMe();
+});
+
+$('#trayBtn').innerHTML = emoSVG(E('sorriso').s, 26);
+renderMe(); renderAll();
+})();
+</script>

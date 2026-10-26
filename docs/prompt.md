@@ -1,9 +1,14 @@
 # Prompt per Claude Code — App "Trillo" (nome provvisorio)
 
 ## Il progetto in una frase
-Costruisci un'app mobile **di svago** per ragazzi e ragazze **dai 13 ai 20 anni**, ispirata allo spirito di **MSN Messenger** dei primi anni 2000: **trilli** che fanno vibrare la chat per far sapere a qualcuno che lo stai pensando, ed **emoticon collezionabili**, che puoi avere solo se qualcuno te le manda.
+Costruisci un'app mobile **di svago** per ragazzi e ragazze **dai 14 ai 20 anni**: un'app **nuova, del 2026**, con le **vibes del 2005-2006**. È un ibrido tra tre mondi:
+- **MSN Messenger**: lista contatti con stati, messaggio personale, "sto ascoltando", **trilli** che fanno vibrare la chat, emoticon glossy;
+- **Instagram**: profilo con vetrina, storie 24h solo per gli amici;
+- **WhatsApp**: chat in tempo reale con gli amici, semplice e immediata.
 
-**Trillo non è un'alternativa a WhatsApp.** Non deve sostituire la messaggistica di tutti i giorni: è un posto dove giocare con gli amici, collezionare, scambiarsi attenzioni. La chat esiste, ma è leggera e serve da palcoscenico per trilli ed emoticon. Quando devi scegliere tra "più utile" e "più divertente", scegli divertente.
+Il centro di tutto sono i **trilli come segnale di interesse** e le **emoticon collezionabili**, che puoi avere solo se qualcuno te le manda. Non deve sostituire WhatsApp per le cose serie: è il posto dove si gioca, si colleziona e ci si fa notare. Quando devi scegliere tra "più utile" e "più divertente", scegli divertente.
+
+Esiste già un prototipo cliccabile in `prototype/index.html`: usalo come riferimento per il tono, lo stile grafico e le interazioni.
 
 Prima di scrivere codice entra in plan mode, leggi tutto questo documento, crea un `CLAUDE.md` con le regole del progetto e proponimi un piano a fasi. Chiedimi conferma prima delle scelte difficili da cambiare dopo: stack, schema del database, regole dell'economia delle emoticon, regole di sicurezza per i minori.
 
@@ -53,6 +58,16 @@ Se finisci i passaggi, il destinatario vede l'emoticon ma il pulsante dice "Ripr
 - Le immagini delle emoticon che l'utente non possiede si servono con **URL firmati a scadenza**, così non si può scaricare tutto il catalogo dallo Storage.
 - Le ricette delle fusioni restano solo sul server: il client manda due emoticon e riceve il risultato, non vede mai la tabella.
 
+### Emoticon create dalla community (Studio)
+Su MSN le emoticon di base le disegnavano i designer di Microsoft, ma c'erano anche le **emoticon personalizzate**: ognuno poteva caricare la sua immagine, e chi la riceveva in chat poteva aggiungerla alla propria lista. Trillo riprende quell'idea, in modo sicuro:
+- **Studio**: l'utente crea un'emoticon **componendo pezzi** (colore, occhi, bocca, accessorio). Niente immagini caricate nell'MVP: così la moderazione resta semplice e non entrano contenuti protetti da copyright o inadatti ai minori.
+- Ogni creazione va in **revisione** (la "Redazione": all'inizio noi, poi strumenti di moderazione). Se approvata entra nel catalogo come "Community", e chi l'ha creata è **Paziente Zero**.
+- Da lì circola come tutte le altre: solo chi la riceve può averla.
+- Più avanti: **artisti e illustratori** invitati a creare serie ufficiali, e caricamento di disegni originali con moderazione.
+
+### Brand (dopo, se l'app prende piede)
+Non nell'MVP, ma progetta il catalogo in modo che sia possibile: un brand può lanciare una **serie di emoticon sponsorizzata** come evento a tempo (pochi possessori iniziali, poi si diffonde tra amici). Regole fisse: sempre segnalata come sponsorizzata, mai a pagamento per gli utenti, nessuna profilazione dei minori.
+
 ---
 
 ## Vincolo importante sugli asset
@@ -94,7 +109,7 @@ Se hai una proposta migliore, spiegamela prima di procedere.
 - **Messaggio personale** sotto il nome, visibile agli amici.
 - **Avviso "è online"**: opzione per ricevere un avviso quando un amico specifico si collega.
 - Eliminazione dei propri messaggi.
-- Niente vocali, niente conferme di lettura nell'MVP: non stiamo rifacendo WhatsApp.
+- Vocali e conferme di lettura non entrano nell'MVP: prima trilli ed emoticon, poi il resto.
 - Messaggi non cifrati end-to-end nell'MVP: la scelta va scritta in modo chiaro nell'informativa privacy.
 
 ### 3. Profilo
@@ -107,7 +122,7 @@ Se hai una proposta migliore, spiegamela prima di procedere.
 ## Sicurezza e benessere (target 13-20 anni)
 Questa sezione ha la precedenza su qualsiasi funzionalità. Se una funzione la mette in discussione, fermati e chiedimi.
 
-- **Età minima**: in Italia sotto i 14 anni serve il **consenso dei genitori** per il trattamento dei dati. Proposta: **MVP aperto dai 14 anni**; i 13enni in una fase successiva, con flusso di consenso del genitore (email del genitore + conferma). Chiedimi conferma.
+- **Età minima: 14 anni** (deciso). In Italia sotto i 14 anni serve il consenso dei genitori: per ora non apriamo ai 13enni. Il target ha un'età non troppo alta, quindi il cuore dell'app è la fascia 14-17.
 - **Fasce d'età**: 14-17 e 18-20 (più 13 quando aperto). Tra minorenni e maggiorenni:
   - l'amicizia è possibile **solo tramite QR code di persona o contatto reciproco in rubrica**, mai tramite username o link;
   - la cotta segreta funziona **solo dentro la stessa fascia**;
@@ -160,11 +175,11 @@ Questa sezione ha la precedenza su qualsiasi funzionalità. Se una funzione la m
 1. **Fase 0** — Setup progetto, `CLAUDE.md`, struttura cartelle, Supabase locale, development build, CI di base.
 2. **Fase 1** — Registrazione con data di nascita e fasce d'età, profili, amicizie (QR, invito, username, rubrica con HMAC), blocco e segnalazione, stati e messaggio personale.
 3. **Fase 2** — Chat 1:1 leggera e trilli: animazione, vibrazione, suono, push, cooldown, combo, silenzia, ore di silenzio.
-4. **Fase 3** — Emoticon collezionabili: catalogo, pacchetto iniziale, "Prendila!", economia, scorciatoie, album, provenienza, premio per gli inviti, analytics, anti-trucco con test.
+4. **Fase 3** — Emoticon collezionabili: catalogo, Studio a pezzi con revisione, pacchetto iniziale, "Prendila!", economia, scorciatoie, album, provenienza, premio per gli inviti, analytics, anti-trucco con test.
    **→ Qui c'è l'MVP**: lo facciamo provare a un gruppo ristretto (20-30 persone, con i consensi necessari) e misuriamo se le emoticon circolano davvero.
 5. **Fase 4** — Cotta segreta, fusioni, badge, eventi stagionali, moderazione automatica delle foto.
 6. **Fase 5** — Vetrina avanzata, storie, chat di gruppo.
-7. **Fase 6** — Extra scelti dalla lista sopra; apertura ai 13enni con consenso dei genitori.
+7. **Fase 6** — Extra scelti dalla lista sopra, Studio con caricamento di disegni, serie di artisti e brand.
 
 Alla fine di ogni fase: fermati, riassumimi cosa hai fatto, come provarlo sul telefono (development build) e cosa resta aperto.
 
