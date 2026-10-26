@@ -81,7 +81,7 @@ Non nell'MVP, ma progetta il catalogo in modo che sia possibile: un brand può l
 ---
 
 ## Vincolo importante sugli asset
-L'app deve **evocare** MSN, non copiarlo. Non usare emoticon, suoni, loghi, nomi o grafiche di Microsoft/MSN. Tutte le emoticon, i suoni (incluso quello dello zing e del "contatto online") e le skin devono essere **originali**, nello stile nostalgico anni 2000 riletto per la Gen Z: faccine tonde, colori saturi, animazioni piccole e ironiche, effetti "glossy". Per l'MVP crea placeholder originali (SVG o Lottie semplici) e una struttura che mi permetta di sostituirli con gli asset di un illustratore.
+L'app deve **evocare** MSN, non copiarlo. Non usare emoticon, suoni, loghi, nomi o grafiche di Microsoft/MSN. Tutte le emoticon, i suoni (incluso quello dello zing e del "contatto online") e le skin devono essere **originali**, nello stile nostalgico anni 2000 riletto per la Gen Z: faccine tonde, colori saturi, animazioni piccole e ironiche, effetti "glossy". Includi una famiglia di emoticon con **occhi dolci** (occhioni lucidi e supplichevoli, stile QQ e sticker asiatici): sono tra le più usate per chiedere attenzioni e si sposano con lo zing. Per l'MVP crea placeholder originali (SVG o Lottie semplici) e una struttura che mi permetta di sostituirli con gli asset di un illustratore.
 
 Prima del lancio va verificata la disponibilità del nome "Zing" come marchio e dei domini, in Italia e nei mercati principali. Il repository si chiama ancora `trillo`: si può rinominare su GitHub quando il nome è confermato.
 
