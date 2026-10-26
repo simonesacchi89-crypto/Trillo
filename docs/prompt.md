@@ -1,12 +1,14 @@
-# Prompt per Claude Code — App "Trillo" (nome provvisorio)
+# Prompt per Claude Code — App "Zing"
 
 ## Il progetto in una frase
 Costruisci un'app mobile **di svago** per ragazzi e ragazze **dai 14 ai 20 anni**: un'app **nuova, del 2026**, con le **vibes del 2005-2006**. È un ibrido tra tre mondi:
-- **MSN Messenger**: lista contatti con stati, messaggio personale, "sto ascoltando", **trilli** che fanno vibrare la chat, emoticon glossy;
+- **MSN Messenger**: lista contatti con stati, messaggio personale, "sto ascoltando", gli **zing** (i "trilli") che fanno vibrare la chat, emoticon glossy e animate;
 - **Instagram**: profilo con vetrina, storie 24h solo per gli amici;
 - **WhatsApp**: chat in tempo reale con gli amici, semplice e immediata.
 
-Il centro di tutto sono i **trilli come segnale di interesse** e le **emoticon collezionabili**, che puoi avere solo se qualcuno te le manda. Non deve sostituire WhatsApp per le cose serie: è il posto dove si gioca, si colleziona e ci si fa notare. Quando devi scegliere tra "più utile" e "più divertente", scegli divertente.
+Il centro di tutto sono gli **zing come segnale di interesse** e le **emoticon collezionabili**, che puoi avere solo se qualcuno te le manda. Non deve sostituire WhatsApp per le cose serie: è il posto dove si gioca, si colleziona e ci si fa notare. Quando devi scegliere tra "più utile" e "più divertente", scegli divertente.
+
+L'app è **internazionale**: interfaccia in **inglese di default** e in **italiano**, predisposta per altre lingue. Le parole chiave (Zing!, Grab it!, Combo, Studio) restano uguali in tutte le lingue, come marchio.
 
 Esiste già un prototipo cliccabile in `prototype/index.html`: usalo come riferimento per il tono, lo stile grafico e le interazioni.
 
@@ -14,16 +16,16 @@ Prima di scrivere codice entra in plan mode, leggi tutto questo documento, crea 
 
 ---
 
-## Il trillo come segnale di interesse
-Il trillo è il gesto principale dell'app: costa un tocco e dice "ci sei?", "ti penso", "mi stai simpatico/a". Deve essere **leggero, giocoso e mai invadente**.
+## Lo zing come segnale di interesse
+Lo zing (il "trillo" di MSN) è il gesto principale dell'app: costa un tocco e dice "ci sei?", "ti penso", "mi stai simpatico/a". Deve essere **leggero, giocoso e mai invadente**.
 
-- Un trillo fa **tremare lo schermo della chat** del destinatario, con vibrazione e suono dedicato. Ad app chiusa arriva una push con suono personalizzato (su iOS la vibrazione delle push non si può personalizzare: va bene così).
+- Uno zing fa **tremare lo schermo della chat** del destinatario, con vibrazione e suono dedicato. Ad app chiusa arriva una push con suono personalizzato (su iOS la vibrazione delle push non si può personalizzare: va bene così).
 - Si manda **solo agli amici** (amicizia reciproca, richiesta + accettazione).
-- **Trillo combo**: se due amici si mandano un trillo a vicenda entro 3 secondi, parte un'animazione speciale doppia.
-- **Cotta segreta**: ogni utente può segnare in segreto fino a 3 amici come "cotta". Nessuno lo vede. Se la cotta è **reciproca**, a entrambi arriva un "trillo del destino" con animazione speciale e un'emoticon esclusiva. Se non è reciproca, non succede niente e nessuno lo saprà mai. Niente messaggi anonimi: l'unica cosa che si rivela è una corrispondenza reciproca. Solo tra utenti della stessa fascia d'età (vedi sicurezza).
-- **Anti-spam e rispetto**: cooldown per conversazione, limite giornaliero (configurabili), possibilità di silenziare i trilli di una persona. Chi silenzia non viene notificato.
-- **Ore di silenzio**: per i minori, di default dalle 23 alle 7 i trilli arrivano senza suono né vibrazione e si vedono al risveglio.
-- Il contatore di trilli ricevuti/inviati è **visibile solo a se stessi**: niente classifiche di popolarità.
+- **Zing Combo**: se due amici si mandano uno zing a vicenda entro 3 secondi, parte un'animazione speciale doppia.
+- **Cotta segreta**: ogni utente può segnare in segreto fino a 3 amici come "cotta". Nessuno lo vede. Se la cotta è **reciproca**, a entrambi arriva uno **Destiny Zing** ("Zing del destino") con animazione speciale e un'emoticon esclusiva. Se non è reciproca, non succede niente e nessuno lo saprà mai. Niente messaggi anonimi: l'unica cosa che si rivela è una corrispondenza reciproca. Solo tra utenti della stessa fascia d'età (vedi sicurezza).
+- **Anti-spam e rispetto**: cooldown per conversazione, limite giornaliero (configurabili), possibilità di silenziare gli zing di una persona. Chi silenzia non viene notificato.
+- **Ore di silenzio**: per i minori, di default dalle 23 alle 7 gli zing arrivano senza suono né vibrazione e si vedono al risveglio.
+- Il contatore di zing ricevuti/inviati è **visibile solo a se stessi**: niente classifiche di popolarità.
 
 ---
 
@@ -31,8 +33,10 @@ Il trillo è il gesto principale dell'app: costa un tocco e dice "ci sei?", "ti 
 
 **Regola base**: un'emoticon la puoi usare solo se ce l'hai. E l'unico modo per averla è **riceverla da qualcun altro**.
 
-- **Pacchetto iniziale**: alla registrazione ognuno riceve un set casuale (8 comuni + 1 non comune), diverso per ognuno, così le emoticon iniziano subito a circolare.
-- **Prendila!**: quando ricevi in chat un'emoticon che non hai, la vedi comunque e sotto compare il pulsante **"Prendila!"** con un'animazione da figurina. Toccandolo entra nella tua collezione.
+- **Pacchetto iniziale**: alla registrazione ognuno riceve un set casuale (8 comuni + 1 non comune + una serie di pezzi base), diverso per ognuno, così le emoticon iniziano subito a circolare.
+- **Grab it!**: quando ricevi in chat un'emoticon che non hai, la vedi comunque e sotto compare il pulsante **"Grab it!"** con un'animazione da figurina. Toccandolo entra nella tua collezione. Se il messaggio contiene più pezzi che non hai, il pulsante diventa "Grab them! (n)".
+- **Animate**: come su MSN, le emoticon si muovono. Ognuna ha un movimento (salta, dondola, pulsa, fluttua, trema) più dettagli come gli occhi che sbattono, le ruote che girano, la fiamma che sfarfalla. Animazioni piccole e leggere, ferme se l'utente ha attivato "riduci movimento".
+- **Componibili**: su MSN si mettevano in fila più emoticon per fare disegni più grandi. In Zing esistono i **pezzi** (Parts), collezionabili come le emoticon e disegnati per **incastrarsi** in fila: locomotiva + vagoni + ultimo vagone fanno un treno, punta + corpo + motore fanno un razzo, testa + corpo + coda fanno un bruco che ondeggia. Nella chat si compone un **mix** toccando facce e pezzi, e lo si invia come un unico messaggio. Nuove serie di pezzi possono uscire come eventi. Niente armi né contenuti violenti tra i pezzi ufficiali.
 - **Rarità**: Comune, Non comune, Rara, Epica, Leggendaria.
 - **Provenienza**: ogni emoticon ricorda chi te l'ha passata e quando ("Ricevuta da Marco, 12 ottobre"). Statistiche globali: quante persone ce l'hanno, quante volte è passata di mano.
 - **Paziente zero**: badge per i primi possessori di un'emoticon.
@@ -40,7 +44,7 @@ Il trillo è il gesto principale dell'app: costa un tocco e dice "ci sei?", "ti 
 - **Album**: schermata stile album di figurine, con le sagome grigie delle emoticon mancanti, divise per rarità e serie.
 
 ### Economia (regole di partenza, tutte configurabili in una tabella `economy_config`)
-Mandare un'emoticon in chat non la consuma mai. Quello che è limitato è **passarla a qualcuno di nuovo**: il "passaggio" si conta solo quando il destinatario tocca "Prendila!".
+Mandare un'emoticon in chat non la consuma mai. Quello che è limitato è **passarla a qualcuno di nuovo**: il "passaggio" si conta solo quando il destinatario tocca "Grab it!".
 
 | Rarità | Passaggi a settimana | Altri limiti |
 |---|---|---|
@@ -59,8 +63,8 @@ Se finisci i passaggi, il destinatario vede l'emoticon ma il pulsante dice "Ripr
 - Le ricette delle fusioni restano solo sul server: il client manda due emoticon e riceve il risultato, non vede mai la tabella.
 
 ### Emoticon create dalla community (Studio)
-Su MSN le emoticon di base le disegnavano i designer di Microsoft, ma c'erano anche le **emoticon personalizzate**: ognuno poteva caricare la sua immagine, e chi la riceveva in chat poteva aggiungerla alla propria lista. Trillo riprende quell'idea, in modo sicuro:
-- **Studio**: l'utente crea un'emoticon **componendo pezzi** (colore, occhi, bocca, accessorio). Niente immagini caricate nell'MVP: così la moderazione resta semplice e non entrano contenuti protetti da copyright o inadatti ai minori.
+Su MSN le emoticon di base le disegnavano i designer di Microsoft, ma c'erano anche le **emoticon personalizzate**: ognuno poteva caricare la sua immagine, e chi la riceveva in chat poteva aggiungerla alla propria lista. Zing riprende quell'idea, in modo sicuro:
+- **Studio**: l'utente crea un'emoticon **componendo pezzi** (colore, occhi, bocca, accessorio, movimento). Niente immagini caricate nell'MVP: così la moderazione resta semplice e non entrano contenuti protetti da copyright o inadatti ai minori.
 - Ogni creazione va in **revisione** (la "Redazione": all'inizio noi, poi strumenti di moderazione). Se approvata entra nel catalogo come "Community", e chi l'ha creata è **Paziente Zero**.
 - Da lì circola come tutte le altre: solo chi la riceve può averla.
 - Più avanti: **artisti e illustratori** invitati a creare serie ufficiali, e caricamento di disegni originali con moderazione.
@@ -71,21 +75,21 @@ Non nell'MVP, ma progetta il catalogo in modo che sia possibile: un brand può l
 ---
 
 ## Vincolo importante sugli asset
-L'app deve **evocare** MSN, non copiarlo. Non usare emoticon, suoni, loghi, nomi o grafiche di Microsoft/MSN. Tutte le emoticon, i suoni (incluso quello del trillo e del "contatto online") e le skin devono essere **originali**, nello stile nostalgico anni 2000 riletto per la Gen Z: faccine tonde, colori saturi, animazioni piccole e ironiche, effetti "glossy". Per l'MVP crea placeholder originali (SVG o Lottie semplici) e una struttura che mi permetta di sostituirli con gli asset di un illustratore.
+L'app deve **evocare** MSN, non copiarlo. Non usare emoticon, suoni, loghi, nomi o grafiche di Microsoft/MSN. Tutte le emoticon, i suoni (incluso quello dello zing e del "contatto online") e le skin devono essere **originali**, nello stile nostalgico anni 2000 riletto per la Gen Z: faccine tonde, colori saturi, animazioni piccole e ironiche, effetti "glossy". Per l'MVP crea placeholder originali (SVG o Lottie semplici) e una struttura che mi permetta di sostituirli con gli asset di un illustratore.
 
-Prima del lancio va verificata la disponibilità del nome "Trillo" come marchio (in italiano era anche il nome del "nudge" di MSN).
+Prima del lancio va verificata la disponibilità del nome "Zing" come marchio e dei domini, in Italia e nei mercati principali. Il repository si chiama ancora `trillo`: si può rinominare su GitHub quando il nome è confermato.
 
 ---
 
 ## Stack consigliato
 - **App**: React Native + Expo + TypeScript, Expo Router. **Development build fin dalla Fase 0** (le push su Android non funzionano in Expo Go).
 - **Backend**: Supabase (Postgres, Auth, Realtime, Storage, Edge Functions), progetto in regione UE.
-- **Animazioni**: Lottie (`lottie-react-native`) o Rive per emoticon e trilli; Reanimated per lo scuotimento della chat.
+- **Animazioni**: Lottie (`lottie-react-native`) o Rive per emoticon, pezzi e zing; Reanimated per lo scuotimento della chat.
 - **Vibrazione e suoni**: `expo-haptics`, `expo-audio` (non `expo-av`, che è deprecato).
-- **Notifiche push**: Expo Notifications, con suono personalizzato del trillo.
+- **Notifiche push**: Expo Notifications, con suono personalizzato dello zing.
 - **Stato client**: Zustand + TanStack Query.
 - **Analytics**: eventi anonimi salvati nel nostro database (o uno strumento self-hosted in UE). **Nessun SDK pubblicitario o di tracciamento di terze parti.**
-- **Test**: Jest per la logica, pgTAP per le funzioni del database (assegnazione emoticon, economia, amicizie, trilli, cotte).
+- **Test**: Jest per la logica, pgTAP per le funzioni del database (assegnazione emoticon, economia, amicizie, zing, cotte).
 
 Se hai una proposta migliore, spiegamela prima di procedere.
 
@@ -103,13 +107,13 @@ Se hai una proposta migliore, spiegamela prima di procedere.
 - Blocco e segnalazione utenti.
 
 ### 2. Chat leggera
-- Chat 1:1 in tempo reale, con trilli ed emoticon in primo piano.
+- Chat 1:1 in tempo reale, con zing ed emoticon in primo piano, e il compositore di mix.
 - "Sta scrivendo...", invio di foto (con moderazione), cronologia.
 - **Stati alla MSN**: Online, Occupato, Torno subito, Al telefono, A pranzo, Invisibile.
 - **Messaggio personale** sotto il nome, visibile agli amici.
 - **Avviso "è online"**: opzione per ricevere un avviso quando un amico specifico si collega.
 - Eliminazione dei propri messaggi.
-- Vocali e conferme di lettura non entrano nell'MVP: prima trilli ed emoticon, poi il resto.
+- Vocali e conferme di lettura non entrano nell'MVP: prima zing ed emoticon, poi il resto.
 - Messaggi non cifrati end-to-end nell'MVP: la scelta va scritta in modo chiaro nell'informativa privacy.
 
 ### 3. Profilo
@@ -119,7 +123,7 @@ Se hai una proposta migliore, spiegamela prima di procedere.
 
 ---
 
-## Sicurezza e benessere (target 13-20 anni)
+## Sicurezza e benessere (target 14-20 anni)
 Questa sezione ha la precedenza su qualsiasi funzionalità. Se una funzione la mette in discussione, fermati e chiedimi.
 
 - **Età minima: 14 anni** (deciso). In Italia sotto i 14 anni serve il consenso dei genitori: per ora non apriamo ai 13enni. Il target ha un'età non troppo alta, quindi il cuore dell'app è la fascia 14-17.
@@ -140,11 +144,11 @@ Questa sezione ha la precedenza su qualsiasi funzionalità. Se una funzione la m
 1. **Fusioni**: unendo due emoticon possedute se ne ottiene una nuova (faccina + cuore = faccina innamorata). Ricette segrete; chi ne scopre una per primo riceve un badge.
 2. **Animazioni a schermo intero** ("occhiolini" alla MSN), anch'esse collezionabili.
 3. **Storie 24h** solo per gli amici, con le proprie emoticon come sticker (chi le vede può prenderle).
-4. **Chat di gruppo** (per la classe o la compagnia), con trillo di gruppo.
+4. **Chat di gruppo** (per la classe o la compagnia), con zing di gruppo.
 5. **Scambi**: proposta di scambio di emoticon tra due amici, accettata da entrambi.
 6. **Eventi stagionali**: a Halloween, Natale, fine scuola un account ufficiale manda un'emoticon speciale a pochi utenti a caso; da lì si diffonde.
 7. **Mappa della diffusione**: un grafo che mostra come un'emoticon è passata tra i tuoi amici.
-8. **Badge e obiettivi**: Collezionista (50 emoticon), Untore (hai passato un'emoticon a 20 persone), Alchimista (5 fusioni scoperte), Trillatore seriale.
+8. **Badge e obiettivi**: Collezionista (50 emoticon), Untore (hai passato un'emoticon a 20 persone), Alchimista (5 fusioni scoperte), Zinger seriale.
 9. **"Sto ascoltando"**: la canzone che stai ascoltando su Spotify sotto il nome.
 10. **Giochi in chat**: tris, forza 4, battaglia navale.
 11. **Messaggi scritti a mano**: disegni a mano libera.
@@ -157,13 +161,13 @@ Questa sezione ha la precedenza su qualsiasi funzionalità. Se una funzione la m
 - `parental_consents` (user_id, parent_email, confirmed_at) — per quando apriremo ai 13enni
 - `friendships` (user_a, user_b, status: pending/accepted/blocked, method: qr/invite/username/contacts, created_at)
 - `invites` (code, inviter_id, used_by, used_at)
-- `conversations`, `conversation_members`, `messages` (tipo: testo, immagine, emoticon, trillo, sistema; deleted_at)
-- `emoticons` (id, code, name, shortcut, rarity, series, asset_path, is_fusion, max_holders)
+- `conversations`, `conversation_members`, `messages` (tipo: testo, immagine, mix di emoticon e pezzi, zing, sistema; deleted_at)
+- `emoticons` (id, code, kind: face/part, set, name (tradotto), shortcut, rarity, series, animation, asset_path, is_fusion, max_holders)
 - `user_emoticons` (user_id, emoticon_id, acquired_at, source_user_id, source_message_id, is_patient_zero)
 - `emoticon_passes` (giver_id, receiver_id, emoticon_id, passed_at) — per i limiti dell'economia
 - `economy_config` (rarity, weekly_passes, monthly_passes, min_account_age_days, ...)
 - `fusion_recipes` (input_a, input_b, output, discovered_by, discovered_at)
-- `nudges` (sender, receiver, conversation_id, sent_at) per cooldown e statistiche
+- `zings` (sender, receiver, conversation_id, sent_at) per cooldown e statistiche
 - `crushes` (user_id, target_id, created_at) — mai leggibile dal client, solo il match
 - `reports`, `blocks`, `mutes`
 - `events`, `badges`, `user_badges`, `analytics_events`
@@ -174,8 +178,8 @@ Questa sezione ha la precedenza su qualsiasi funzionalità. Se una funzione la m
 ## Piano di sviluppo a fasi
 1. **Fase 0** — Setup progetto, `CLAUDE.md`, struttura cartelle, Supabase locale, development build, CI di base.
 2. **Fase 1** — Registrazione con data di nascita e fasce d'età, profili, amicizie (QR, invito, username, rubrica con HMAC), blocco e segnalazione, stati e messaggio personale.
-3. **Fase 2** — Chat 1:1 leggera e trilli: animazione, vibrazione, suono, push, cooldown, combo, silenzia, ore di silenzio.
-4. **Fase 3** — Emoticon collezionabili: catalogo, Studio a pezzi con revisione, pacchetto iniziale, "Prendila!", economia, scorciatoie, album, provenienza, premio per gli inviti, analytics, anti-trucco con test.
+3. **Fase 2** — Chat 1:1 leggera e zing: animazione, vibrazione, suono, push, cooldown, combo, silenzia, ore di silenzio.
+4. **Fase 3** — Emoticon collezionabili: catalogo con emoticon animate e pezzi componibili, mix in chat, Studio a pezzi con revisione, pacchetto iniziale, "Grab it!", economia, scorciatoie, album, provenienza, premio per gli inviti, analytics, anti-trucco con test.
    **→ Qui c'è l'MVP**: lo facciamo provare a un gruppo ristretto (20-30 persone, con i consensi necessari) e misuriamo se le emoticon circolano davvero.
 5. **Fase 4** — Cotta segreta, fusioni, badge, eventi stagionali, moderazione automatica delle foto.
 6. **Fase 5** — Vetrina avanzata, storie, chat di gruppo.
@@ -187,8 +191,8 @@ Alla fine di ogni fase: fermati, riassumimi cosa hai fatto, come provarlo sul te
 
 ## Criteri di qualità
 - Codice TypeScript tipizzato, componenti piccoli e riutilizzabili.
-- Tutta la logica che assegna emoticon, applica l'economia, controlla amicizie, fasce d'età, cotte e limiti dei trilli sta sul server ed è coperta da test.
+- Tutta la logica che assegna emoticon, applica l'economia, controlla amicizie, fasce d'età, cotte e limiti degli zing sta sul server ed è coperta da test.
 - Animazioni fluide (60 fps) anche su telefoni di fascia media.
-- Interfaccia in italiano, tono giovane e ironico, predisposta per altre lingue (i18n).
+- Interfaccia in inglese e italiano fin dal primo giorno (i18n con file di traduzione), tono giovane e ironico.
 - Seed del database con utenti ed emoticon di prova, più uno **script di simulazione** che fa girare la diffusione delle emoticon per qualche settimana virtuale, per verificare che le rare restino rare.
-- Metriche da tracciare fin dall'MVP: emoticon prese per utente a settimana, inviti accettati, trilli al giorno, utenti attivi dopo 7 e 30 giorni.
+- Metriche da tracciare fin dall'MVP: emoticon prese per utente a settimana, inviti accettati, zing al giorno, utenti attivi dopo 7 e 30 giorni.

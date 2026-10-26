@@ -1,4 +1,4 @@
-<title>Trillo</title>
+<title>Zing</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,8 +36,9 @@ body{
 button,input,select{font:inherit;color:inherit}
 button{cursor:pointer}
 :focus-visible{outline:3px solid var(--pink); outline-offset:2px}
+svg{overflow:visible}
 
-.stage{display:grid; grid-template-columns:minmax(0,400px) minmax(0,330px); gap:40px; justify-content:center; align-items:start; max-width:820px; margin:0 auto}
+.stage{display:grid; grid-template-columns:minmax(0,400px) minmax(0,340px); gap:40px; justify-content:center; align-items:start; max-width:830px; margin:0 auto}
 @media (max-width:800px){ .stage{grid-template-columns:minmax(0,430px); gap:24px} }
 
 /* ---------- Telefono ---------- */
@@ -55,13 +56,17 @@ button{cursor:pointer}
 .topbar::after{content:""; position:absolute; inset:0 0 52% 0; background:linear-gradient(180deg, rgb(255 255 255 / .45), rgb(255 255 255 / .05)); pointer-events:none}
 .topbar > *{position:relative; z-index:1}
 .me-nick{font-weight:800; font-size:16px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-.me-row{display:flex; gap:6px; align-items:center}
-.status-select{appearance:none; border:1px solid rgb(255 255 255 / .6); background:rgb(255 255 255 / .2); color:var(--paper); border-radius:999px; padding:1px 10px; font-size:12px; font-weight:800}
+.me-row{display:flex; gap:6px; align-items:center; min-width:0}
+.status-select{appearance:none; border:1px solid rgb(255 255 255 / .6); background:rgb(255 255 255 / .2); color:var(--paper); border-radius:999px; padding:1px 10px; font-size:12px; font-weight:800; max-width:120px}
 .status-select option{color:var(--ink)}
 .pm{width:100%; border:0; border-bottom:1px dashed transparent; background:transparent; color:var(--paper); font-size:12.5px; padding:2px 0; font-style:italic}
 .pm::placeholder{color:rgb(255 255 255 / .75)}
 .pm:focus{outline:none; border-bottom-color:rgb(255 255 255 / .8)}
-.logo{font-family:var(--font-display); font-size:24px; letter-spacing:.5px; color:var(--paper); text-shadow:0 2px 0 var(--pink-deep), 0 0 12px rgb(255 79 154 / .5); transform:rotate(-4deg)}
+.brand{display:grid; justify-items:end; gap:4px}
+.logo{font-family:var(--font-display); font-size:26px; line-height:1; letter-spacing:.5px; color:var(--paper); text-shadow:0 2px 0 var(--pink-deep), 0 0 12px rgb(255 79 154 / .5); transform:rotate(-4deg)}
+.lang{display:flex; border-radius:999px; border:1px solid rgb(255 255 255 / .6); overflow:hidden}
+.lang button{border:0; background:transparent; color:var(--paper); font-size:11px; font-weight:800; padding:2px 8px}
+.lang button.on{background:var(--paper); color:var(--aqua-deep)}
 
 .ava{
   --c:var(--aqua); flex:none; position:relative; width:44px; height:44px; border-radius:50%;
@@ -92,13 +97,15 @@ button{cursor:pointer}
 .friend{display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:6px; padding:0 10px 0 0}
 .friend-main{display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:12px; align-items:center; text-align:left; border:0; background:transparent; padding:9px 6px 9px 16px; border-radius:16px; min-width:0}
 .friend-main:hover{background:rgb(26 150 230 / .07)}
-.f-name{font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-.f-pm{font-size:12.5px; color:var(--muted); font-style:italic; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-.f-listen{font-size:11.5px; color:var(--aqua-deep); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.f-text{min-width:0}
+.f-text > span{display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.f-name{font-weight:800}
+.f-pm{font-size:12.5px; color:var(--muted); font-style:italic}
+.f-listen{font-size:11.5px; color:var(--aqua-deep)}
 .f-listen::before{content:"\266B  "}
 .badge{display:inline-grid; place-items:center; min-width:20px; height:20px; padding:0 6px; border-radius:999px; background:var(--pink); color:var(--paper); font-size:11px; font-weight:800; box-shadow:inset 0 2px 2px rgb(255 255 255 / .45)}
-.badge.trill{background:var(--sun); color:var(--ink); animation:wiggle 1.2s infinite}
-.bell{border:1.5px dashed var(--aqua); background:var(--paper); color:var(--aqua-deep); border-radius:999px; font-size:11.5px; font-weight:800; padding:4px 10px}
+.badge.zing{background:var(--sun); color:var(--ink); animation:wiggle 1.2s infinite}
+.bell{border:1.5px dashed var(--aqua); background:var(--paper); color:var(--aqua-deep); border-radius:999px; font-size:11.5px; font-weight:800; padding:4px 10px; white-space:nowrap}
 .bell.on{border-style:solid; background:#e3f4ff}
 
 /* ---------- Chat ---------- */
@@ -114,32 +121,43 @@ button{cursor:pointer}
 .icon-btn.heart.on{background:var(--pink); border-color:var(--paper)}
 .msgs{flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:8px; padding:14px 12px; background:radial-gradient(var(--line) 1px, transparent 1.4px) 0 0 / 18px 18px, var(--panel)}
 .msg{display:flex}
-.msg.me{justify-content:flex-end}
-.bubble{position:relative; max-width:78%; padding:8px 12px; border-radius:18px; background:var(--paper); border:1.5px solid var(--line); box-shadow:0 2px 0 rgb(19 48 79 / .06); display:grid; gap:4px; justify-items:start}
+.msg.mine{justify-content:flex-end}
+.bubble{position:relative; max-width:84%; padding:8px 12px; border-radius:18px; background:var(--paper); border:1.5px solid var(--line); box-shadow:0 2px 0 rgb(19 48 79 / .06); display:grid; gap:4px; justify-items:start; min-width:0}
 .bubble::before{content:""; position:absolute; inset:2px 8px auto 8px; height:40%; border-radius:14px; background:linear-gradient(180deg, rgb(255 255 255 / .8), rgb(255 255 255 / 0)); pointer-events:none}
-.msg.me .bubble{background:linear-gradient(180deg, #ecffd9, #c9f3a0); border-color:#a6dc74; border-bottom-right-radius:6px; justify-items:end}
-.msg.them .bubble{border-bottom-left-radius:6px}
+.msg.mine .bubble{background:linear-gradient(180deg, #ecffd9, #c9f3a0); border-color:#a6dc74; border-bottom-right-radius:6px; justify-items:end}
+.msg.theirs .bubble{border-bottom-left-radius:6px}
 .bubble p{margin:0; position:relative; overflow-wrap:anywhere}
 .emo-inline svg{vertical-align:-6px}
-.emo-big{position:relative; animation:pop .5s cubic-bezier(.3,1.6,.5,1)}
+.strip{position:relative; display:flex; align-items:flex-end; max-width:100%; overflow-x:auto; padding-top:6px}
+.strip > *{flex:none}
+.strip .p-bug + .p-bug{margin-left:-14px}
+.strip .emo + .emo{margin-left:-2px}
+.strip.single{animation:pop .5s cubic-bezier(.3,1.6,.5,1)}
 .emo-name{font-size:11.5px; font-weight:800; color:var(--muted)}
-.prendila{border:0; border-radius:999px; padding:6px 16px; font-weight:800; color:var(--ink); background:linear-gradient(180deg, #fff2a8 0%, var(--sun) 55%, #f2a400 100%); box-shadow:inset 0 2px 1px rgb(255 255 255 / .7), 0 2px 0 #c98700; animation:bob 1.6s ease-in-out infinite}
+.grab{border:0; border-radius:999px; padding:6px 16px; font-weight:800; color:var(--ink); background:linear-gradient(180deg, #fff2a8 0%, var(--sun) 55%, #f2a400 100%); box-shadow:inset 0 2px 1px rgb(255 255 255 / .7), 0 2px 0 #c98700; animation:bob 1.6s ease-in-out infinite}
 .took{font-size:12px; font-weight:800; color:var(--lime-deep)}
 .took.muted{color:var(--muted)}
 .rar-chip{--r:var(--muted); display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.6px; color:var(--paper); background:var(--r); padding:2px 9px; border-radius:999px; box-shadow:inset 0 2px 1px rgb(255 255 255 / .45)}
 .sys{align-self:center; max-width:90%; text-align:center; font-size:12.5px; font-weight:600; color:var(--muted); background:var(--paper); border:1px solid var(--line); border-radius:999px; padding:4px 12px}
-.trillo-pill{font-family:var(--font-pixel); font-size:19px; color:var(--ink); background:var(--cream); border:2px dashed var(--sun)}
+.zing-pill{font-family:var(--font-pixel); font-size:19px; color:var(--ink); background:var(--cream); border:2px dashed var(--sun)}
 .combo-pill{font-family:var(--font-display); font-size:15px; color:var(--paper); background:linear-gradient(90deg, var(--pink), var(--sun)); border:0; letter-spacing:1px}
 .typing{min-height:20px; padding:0 14px; font-size:12px; font-style:italic; color:var(--muted)}
-.tray{display:flex; flex-wrap:wrap; gap:6px; padding:8px 10px; background:var(--paper); border-top:1px solid var(--line); max-height:150px; overflow-y:auto}
-.tray button{border:1px solid transparent; background:transparent; border-radius:12px; padding:3px}
-.tray button:hover{background:var(--panel); border-color:var(--line)}
+.mixbar{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px; align-items:center; padding:6px 10px; background:var(--cream); border-top:1px solid var(--line)}
+.mixbar .strip{padding-top:4px}
+.mixbar .strip button{border:0; background:transparent; padding:0}
+.mix-clear{border:1.5px solid var(--sun); background:var(--paper); border-radius:999px; font-size:12px; font-weight:800; padding:4px 10px}
+.tray{background:var(--paper); border-top:1px solid var(--line); max-height:190px; overflow-y:auto; padding:6px 10px 8px}
+.tray-hint{font-size:12px; color:var(--muted); margin:0 0 4px}
+.tray-label{font-family:var(--font-pixel); font-size:16px; color:var(--muted); margin:4px 0 2px}
+.tray-grid{display:flex; flex-wrap:wrap; gap:4px}
+.tray-grid button{border:1px solid transparent; background:transparent; border-radius:12px; padding:3px}
+.tray-grid button:hover{background:var(--panel); border-color:var(--line)}
 .composer{display:grid; grid-template-columns:auto minmax(0,1fr) auto auto; gap:6px; align-items:center; padding:8px 10px 4px; background:var(--paper); border-top:1px solid var(--line)}
 .composer .icon-btn{border-color:var(--line); background:var(--panel); color:var(--aqua-deep)}
 .composer input{min-width:0; border:1.5px solid var(--line); border-radius:999px; padding:9px 14px; background:var(--panel)}
 .composer input:focus{outline:none; border-color:var(--aqua)}
-.trillo-btn{border:0; border-radius:999px; padding:9px 14px; min-width:86px; font-family:var(--font-display); font-size:15px; letter-spacing:.5px; color:var(--paper); background:linear-gradient(180deg, #ff9ccb 0%, var(--pink) 55%, var(--pink-deep) 100%); box-shadow:inset 0 2px 1px rgb(255 255 255 / .6), 0 3px 0 #8e0f4b}
-.trillo-btn:disabled{filter:grayscale(.7); opacity:.75; cursor:default}
+.zing-btn{border:0; border-radius:999px; padding:9px 14px; min-width:78px; font-family:var(--font-display); font-size:16px; letter-spacing:.5px; color:var(--paper); background:linear-gradient(180deg, #ff9ccb 0%, var(--pink) 55%, var(--pink-deep) 100%); box-shadow:inset 0 2px 1px rgb(255 255 255 / .6), 0 3px 0 #8e0f4b}
+.zing-btn:disabled{filter:grayscale(.7); opacity:.75; cursor:default}
 .chat-foot{padding:2px 14px 8px; background:var(--paper); font-family:var(--font-pixel); font-size:16px; color:var(--muted)}
 
 /* ---------- Album, Studio, Profilo ---------- */
@@ -158,6 +176,7 @@ h3{font-family:var(--font-display); font-weight:400; font-size:22px; margin:0; c
 .tile:hover{border-color:var(--aqua)}
 .tile.missing{background:transparent; border-style:dashed; color:var(--muted)}
 .tile.missing svg, .silhouette svg{filter:brightness(0); opacity:.13}
+.tile.missing svg *, .silhouette svg *{animation:none !important}
 
 .studio-hero{display:grid; grid-template-columns:auto minmax(0,1fr); gap:14px; align-items:center; margin-bottom:8px}
 .preview{display:grid; place-items:center; width:128px; height:128px; border-radius:26px; background:radial-gradient(circle at 50% 40%, var(--paper), #d7eeff); border:2px solid var(--line)}
@@ -165,7 +184,7 @@ h3{font-family:var(--font-display); font-weight:400; font-size:22px; margin:0; c
 .opt-label{display:block; font-family:var(--font-pixel); font-size:18px; color:var(--muted); margin:14px 0 6px; letter-spacing:.3px}
 .opt .opt-label{margin-top:0}
 .chips{display:flex; flex-wrap:wrap; gap:6px}
-.chip{display:grid; place-items:center; width:46px; height:46px; border-radius:14px; border:1.5px solid var(--line); background:var(--paper); padding:0}
+.chip{display:grid; place-items:center; min-width:46px; height:46px; border-radius:14px; border:1.5px solid var(--line); background:var(--paper); padding:0 8px; font-size:12.5px; font-weight:800}
 .chip.on{border:2.5px solid var(--pink); background:#fff0f7}
 .sw{width:26px; height:26px; border-radius:50%; box-shadow:inset 0 -3px 5px rgb(0 0 0 / .2), inset 0 3px 3px rgb(255 255 255 / .6)}
 .field{width:100%; border:1.5px solid var(--line); border-radius:14px; padding:10px 12px; background:var(--paper)}
@@ -178,7 +197,7 @@ h3{font-family:var(--font-display); font-weight:400; font-size:22px; margin:0; c
 .state.ok{background:var(--lime); color:var(--ink)}
 
 .profile{display:grid; justify-items:center; text-align:center; padding:20px 16px}
-.profile > .field, .profile > .opt-label, .profile > .vetrina, .profile > .stats, .profile > .settings{justify-self:stretch; text-align:left}
+.profile > .field, .profile > .opt-label, .profile > .vetrina, .profile > .stats, .profile > .settings, .profile > .left{justify-self:stretch; text-align:left}
 .pf-ava{padding:6px; border-radius:50%; background:conic-gradient(from 200deg, var(--r), var(--paper), var(--r), var(--paper), var(--r)); box-shadow:0 6px 18px rgb(19 48 79 / .2); margin-bottom:8px}
 .vetrina{display:grid; grid-template-columns:repeat(3,1fr); gap:8px}
 .stats{display:grid; grid-template-columns:repeat(2,1fr); gap:8px}
@@ -193,8 +212,9 @@ h3{font-family:var(--font-display); font-weight:400; font-size:22px; margin:0; c
 /* ---------- Overlay, sheet, toast ---------- */
 .overlay{position:absolute; inset:0; z-index:20; display:grid; place-items:center; padding:20px; background:rgb(19 48 79 / .55); backdrop-filter:blur(3px)}
 .overlay.story{padding:0; background:var(--ink)}
-.card-fig{--r:var(--aqua); width:min(250px,100%); display:grid; justify-items:center; gap:6px; padding:22px 18px 18px; text-align:center; border-radius:22px; background:var(--paper); border:6px solid var(--r); box-shadow:0 0 0 3px var(--paper), 0 18px 40px rgb(0 0 0 / .35); animation:flip .7s cubic-bezier(.3,1.4,.5,1)}
+.card-fig{--r:var(--aqua); width:min(260px,100%); display:grid; justify-items:center; gap:6px; padding:22px 18px 18px; text-align:center; border-radius:22px; background:var(--paper); border:6px solid var(--r); box-shadow:0 0 0 3px var(--paper), 0 18px 40px rgb(0 0 0 / .35); animation:flip .7s cubic-bezier(.3,1.4,.5,1)}
 .card-fig p{margin:0; font-size:13px}
+.card-fig .strip{justify-content:center}
 .fig-tag{font-family:var(--font-pixel); font-size:20px; color:var(--pink); letter-spacing:2px}
 .combo, .destiny{display:grid; justify-items:center; gap:8px; text-align:center; color:var(--paper)}
 .combo h2, .destiny h2{font-size:44px; line-height:.95; color:var(--paper); text-shadow:0 3px 0 var(--pink-deep), 0 0 24px rgb(255 198 46 / .8); animation:zoom .6s cubic-bezier(.3,1.6,.5,1)}
@@ -203,7 +223,7 @@ h3{font-family:var(--font-display); font-weight:400; font-size:22px; margin:0; c
 .combo-emos{display:flex; gap:4px}
 .ce.left{animation:clashL .8s ease-in-out 2}
 .ce.right{animation:clashR .8s ease-in-out 2}
-.hearts{font-family:var(--font-display); font-size:64px; color:var(--pink); text-shadow:0 0 0 var(--paper); animation:beat 1s ease-in-out infinite}
+.hearts{font-family:var(--font-display); font-size:64px; color:var(--pink); animation:beat 1s ease-in-out infinite}
 .gift{display:grid; justify-items:center; gap:4px; padding:12px 18px; border-radius:20px; background:rgb(255 255 255 / .14); border:1.5px solid rgb(255 255 255 / .4)}
 .story-view{position:relative; width:100%; height:100%; display:grid; grid-template-rows:auto auto 1fr auto; padding:12px 16px 28px; color:var(--paper)}
 .sv-bar{height:4px; border-radius:4px; background:rgb(255 255 255 / .35); overflow:hidden}
@@ -223,14 +243,41 @@ h3{font-family:var(--font-display); font-weight:400; font-size:22px; margin:0; c
 
 /* ---------- Guida ---------- */
 .guide{padding:22px; border-radius:26px; background:rgb(255 255 255 / .82); border:2px solid var(--paper); box-shadow:0 14px 34px rgb(19 48 79 / .18); min-width:0}
-.guide h1{font-family:var(--font-display); font-weight:400; font-size:52px; line-height:1; margin:0; color:var(--aqua); text-shadow:0 3px 0 var(--aqua-deep); transform:rotate(-3deg); transform-origin:left}
+.guide h1{font-family:var(--font-display); font-weight:400; font-size:56px; line-height:1; margin:0; color:var(--aqua); text-shadow:0 3px 0 var(--aqua-deep); transform:rotate(-3deg); transform-origin:left}
 .guide .tag{font-family:var(--font-pixel); font-size:20px; color:var(--pink); margin:8px 0 14px}
 .guide ol{margin:0; padding-left:20px; display:grid; gap:8px}
-.guide li{padding-left:2px}
 .guide code{font-family:var(--font-pixel); font-size:18px; background:var(--cream); padding:0 5px; border-radius:6px}
 .guide .note{font-size:12.5px; color:var(--muted); margin:14px 0 0}
 
-/* ---------- Animazioni ---------- */
+/* ---------- Emoticon animate ---------- */
+.emo .face, .piece .part{transform-box:fill-box; transform-origin:50% 90%}
+.a-bounce .face{animation:e-bounce 1.4s ease-in-out infinite}
+.a-wobble .face{animation:e-wobble 1.8s ease-in-out infinite}
+.a-pulse .face{transform-origin:50% 50%; animation:e-pulse .9s ease-in-out infinite}
+.a-float .face{animation:e-float 2.6s ease-in-out infinite}
+.a-shiver .face{animation:e-shiver .32s linear infinite}
+.emo .blink{transform-box:fill-box; transform-origin:50% 50%; animation:e-blink 3.8s infinite}
+.wheel{transform-box:fill-box; transform-origin:50% 50%; animation:spin .9s linear infinite}
+.smoke{animation:smoke 1.5s ease-out infinite}
+.flame{transform-box:fill-box; transform-origin:0% 50%; animation:flick .16s ease-in-out infinite alternate}
+.p-train .part{animation:chug .45s ease-in-out infinite}
+.p-rocket .part{animation:e-float 1.6s ease-in-out infinite}
+.p-bug .part{animation:wave 1s ease-in-out infinite; animation-delay:calc(var(--i, 0) * -.16s)}
+.still, .still *{animation:none !important}
+
+@keyframes e-bounce{0%,100%{transform:translateY(0) scale(1,1)}40%{transform:translateY(-5px) scale(.97,1.03)}80%{transform:translateY(0) scale(1.04,.96)}}
+@keyframes e-wobble{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
+@keyframes e-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+@keyframes e-float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-5px) rotate(2deg)}}
+@keyframes e-shiver{0%,100%{transform:translateX(0)}25%{transform:translateX(-1.5px) rotate(-2deg)}75%{transform:translateX(1.5px) rotate(2deg)}}
+@keyframes e-blink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes smoke{0%{transform:translate(0,4px); opacity:0}30%{opacity:.9}100%{transform:translate(6px,-8px); opacity:0}}
+@keyframes flick{from{transform:scaleX(.7)}to{transform:scaleX(1.12)}}
+@keyframes chug{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.5px)}}
+@keyframes wave{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+/* ---------- Animazioni interfaccia ---------- */
 @keyframes shake{0%,100%{transform:translate(0,0)}10%{transform:translate(-10px,3px) rotate(-1deg)}20%{transform:translate(9px,-4px) rotate(1deg)}30%{transform:translate(-8px,4px)}40%{transform:translate(8px,-2px) rotate(.6deg)}50%{transform:translate(-6px,3px)}60%{transform:translate(5px,-3px)}70%{transform:translate(-3px,2px)}80%{transform:translate(3px,-1px)}90%{transform:translate(-1px,1px)}}
 .shake{animation:shake .65s}
 @keyframes pop{0%{transform:scale(.3)}100%{transform:scale(1)}}
@@ -249,36 +296,33 @@ h3{font-family:var(--font-display); font-weight:400; font-size:22px; margin:0; c
   *,*::before,*::after{animation-duration:.01ms !important; animation-iteration-count:1 !important}
   .shake{animation:flash .6s !important}
 }
-@media (max-width:440px){ .phone{border-radius:26px} .guide h1{font-size:44px} }
+@media (max-width:440px){ .phone{border-radius:26px} .guide h1{font-size:46px} }
 </style>
 
 <div class="stage">
-  <main class="phone" id="phone" aria-label="Prototipo dell'app Trillo">
+  <main class="phone" id="phone">
     <header class="topbar">
       <span class="ava" id="meAva" style="--c:var(--pink)">S</span>
       <div style="min-width:0">
-        <div class="me-row"><span class="me-nick" id="meNick"></span>
-          <select id="status" class="status-select" aria-label="Il tuo stato">
-            <option value="online">Online</option><option value="occupato">Occupato</option><option value="torno">Torno subito</option><option value="telefono">Al telefono</option><option value="pranzo">A pranzo</option><option value="invisibile">Invisibile</option>
-          </select>
-        </div>
-        <input id="pmInput" class="pm" maxlength="60" aria-label="Messaggio personale" placeholder="Scrivi un messaggio personale">
+        <div class="me-row"><span class="me-nick" id="meNick"></span><select id="status" class="status-select"></select></div>
+        <input id="pmInput" class="pm" maxlength="60">
       </div>
-      <span class="logo" aria-hidden="true">trillo</span>
+      <div class="brand"><span class="logo" aria-hidden="true">zing</span><div class="lang" id="lang"><button data-lang="en">EN</button><button data-lang="it">IT</button></div></div>
     </header>
     <section class="screens" id="screens"></section>
-    <nav class="tabs" id="tabs" aria-label="Sezioni"></nav>
+    <nav class="tabs" id="tabs"></nav>
 
     <div class="chat" id="chat" hidden>
       <div class="chat-head" id="chatHead"></div>
       <div class="msgs" id="msgs" aria-live="polite"></div>
       <div class="typing" id="typing"></div>
+      <div class="mixbar" id="mixbar" hidden></div>
       <div class="tray" id="tray" hidden></div>
       <form class="composer" id="composer">
-        <button type="button" class="icon-btn" data-tray aria-label="Le tue emoticon" id="trayBtn"></button>
-        <input id="msgInput" autocomplete="off" placeholder="Scrivi... prova :) o (H)">
-        <button type="submit" class="icon-btn" aria-label="Invia"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5 21.5 12 3 3.5v6.6L15 12 3 13.9z"/></svg></button>
-        <button type="button" class="trillo-btn" id="trilloBtn" data-trillo>Trillo!</button>
+        <button type="button" class="icon-btn" data-tray id="trayBtn"></button>
+        <input id="msgInput" autocomplete="off">
+        <button type="submit" class="icon-btn" id="sendBtn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5 21.5 12 3 3.5v6.6L15 12 3 13.9z"/></svg></button>
+        <button type="button" class="zing-btn" id="zingBtn" data-zing>Zing!</button>
       </form>
       <div class="chat-foot" id="chatFoot"></div>
     </div>
@@ -288,21 +332,7 @@ h3{font-family:var(--font-display); font-weight:400; font-size:22px; margin:0; c
     <button class="toast" id="toast" hidden></button>
   </main>
 
-  <aside class="guide" aria-label="Come provare il prototipo">
-    <h1>trillo</h1>
-    <p class="tag">prototipo · app 2026, vibes 2005</p>
-    <ol>
-      <li>Apri la chat con <b>MaRkO_xX</b> e tocca <b>Prendila!</b> sotto gli occhiali smeraldo.</li>
-      <li>Manda un <b>Trillo!</b> a <b>*~Giuly~*</b>. Se te lo rimanda entro 3 secondi parte la combo.</li>
-      <li>Nella chat con Giuly tocca il cuore in alto: è la <b>cotta segreta</b>.</li>
-      <li>Scrivi <code>:)</code> e poi <code>(H)</code>. La seconda resta testo finché qualcuno non ti passa l'emoticon Cool.</li>
-      <li>Guarda le <b>storie</b> in alto nella lista amici: gli sticker si possono prendere.</li>
-      <li>Crea la tua emoticon nello <b>Studio</b> e mandala alla Redazione.</li>
-      <li>Tocca <b>Avvisami</b> accanto a ~luKa~ per sapere quando si collega.</li>
-    </ol>
-    <button class="btn-gloss pink" data-sim>Simula un trillo in arrivo</button>
-    <p class="note">Amici e messaggi sono finti e tutto gira nel tuo browser: non viene inviato niente a nessuno. Le emoticon sono originali, generate con il codice.</p>
-  </aside>
+  <aside class="guide" id="guide"></aside>
 </div>
 
 <script>
@@ -311,10 +341,110 @@ const $ = s => document.querySelector(s);
 const esc = t => String(t).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const pick = a => a[Math.floor(Math.random()*a.length)];
 
+/* ---------- Lingue ---------- */
+let L = 'en';
+try { const saved = localStorage.getItem('zing-lang'); if (saved === 'it' || saved === 'en') L = saved; } catch(e){}
+const STR = {
+  en:{
+    st_online:'Online', st_occupato:'Busy', st_torno:'Be right back', st_telefono:'On the phone', st_pranzo:'Out to lunch', st_invisibile:'Appear offline', st_offline:'Offline',
+    tab_amici:'Friends', tab_album:'Album', tab_studio:'Studio', tab_profilo:'Profile',
+    pm_ph:'Write a personal message', pm_aria:'Personal message', status_aria:'Your status', sections:'Sections', app_aria:'Zing app prototype',
+    grp_online:'Online ({n})', grp_offline:'Offline ({n})', badge_zing:'zing!', notify:'Notify me', notifying:'Will do', story_of:'Story by {name}',
+    album_note:'Emoticons can’t be bought: someone has to send them to you.', of:'{a} of {b}', part:'Part',
+    studio_intro:'Build your own emoticon from Studio parts, and choose how it moves. If the review team approves it, it goes into circulation and you are Patient Zero.',
+    opt_color:'Color', opt_eyes:'Eyes', opt_mouth:'Mouth', opt_acc:'Accessory', opt_anim:'Motion', opt_name:'Name', name_ph:'E.g. Test-day face',
+    an_bounce:'Bounce', an_wobble:'Wobble', an_pulse:'Pulse', an_float:'Float', an_shiver:'Shiver', an_still:'Still',
+    submit:'Send for review', studio_note:'No uploads: only Studio parts, so moderation stays simple and safe.',
+    in_review:'In review', approved:'Approved', review_wait:'The review team is looking at it...', review_ok:'You are Patient Zero. Now you can pass it to friends.',
+    frame:'{r} frame', frame_note:'Your frame changes with the rarest emoticon you own.', nickname:'Nickname', showcase:'Showcase', showcase_note:'To change it, tap an emoticon in the album.',
+    numbers:'Your numbers · only you see them', s_sent:'Zings sent', s_recv:'Zings received', s_emo:'Emoticons', s_crush:'Secret crushes',
+    settings:'Settings', quiet:'Quiet hours 23:00–07:00', quiet_note:'At night, zings arrive without sound or vibration.', ageband:'Age group: 14-17', ageband_note:'Secret crush only works within your age group.',
+    zing_sent:'~ You sent a Zing! ~', zing_recv:'~ {name} sent you a Zing! ~', combo:'ZING COMBO!', no_msgs:'No messages yet. Break the ice with a Zing.',
+    grab:'Grab it!', grab_n:'Grab them! ({n})', taken:'Grabbed! It’s in your album', have:'You already have it',
+    typing:'{name} is typing...', input_ph:'Type... try :) or (H)', foot:'zings today {n}/30 · 5 s pause between zings',
+    mix_hint:'Tap faces and parts to chain them into a mix, then hit send. Parts snap together.', mix_faces:'Faces', mix_parts:'Parts', mix_clear:'Clear', my_emos:'Your emoticons', send:'Send', back:'Back to friends', crush_aria:'Secret crush',
+    offline_note:'{name} is offline: they’ll read it when they’re back.', sent_emo:'sent you an emoticon',
+    daily_out:'You’re out of zings for today. Tomorrow you start again!', combo_hint:'Zing back within 3 seconds for a combo!',
+    combo_text:'You and {name} zinged each other in under 3 seconds.', combo_btn:'So cool',
+    passes_out:'{name} has used up their {r} passes for {period}. Try again later!', passes_left:'{name} can pass {n} more {r} ones {period}.', week:'this week', month:'this month',
+    new:'NEW!', from_line:'From <b>{name}</b> · today', to_album:'Into the album!', and_more:'+ {n} more',
+    crush_title:'Secret crush', crush_text:'Nobody will ever know you picked {name}. If {name} picks you too, you both get a <b>Destiny Zing</b>. If not, nothing happens.',
+    crush_used:'Crushes used: {n}/3 · Only works with people in your age group.', crush_pick:'Pick {name}', crush_remove:'Remove crush', not_now:'Not now',
+    crush_removed:'Crush removed. Nobody will know.', crush_full:'You already have 3 secret crushes. Remove one to pick another.', crush_set:'Done. It stays a secret between you and the app.',
+    destiny_sys:'Destiny Zing: you picked each other', destiny_title:'Destiny<br>Zing', destiny_text:'You and {name} picked each other. Now you both know.', destiny_gift:'{r} · just for you two', destiny_btn:'Aww',
+    story_meta:'2 h ago · friends only', close_story:'Close story',
+    missing_text:'You don’t have it yet. The only way to get it is for a friend to send it to you.', holders:'Owned by {n} people.', holders_pass:'Owned by {n} people · changed hands {m} times.',
+    only_you:'Only you, for now.', shortcut:'Shortcut: <b>{s}</b>', created_by_you:'Created by you: you are Patient Zero', received_from:'Received from <b>{name}</b>, {date}',
+    in_showcase:'It’s already in your showcase.', put_showcase:'Add to showcase', close:'Close', ok:'OK', showcased:'Added to your showcase: friends see it on your profile.',
+    need_name:'Give your emoticon a name before sending it.', sent_review:'Sent for review. It usually doesn’t take long.', approved_toast:'The review team approved "{name}"! Now you can send it to friends.',
+    notify_set:'We’ll tell you when {name} comes online.', is_online:'{name} is online!', starter:'Starter pack', today:'today', oct:'26 October', community:'Community',
+    g_tag:'prototype · a 2026 app with 2005 vibes', g_sim:'Simulate an incoming Zing',
+    g_note:'Friends and messages are fake and everything runs in your browser: nothing is sent to anyone. Emoticons and sounds are original, generated by code.',
+    g_steps:[
+      'Open <b>MaRkO_xX</b>’s chat and tap <b>Grab it!</b> on the emerald shades and on the train.',
+      'Tap the smiley next to the text box: chain faces and parts into a mix (a longer train, a caterpillar) and send it.',
+      'Send a <b>Zing!</b> to <b>*~Giuly~*</b>. If Giuly zings back within 3 seconds you get a combo.',
+      'In Giuly’s chat, tap the heart at the top: that’s the <b>secret crush</b>.',
+      'Type <code>:)</code> and then <code>(H)</code>. The second stays text until someone passes you the Cool emoticon.',
+      'Watch the <b>stories</b> at the top of the friends list: stickers can be grabbed.',
+      'Make your own emoticon in the <b>Studio</b>, including how it moves.',
+      'Tap <b>Notify me</b> next to ~luKa~ to know when they come online.'
+    ]
+  },
+  it:{
+    st_online:'Online', st_occupato:'Occupato', st_torno:'Torno subito', st_telefono:'Al telefono', st_pranzo:'A pranzo', st_invisibile:'Invisibile', st_offline:'Offline',
+    tab_amici:'Amici', tab_album:'Album', tab_studio:'Studio', tab_profilo:'Profilo',
+    pm_ph:'Scrivi un messaggio personale', pm_aria:'Messaggio personale', status_aria:'Il tuo stato', sections:'Sezioni', app_aria:'Prototipo dell’app Zing',
+    grp_online:'Online ({n})', grp_offline:'Offline ({n})', badge_zing:'zing!', notify:'Avvisami', notifying:'Ti avviso', story_of:'Storia di {name}',
+    album_note:'Le emoticon non si comprano: te le deve mandare qualcuno.', of:'{a} su {b}', part:'Pezzo',
+    studio_intro:'Crea la tua emoticon con i pezzi dello Studio e scegli come si muove. Se la Redazione la approva entra in circolo, e tu sei Paziente Zero.',
+    opt_color:'Colore', opt_eyes:'Occhi', opt_mouth:'Bocca', opt_acc:'Accessorio', opt_anim:'Movimento', opt_name:'Nome', name_ph:'Es. Faccia da verifica',
+    an_bounce:'Salta', an_wobble:'Dondola', an_pulse:'Pulsa', an_float:'Fluttua', an_shiver:'Trema', an_still:'Ferma',
+    submit:'Invia alla Redazione', studio_note:'Niente immagini caricate: solo pezzi dello Studio, così la moderazione resta semplice e sicura.',
+    in_review:'In revisione', approved:'Approvata', review_wait:'La Redazione la sta guardando...', review_ok:'Sei Paziente Zero. Ora puoi passarla agli amici.',
+    frame:'Cornice {r}', frame_note:'La cornice cambia con l’emoticon più rara che possiedi.', nickname:'Nickname', showcase:'Vetrina', showcase_note:'Per cambiarla tocca un’emoticon nell’album.',
+    numbers:'I tuoi numeri · li vedi solo tu', s_sent:'Zing inviati', s_recv:'Zing ricevuti', s_emo:'Emoticon', s_crush:'Cotte segrete',
+    settings:'Impostazioni', quiet:'Ore di silenzio 23:00–07:00', quiet_note:'Di notte gli zing arrivano senza suono né vibrazione.', ageband:'Fascia d’età: 14-17', ageband_note:'La cotta segreta funziona solo con chi è nella tua fascia.',
+    zing_sent:'~ Hai mandato uno Zing! ~', zing_recv:'~ {name} ti ha mandato uno Zing! ~', combo:'ZING COMBO!', no_msgs:'Nessun messaggio. Rompi il ghiaccio con uno Zing.',
+    grab:'Grab it!', grab_n:'Grab them! ({n})', taken:'Presa! È nel tuo album', have:'Ce l’hai già',
+    typing:'{name} sta scrivendo...', input_ph:'Scrivi... prova :) o (H)', foot:'zing oggi {n}/30 · pausa di 5 s tra uno zing e l’altro',
+    mix_hint:'Tocca facce e pezzi per metterli in fila, poi premi invia. I pezzi si incastrano tra loro.', mix_faces:'Facce', mix_parts:'Pezzi', mix_clear:'Svuota', my_emos:'Le tue emoticon', send:'Invia', back:'Torna agli amici', crush_aria:'Cotta segreta',
+    offline_note:'{name} è offline: leggerà quando si collega.', sent_emo:'ti ha mandato un’emoticon',
+    daily_out:'Hai finito gli zing di oggi. Domani si ricomincia!', combo_hint:'Rimandalo entro 3 secondi per la combo!',
+    combo_text:'Tu e {name} vi siete mandati uno zing a vicenda in meno di 3 secondi.', combo_btn:'Troppo forte',
+    passes_out:'{name} ha finito i passaggi {r} per {period}. Riprova più avanti!', passes_left:'{name} può passare ancora {n} {r} {period}.', week:'questa settimana', month:'questo mese',
+    new:'NUOVA!', from_line:'Ricevuta da <b>{name}</b> · oggi', to_album:'Nell’album!', and_more:'+ altri {n}',
+    crush_title:'Cotta segreta', crush_text:'Nessuno saprà mai che hai scelto {name}. Se anche {name} sceglie te, vi arriva uno <b>Zing del destino</b>. Se no, non succede niente.',
+    crush_used:'Cotte usate: {n}/3 · Funziona solo con chi è nella tua fascia d’età.', crush_pick:'Scegli {name}', crush_remove:'Togli la cotta', not_now:'Non ora',
+    crush_removed:'Cotta tolta. Nessuno lo saprà.', crush_full:'Hai già 3 cotte segrete. Togline una per sceglierne un’altra.', crush_set:'Fatto. Rimane un segreto tra te e l’app.',
+    destiny_sys:'Zing del destino: vi siete scelti a vicenda', destiny_title:'Zing del<br>destino', destiny_text:'Tu e {name} vi siete scelti a vicenda. Ora lo sapete entrambi.', destiny_gift:'{r} · solo per voi due', destiny_btn:'Che emozione',
+    story_meta:'2 h fa · solo amici', close_story:'Chiudi la storia',
+    missing_text:'Non ce l’hai ancora. L’unico modo per averla è che un amico te la mandi.', holders:'Ce l’hanno {n} persone.', holders_pass:'Ce l’hanno {n} persone · passata di mano {m} volte.',
+    only_you:'Solo tu, per ora.', shortcut:'Scorciatoia: <b>{s}</b>', created_by_you:'Creata da te: sei Paziente Zero', received_from:'Ricevuta da <b>{name}</b>, {date}',
+    in_showcase:'È già nella tua vetrina.', put_showcase:'Metti in vetrina', close:'Chiudi', ok:'Ok', showcased:'Messa in vetrina: la vedono i tuoi amici sul profilo.',
+    need_name:'Dai un nome alla tua emoticon prima di inviarla.', sent_review:'Inviata alla Redazione. Di solito ci vuole poco.', approved_toast:'La Redazione ha approvato "{name}"! Ora puoi mandarla agli amici.',
+    notify_set:'Ti avviso quando {name} si collega.', is_online:'{name} è online!', starter:'Pacchetto iniziale', today:'oggi', oct:'26 ottobre', community:'Community',
+    g_tag:'prototipo · app 2026, vibes 2005', g_sim:'Simula uno Zing in arrivo',
+    g_note:'Amici e messaggi sono finti e tutto gira nel tuo browser: non viene inviato niente a nessuno. Emoticon e suoni sono originali, generati con il codice.',
+    g_steps:[
+      'Apri la chat con <b>MaRkO_xX</b> e tocca <b>Grab it!</b> sotto gli occhiali smeraldo e sotto il treno.',
+      'Tocca la faccina accanto al testo: metti in fila facce e pezzi (un treno più lungo, un bruco) e invia.',
+      'Manda uno <b>Zing!</b> a <b>*~Giuly~*</b>. Se Giuly te lo rimanda entro 3 secondi parte la combo.',
+      'Nella chat con Giuly tocca il cuore in alto: è la <b>cotta segreta</b>.',
+      'Scrivi <code>:)</code> e poi <code>(H)</code>. La seconda resta testo finché qualcuno non ti passa l’emoticon Cool.',
+      'Guarda le <b>storie</b> in alto nella lista amici: gli sticker si possono prendere.',
+      'Crea la tua emoticon nello <b>Studio</b>, compreso come si muove.',
+      'Tocca <b>Avvisami</b> accanto a ~luKa~ per sapere quando si collega.'
+    ]
+  }
+};
+const t = (k, v = {}) => { const s = STR[L][k] ?? STR.en[k] ?? k; return typeof s === 'string' ? s.replace(/\{(\w+)\}/g, (m, x) => v[x] ?? m) : s; };
+const tx = v => typeof v === 'string' ? v : (v[L] || v.en);
+
 /* ---------- Emoticon originali, disegnate in SVG ---------- */
 const INK = '#1d2433', MOUTH = '#7a1736';
-function mix(hex, t){
-  const n = parseInt(hex.slice(1), 16); const tg = t > 0 ? 255 : 0, a = Math.abs(t);
+function mix(hex, k){
+  const n = parseInt(hex.slice(1), 16); const tg = k > 0 ? 255 : 0, a = Math.abs(k);
   const ch = v => Math.round(v + (tg - v) * a);
   return `rgb(${ch(n >> 16)},${ch(n >> 8 & 255)},${ch(n & 255)})`;
 }
@@ -330,6 +460,7 @@ const EYES = {
   big: `<circle cx="23" cy="29" r="6.5" fill="#fff" stroke="${INK}" stroke-width="1.6"/><circle cx="41" cy="29" r="6.5" fill="#fff" stroke="${INK}" stroke-width="1.6"/><circle cx="24" cy="30" r="3.2" fill="${INK}"/><circle cx="42" cy="30" r="3.2" fill="${INK}"/>`,
   sleepy: line('M18 31 q5 3 10 0 M36 31 q5 3 10 0')
 };
+const BLINKS = ['dot','wink','big'];
 const MOUTHS = {
   smile: line('M21 41 q11 11 22 0'),
   grin: `<path d="M19 40 h26 q-2 12 -13 12 q-11 0 -13 -12z" fill="${MOUTH}" stroke="${INK}" stroke-width="1.6" stroke-linejoin="round"/><path d="M21.5 41 h21 l-.4 2.6 h-20.2z" fill="#fff"/>`,
@@ -353,86 +484,133 @@ const ACC_FRONT = {
   flower: `<g transform="translate(51 11)"><circle cx="0" cy="-4.5" r="4" fill="#ff8cc6"/><circle cx="4.3" cy="-1.4" r="4" fill="#ff8cc6"/><circle cx="2.6" cy="3.6" r="4" fill="#ff8cc6"/><circle cx="-2.6" cy="3.6" r="4" fill="#ff8cc6"/><circle cx="-4.3" cy="-1.4" r="4" fill="#ff8cc6"/><circle r="2.8" fill="#ffd84a"/></g>`
 };
 let gid = 0;
-function emoSVG(s, size){
+function emoSVG(s, size, anim = true){
   const id = 'eg' + (gid++), d = mix(s.color, -.38), l = mix(s.color, .62);
-  return `<svg width="${size}" height="${size}" viewBox="-2 -6 68 70" aria-hidden="true"><defs><radialGradient id="${id}" cx="38%" cy="30%" r="78%"><stop offset="0" stop-color="${l}"/><stop offset=".55" stop-color="${s.color}"/><stop offset="1" stop-color="${d}"/></radialGradient></defs>${ACC_BACK[s.acc] || ''}<circle cx="32" cy="34" r="27" fill="url(#${id})" stroke="${d}" stroke-width="2"/><ellipse cx="23" cy="19" rx="13" ry="6.5" fill="#fff" opacity=".55" transform="rotate(-24 23 19)"/>${EYES[s.eyes]}${MOUTHS[s.mouth]}${ACC_FRONT[s.acc] || ''}</svg>`;
+  const a = s.anim || 'bounce';
+  return `<svg class="emo a-${a}${anim && a !== 'still' ? '' : ' still'}" width="${size}" height="${size}" viewBox="-2 -6 68 70" aria-hidden="true"><defs><radialGradient id="${id}" cx="38%" cy="30%" r="78%"><stop offset="0" stop-color="${l}"/><stop offset=".55" stop-color="${s.color}"/><stop offset="1" stop-color="${d}"/></radialGradient></defs><g class="face">${ACC_BACK[s.acc] || ''}<circle cx="32" cy="34" r="27" fill="url(#${id})" stroke="${d}" stroke-width="2"/><ellipse cx="23" cy="19" rx="13" ry="6.5" fill="#fff" opacity=".55" transform="rotate(-24 23 19)"/><g class="${BLINKS.includes(s.eyes) ? 'blink' : ''}">${EYES[s.eyes]}</g>${MOUTHS[s.mouth]}${ACC_FRONT[s.acc] || ''}</g></svg>`;
 }
 
-const RAR = {
-  comune:{l:'Comune', pl:'comuni', c:'#7f9bb8'},
-  noncomune:{l:'Non comune', pl:'non comuni', c:'#38b544'},
-  rara:{l:'Rara', pl:'rare', c:'#2b84ff'},
-  epica:{l:'Epica', pl:'epiche', c:'#9a45f5'},
-  leggendaria:{l:'Leggendaria', pl:'leggendarie', c:'#f0a000'}
+/* ---------- Pezzi componibili: si incastrano in fila ---------- */
+const DARK = '#2b2f48';
+const gloss = (x, y, w, h) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${h / 2}" fill="#fff" opacity=".4"/>`;
+const wheel = cx => `<g class="wheel"><circle cx="${cx}" cy="53" r="8" fill="${DARK}"/><circle cx="${cx}" cy="53" r="3" fill="#ffd93b"/><path d="M${cx} 46.5 V59.5 M${cx - 6.5} 53 H${cx + 6.5}" stroke="#ffd93b" stroke-width="1.6"/></g>`;
+const coupler = x => `<rect x="${x}" y="42" width="5" height="4" rx="1" fill="${DARK}"/>`;
+const bugFeet = (a, b) => `<ellipse cx="${a}" cy="60" rx="4" ry="2.6" fill="#3d8a12"/><ellipse cx="${b}" cy="60" rx="4" ry="2.6" fill="#3d8a12"/>`;
+const PIECE = {
+  loco: `<g class="smoke"><circle cx="15" cy="4" r="4.5" fill="#fff" opacity=".9"/><circle cx="21" cy="-1" r="3.2" fill="#fff" opacity=".75"/></g>
+    <rect x="11" y="10" width="10" height="18" rx="2" fill="${DARK}"/>
+    <rect x="3" y="25" width="38" height="24" rx="11" fill="#ff5a4f" stroke="#8c1028" stroke-width="2"/>${gloss(8, 28, 26, 5)}
+    <rect x="36" y="11" width="25" height="38" rx="4" fill="#ff5a4f" stroke="#8c1028" stroke-width="2"/>${gloss(39, 13, 19, 4)}
+    <rect x="41" y="17" width="15" height="12" rx="3" fill="#bfe8ff" stroke="${DARK}" stroke-width="1.6"/>
+    <path d="M4 42 L-1 54 H11Z" fill="${DARK}"/>${coupler(60)}${wheel(17)}${wheel(46)}`,
+  wagon: `${coupler(-1)}${coupler(60)}<rect x="3" y="15" width="58" height="34" rx="5" fill="#1a96e6" stroke="#0b4f8a" stroke-width="2"/>${gloss(7, 18, 50, 5)}
+    <rect x="9" y="23" width="19" height="13" rx="3" fill="#bfe8ff" stroke="${DARK}" stroke-width="1.6"/><rect x="36" y="23" width="19" height="13" rx="3" fill="#bfe8ff" stroke="${DARK}" stroke-width="1.6"/>${wheel(17)}${wheel(47)}`,
+  caboose: `${coupler(-1)}<rect x="22" y="6" width="20" height="12" rx="3" fill="#ffc21a" stroke="#b78500" stroke-width="2"/>
+    <rect x="3" y="16" width="54" height="33" rx="5" fill="#ffc21a" stroke="#b78500" stroke-width="2"/>${gloss(7, 19, 46, 5)}
+    <rect x="12" y="24" width="16" height="12" rx="3" fill="#bfe8ff" stroke="${DARK}" stroke-width="1.6"/><circle cx="59" cy="30" r="3.5" fill="#ff2d6f" stroke="${DARK}" stroke-width="1.2"/>${wheel(18)}${wheel(44)}`,
+  nose: `<path d="M1 32 C9 16 30 12 65 13 V51 C30 52 9 48 1 32Z" fill="#ff5a4f" stroke="#8c1028" stroke-width="2"/>${gloss(16, 17, 40, 5)}`,
+  body: `<rect x="-1" y="13" width="66" height="38" fill="#eef3ff"/><path d="M-1 13 H65 M-1 51 H65" stroke="#56739a" stroke-width="2"/>${gloss(2, 16, 60, 5)}
+    <rect x="-1" y="40" width="66" height="5" fill="#ff5a4f"/><circle cx="32" cy="30" r="10" fill="#5fc8ff" stroke="${DARK}" stroke-width="3"/><circle cx="29" cy="27" r="3" fill="#fff" opacity=".8"/>`,
+  booster: `<path d="M6 13 L28 13 L40 0 L22 0Z M6 51 L28 51 L40 64 L22 64Z" fill="#ff5a4f" stroke="#8c1028" stroke-width="2" stroke-linejoin="round"/>
+    <rect x="-1" y="13" width="35" height="38" fill="#eef3ff"/><path d="M-1 13 H34 M-1 51 H34 M34 13 V51" stroke="#56739a" stroke-width="2"/>${gloss(2, 16, 28, 5)}
+    <rect x="34" y="20" width="8" height="24" rx="2" fill="#56739a"/>
+    <g class="flame"><path d="M42 21 Q58 25 66 32 Q58 39 42 43Z" fill="#ff8a1f"/><path d="M42 26 Q54 29 59 32 Q54 35 42 38Z" fill="#ffe14a"/></g>`,
+  bughead: `<path d="M24 14 L18 1 M40 14 L46 1" stroke="${DARK}" stroke-width="2.5" stroke-linecap="round"/><circle cx="18" cy="1" r="3.5" fill="#ff4f9a"/><circle cx="46" cy="1" r="3.5" fill="#ff4f9a"/>
+    ${bugFeet(24, 42)}<circle cx="32" cy="34" r="25" fill="#8fe33b" stroke="#4fa816" stroke-width="2"/><ellipse cx="24" cy="21" rx="11" ry="5.5" fill="#fff" opacity=".5" transform="rotate(-24 24 21)"/>
+    <ellipse cx="23" cy="31" rx="3.2" ry="4.4" fill="${INK}"/><ellipse cx="39" cy="31" rx="3.2" ry="4.4" fill="${INK}"/><circle cx="24.2" cy="29.4" r="1.2" fill="#fff"/><circle cx="40.2" cy="29.4" r="1.2" fill="#fff"/>
+    ${line('M23 41 q8 8 16 0')}<ellipse cx="15" cy="39" rx="4.5" ry="2.6" fill="#ff6f9f" opacity=".55"/><ellipse cx="47" cy="39" rx="4.5" ry="2.6" fill="#ff6f9f" opacity=".55"/>`,
+  bugseg: `${bugFeet(24, 40)}<circle cx="32" cy="37" r="23" fill="#6fd13a" stroke="#4fa816" stroke-width="2"/><ellipse cx="25" cy="25" rx="10" ry="5" fill="#fff" opacity=".45" transform="rotate(-24 25 25)"/><circle cx="38" cy="40" r="4" fill="#ffd93b" opacity=".85"/>`,
+  bugtail: `${bugFeet(22, 36)}<circle cx="28" cy="41" r="18" fill="#8fe33b" stroke="#4fa816" stroke-width="2"/><path d="M44 36 L58 31 L47 46Z" fill="#8fe33b" stroke="#4fa816" stroke-width="2" stroke-linejoin="round"/><ellipse cx="22" cy="32" rx="8" ry="4" fill="#fff" opacity=".45" transform="rotate(-24 22 32)"/>`
 };
+function pieceSVG(p, size, i = 0, anim = true){
+  return `<svg class="piece p-${p.set}${anim ? '' : ' still'}" style="--i:${i}" width="${size}" height="${size}" viewBox="0 -6 64 70" aria-hidden="true"><g class="part">${PIECE[p.id]}</g></svg>`;
+}
+const itemSVG = (e, size, i = 0, anim = true) => e.piece ? pieceSVG(e, size, i, anim) : emoSVG(e.s, size, anim);
+
+const RAR = {
+  comune:{en:'Common', it:'Comune', pen:'common', pit:'comuni', c:'#7f9bb8'},
+  noncomune:{en:'Uncommon', it:'Non comune', pen:'uncommon', pit:'non comuni', c:'#38b544'},
+  rara:{en:'Rare', it:'Rara', pen:'rare', pit:'rare', c:'#2b84ff'},
+  epica:{en:'Epic', it:'Epica', pen:'epic', pit:'epiche', c:'#9a45f5'},
+  leggendaria:{en:'Legendary', it:'Leggendaria', pen:'legendary', pit:'leggendarie', c:'#f0a000'}
+};
+const rl = r => RAR[r][L], rp = r => RAR[r]['p' + L];
 const Y = '#ffd93b';
+const n2 = (en, it) => ({en, it});
 const CAT = [
-  {id:'sorriso', name:'Sorriso', r:'comune', sc:':)', s:{color:Y, eyes:'dot', mouth:'smile'}},
-  {id:'occhiolino', name:'Occhiolino', r:'comune', sc:';)', s:{color:Y, eyes:'wink', mouth:'smile'}},
-  {id:'risata', name:'Risata', r:'comune', sc:':D', s:{color:Y, eyes:'happy', mouth:'grin'}},
-  {id:'linguaccia', name:'Linguaccia', r:'comune', sc:':P', s:{color:Y, eyes:'dot', mouth:'tongue'}},
-  {id:'stupito', name:'Stupito', r:'comune', sc:':O', s:{color:Y, eyes:'big', mouth:'o'}},
-  {id:'triste', name:'Triste', r:'comune', sc:':(', s:{color:'#8fd0ff', eyes:'dot', mouth:'sad'}},
-  {id:'sonno', name:'Sonno', r:'comune', sc:'|)', s:{color:'#c7b6ff', eyes:'sleepy', mouth:'flat'}},
-  {id:'imbarazzo', name:'Imbarazzo', r:'comune', sc:':$', s:{color:'#ffb3d1', eyes:'happy', mouth:'smile', acc:'blush'}},
-  {id:'cool', name:'Cool', r:'noncomune', sc:'(H)', s:{color:Y, eyes:'dot', mouth:'smile', acc:'shades'}},
-  {id:'fiore', name:'Fiorellino', r:'noncomune', s:{color:Y, eyes:'happy', mouth:'smile', acc:'flower'}},
-  {id:'cuffie', name:'Cuffie', r:'noncomune', s:{color:'#5fe0d6', eyes:'happy', mouth:'smile', acc:'headphones'}},
-  {id:'sudato', name:'Sudato', r:'noncomune', s:{color:Y, eyes:'dot', mouth:'flat', acc:'sweat'}},
-  {id:'gatto', name:'Micio', r:'noncomune', sc:':3', s:{color:'#ffab4a', eyes:'happy', mouth:'cat'}},
-  {id:'angelo', name:'Angioletto', r:'rara', sc:'(A)', s:{color:'#f4f7ff', eyes:'happy', mouth:'smile', acc:'halo'}},
-  {id:'diavoletto', name:'Diavoletto', r:'rara', sc:'(6)', s:{color:'#ff5a4f', eyes:'wink', mouth:'grin', acc:'horns'}},
-  {id:'innamorato', name:'Cotto', r:'rara', s:{color:Y, eyes:'heart', mouth:'smile'}},
-  {id:'stellare', name:'Stellare', r:'rara', s:{color:'#b07cff', eyes:'star', mouth:'grin'}},
-  {id:'smeraldo', name:'Occhiali Smeraldo', r:'rara', s:{color:'#5ed36a', eyes:'dot', mouth:'grin', acc:'shades'}},
-  {id:'invito', name:'Benvenuto', r:'rara', s:{color:'#5fe0d6', eyes:'wink', mouth:'tongue', acc:'cap'}},
-  {id:'corona', name:'Reuccio', r:'epica', s:{color:'#ffc21a', eyes:'happy', mouth:'smile', acc:'crown'}},
-  {id:'alieno', name:'Alieno', r:'epica', s:{color:'#b6f04a', eyes:'big', mouth:'o'}},
-  {id:'fantasma', name:'Fantasmino', r:'epica', s:{color:'#e8ecff', eyes:'sleepy', mouth:'o', acc:'blush'}},
-  {id:'cometa', name:'Cuore Cometa', r:'leggendaria', s:{color:'#ff6fb5', eyes:'heart', mouth:'grin', acc:'halo'}},
-  {id:'galassia', name:'Galassia', r:'leggendaria', s:{color:'#4a5cff', eyes:'star', mouth:'smile', acc:'crown'}}
+  {id:'sorriso', name:n2('Smile','Sorriso'), r:'comune', sc:':)', s:{color:Y, eyes:'dot', mouth:'smile', anim:'bounce'}},
+  {id:'occhiolino', name:n2('Wink','Occhiolino'), r:'comune', sc:';)', s:{color:Y, eyes:'wink', mouth:'smile', anim:'wobble'}},
+  {id:'risata', name:n2('LOL','Risata'), r:'comune', sc:':D', s:{color:Y, eyes:'happy', mouth:'grin', anim:'shiver'}},
+  {id:'linguaccia', name:n2('Tongue','Linguaccia'), r:'comune', sc:':P', s:{color:Y, eyes:'dot', mouth:'tongue', anim:'wobble'}},
+  {id:'stupito', name:n2('Wow','Stupito'), r:'comune', sc:':O', s:{color:Y, eyes:'big', mouth:'o', anim:'pulse'}},
+  {id:'triste', name:n2('Sad','Triste'), r:'comune', sc:':(', s:{color:'#8fd0ff', eyes:'dot', mouth:'sad', anim:'float'}},
+  {id:'sonno', name:n2('Sleepy','Sonno'), r:'comune', sc:'|)', s:{color:'#c7b6ff', eyes:'sleepy', mouth:'flat', anim:'float'}},
+  {id:'imbarazzo', name:n2('Blush','Imbarazzo'), r:'comune', sc:':$', s:{color:'#ffb3d1', eyes:'happy', mouth:'smile', acc:'blush', anim:'wobble'}},
+  {id:'cool', name:n2('Cool','Cool'), r:'noncomune', sc:'(H)', s:{color:Y, eyes:'dot', mouth:'smile', acc:'shades', anim:'bounce'}},
+  {id:'fiore', name:n2('Flower','Fiorellino'), r:'noncomune', s:{color:Y, eyes:'happy', mouth:'smile', acc:'flower', anim:'wobble'}},
+  {id:'cuffie', name:n2('Headphones','Cuffie'), r:'noncomune', s:{color:'#5fe0d6', eyes:'happy', mouth:'smile', acc:'headphones', anim:'bounce'}},
+  {id:'sudato', name:n2('Sweaty','Sudato'), r:'noncomune', s:{color:Y, eyes:'dot', mouth:'flat', acc:'sweat', anim:'shiver'}},
+  {id:'gatto', name:n2('Kitty','Micio'), r:'noncomune', sc:':3', s:{color:'#ffab4a', eyes:'happy', mouth:'cat', anim:'wobble'}},
+  {id:'angelo', name:n2('Angel','Angioletto'), r:'rara', sc:'(A)', s:{color:'#f4f7ff', eyes:'happy', mouth:'smile', acc:'halo', anim:'float'}},
+  {id:'diavoletto', name:n2('Little Devil','Diavoletto'), r:'rara', sc:'(6)', s:{color:'#ff5a4f', eyes:'wink', mouth:'grin', acc:'horns', anim:'shiver'}},
+  {id:'innamorato', name:n2('Crushing','Cotto'), r:'rara', s:{color:Y, eyes:'heart', mouth:'smile', anim:'pulse'}},
+  {id:'stellare', name:n2('Starry','Stellare'), r:'rara', s:{color:'#b07cff', eyes:'star', mouth:'grin', anim:'pulse'}},
+  {id:'smeraldo', name:n2('Emerald Shades','Occhiali Smeraldo'), r:'rara', s:{color:'#5ed36a', eyes:'dot', mouth:'grin', acc:'shades', anim:'bounce'}},
+  {id:'invito', name:n2('Welcome','Benvenuto'), r:'rara', s:{color:'#5fe0d6', eyes:'wink', mouth:'tongue', acc:'cap', anim:'wobble'}},
+  {id:'corona', name:n2('Royal','Reuccio'), r:'epica', s:{color:'#ffc21a', eyes:'happy', mouth:'smile', acc:'crown', anim:'bounce'}},
+  {id:'alieno', name:n2('Alien','Alieno'), r:'epica', s:{color:'#b6f04a', eyes:'big', mouth:'o', anim:'float'}},
+  {id:'fantasma', name:n2('Ghosty','Fantasmino'), r:'epica', s:{color:'#e8ecff', eyes:'sleepy', mouth:'o', acc:'blush', anim:'float'}},
+  {id:'cometa', name:n2('Comet Heart','Cuore Cometa'), r:'leggendaria', s:{color:'#ff6fb5', eyes:'heart', mouth:'grin', acc:'halo', anim:'pulse'}},
+  {id:'galassia', name:n2('Galaxy','Galassia'), r:'leggendaria', s:{color:'#4a5cff', eyes:'star', mouth:'smile', acc:'crown', anim:'float'}},
+  {id:'bughead', piece:true, set:'bug', name:n2('Caterpillar Head','Testa di bruco'), r:'comune'},
+  {id:'bugseg', piece:true, set:'bug', name:n2('Caterpillar Body','Corpo di bruco'), r:'comune'},
+  {id:'bugtail', piece:true, set:'bug', name:n2('Caterpillar Tail','Coda di bruco'), r:'comune'},
+  {id:'loco', piece:true, set:'train', name:n2('Locomotive','Locomotiva'), r:'noncomune'},
+  {id:'wagon', piece:true, set:'train', name:n2('Wagon','Vagone'), r:'comune'},
+  {id:'caboose', piece:true, set:'train', name:n2('Caboose','Ultimo vagone'), r:'comune'},
+  {id:'nose', piece:true, set:'rocket', name:n2('Rocket Nose','Punta del razzo'), r:'rara'},
+  {id:'body', piece:true, set:'rocket', name:n2('Rocket Body','Corpo del razzo'), r:'rara'},
+  {id:'booster', piece:true, set:'rocket', name:n2('Booster','Motore del razzo'), r:'rara'}
 ];
 const E = id => CAT.find(e => e.id === id);
+const nm = e => tx(e.name);
 const SC = CAT.filter(e => e.sc);
 const SC_RE = new RegExp('(^|\\s)(' + SC.map(e => e.sc.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')(?=\\s|$)', 'g');
-
-const ST = {
-  online:{l:'Online', c:'#3ccf4e'}, occupato:{l:'Occupato', c:'#ff4747'}, torno:{l:'Torno subito', c:'#ffad1f'},
-  telefono:{l:'Al telefono', c:'#ffad1f'}, pranzo:{l:'A pranzo', c:'#ffad1f'}, invisibile:{l:'Invisibile', c:'#a9b8c8'}, offline:{l:'Offline', c:'#a9b8c8'}
-};
+const ST_C = {online:'#3ccf4e', occupato:'#ff4747', torno:'#ffad1f', telefono:'#ffad1f', pranzo:'#ffad1f', invisibile:'#a9b8c8', offline:'#a9b8c8'};
 
 /* ---------- Amici finti ---------- */
+const TRAIN = ['loco','wagon','wagon','caboose'], ROCKET = ['nose','body','booster'], BUG = ['bughead','bugseg','bugseg','bugseg','bugtail'];
 const F = {
-  giulia:{name:'*~Giuly~*', c:'#ff6fb5', status:'online', pm:'chi mi trilla vince', listen:'Playlist "estate 2006 ma siamo nel 2026"',
-    story:{text:'concerto stasera!!!', bg:'linear-gradient(160deg,#ff6fb5,#ffc62e)', emo:'cuffie'},
-    pool:['innamorato','cuffie','fiore'], replies:['ahahah','noo dai','ci vediamo dopo scuola?','mi hai fatto morire','sei il top','oddio raccontami tutto'], back:.85, mutual:true},
-  marco:{name:'MaRkO_xX', c:'#1a96e6', status:'occupato', pm:'verifica di mate domani AIUTO',
-    story:{text:'studio mode: ON', bg:'linear-gradient(160deg,#1a96e6,#7fdc2f)', emo:'sudato'},
-    pool:['cool','smeraldo','diavoletto'], replies:['raga sono morto','ok ma la verifica','top','vabbè','fra non ci credo'], back:.35},
-  ale:{name:'Ale!!', c:'#9a45f5', status:'pranzo', pm:'nuovo taglio, non giudicate', listen:'Lo-fi per fare finta di studiare',
-    story:{text:'giudicate pure', bg:'linear-gradient(160deg,#9a45f5,#ff4f9a)', emo:'stellare'},
-    pool:['gatto','stellare','alieno'], replies:['sto mangiando, arrivo','ahah giuro','che fai sabato?','mandami la foto'], back:.5},
-  sara:{name:'sara.xo', c:'#ffab4a', status:'torno', pm:'torno subito... forse',
-    pool:['angelo','fiore'], replies:['eccomi!','scusa ero sparita','ma davvero??','dai che ce la facciamo'], back:.5},
-  luca:{name:'~luKa~', c:'#38b544', status:'offline', pm:'sk8 o niente',
-    pool:['cool','sudato'], replies:['bella!','oh ci sei?','appena tornato dallo skatepark'], back:.4}
+  giulia:{name:'*~Giuly~*', c:'#ff6fb5', status:'online', pm:n2('whoever zings me wins','chi mi manda uno zing vince'), listen:n2('Playlist "summer 2006 but it’s 2026"','Playlist "estate 2006 ma siamo nel 2026"'),
+    story:{text:n2('concert tonight!!!','concerto stasera!!!'), bg:'linear-gradient(160deg,#ff6fb5,#ffc62e)', emo:'cuffie'},
+    pool:['innamorato','cuffie','fiore',BUG], replies:n2(['hahaha','no way','see you after school?','I’m dying lol','you’re the best','omg tell me everything'],['ahahah','noo dai','ci vediamo dopo scuola?','mi hai fatto morire','sei il top','oddio raccontami tutto']), back:.85, mutual:true},
+  marco:{name:'MaRkO_xX', c:'#1a96e6', status:'occupato', pm:n2('math test tomorrow HELP','verifica di mate domani AIUTO'),
+    story:{text:n2('study mode: ON','studio mode: ON'), bg:'linear-gradient(160deg,#1a96e6,#7fdc2f)', emo:'sudato'},
+    pool:['cool','smeraldo','diavoletto',TRAIN], replies:n2(['bro I’m done','ok but the test','nice','whatever','no way bro'],['raga sono morto','ok ma la verifica','top','vabbè','fra non ci credo']), back:.35},
+  ale:{name:'Ale!!', c:'#9a45f5', status:'pranzo', pm:n2('new haircut, don’t judge','nuovo taglio, non giudicate'), listen:n2('Lo-fi to pretend I’m studying','Lo-fi per fare finta di studiare'),
+    story:{text:n2('go ahead, judge','giudicate pure'), bg:'linear-gradient(160deg,#9a45f5,#ff4f9a)', emo:'stellare'},
+    pool:['gatto','stellare','alieno',ROCKET], replies:n2(['eating, brb','lol I swear','what are you doing saturday?','send me the pic'],['sto mangiando, arrivo','ahah giuro','che fai sabato?','mandami la foto']), back:.5},
+  sara:{name:'sara.xo', c:'#ffab4a', status:'torno', pm:n2('brb... maybe','torno subito... forse'),
+    pool:['angelo','fiore'], replies:n2(['here!','sorry I vanished','wait really??','we got this'],['eccomi!','scusa ero sparita','ma davvero??','dai che ce la facciamo']), back:.5},
+  luca:{name:'~luKa~', c:'#38b544', status:'offline', pm:n2('sk8 or nothing','sk8 o niente'),
+    pool:['cool','sudato'], replies:n2(['nice!','yo you there?','just back from the skatepark'],['bella!','oh ci sei?','appena tornato dallo skatepark']), back:.4}
 };
 const initial = i => (F[i].name.match(/[a-z0-9]/i) || ['?'])[0].toUpperCase();
 
 /* ---------- Stato ---------- */
 const S = {
-  tab:'amici', chat:null, nick:'~*Simo*~', pm:'trillatemi pure', status:'online',
-  owned:{}, unread:{giulia:1, marco:1, ale:1}, trilledMe:{giulia:true}, seenStory:{}, notify:{},
-  cool:{}, lastMine:{}, lastTheirs:{}, sent:12, recv:17, today:0,
+  tab:'amici', chat:null, nick:'~*Simo*~', pm:'', status:'online',
+  owned:{}, unread:{giulia:1, marco:2, ale:2}, zingedMe:{giulia:true}, seenStory:{}, notify:{},
+  cool:{}, lastMine:{}, lastTheirs:{}, sent:12, recv:17, today:0, mix:[],
   crush:new Set(), matched:{}, passes:{}, creations:[], vetrina:['risata','occhiolino','sudato'],
-  quiet:true, typing:null, studio:{color:Y, eyes:'dot', mouth:'smile', acc:'none'}, studioName:''
+  quiet:true, typing:null, studio:{color:Y, eyes:'dot', mouth:'smile', acc:'none', anim:'bounce'}, studioName:''
 };
-['sorriso','occhiolino','risata','linguaccia','stupito','triste','sonno','imbarazzo','sudato'].forEach(id => S.owned[id] = {from:'Pacchetto iniziale', date:'26 ottobre'});
+['sorriso','occhiolino','risata','linguaccia','stupito','triste','sonno','imbarazzo','sudato','bughead','bugseg','bugtail'].forEach(id => S.owned[id] = {from:'starter', date:'oct'});
 S.chats = {
-  giulia:[{from:'giulia', text:'ciaooo'}, {t:'trillo', from:'giulia'}, {from:'me', text:'ahah ciao Giuly :D'}, {from:'giulia', text:'stasera ci sei su trillo?'}],
-  marco:[{from:'marco', text:'oh hai visto la verifica??'}, {from:'me', text:'nooo non dirmelo :('}, {from:'marco', text:'tranquillo, ho gli occhiali portafortuna', emo:'smeraldo'}],
-  ale:[{from:'ale', text:'guarda che carino', emo:'gatto'}],
-  sara:[{from:'sara', text:'torno subito, mia mamma mi chiama'}],
+  giulia:[{from:'giulia', text:n2('heyyy','ciaooo')}, {t:'zing', from:'giulia'}, {from:'me', text:'hiii Giuly :D'}, {from:'giulia', text:n2('you on zing tonight?','stasera ci sei su zing?')}],
+  marco:[{from:'marco', text:n2('did you see the test??','oh hai visto la verifica??')}, {from:'me', text:'nooo :('}, {from:'marco', text:n2('relax, I’ve got my lucky shades','tranquillo, ho gli occhiali portafortuna'), strip:['smeraldo']}, {from:'marco', text:n2('also look, I built a train','e guarda, ho fatto un treno'), strip:TRAIN}],
+  ale:[{from:'ale', text:n2('look how cute','guarda che carino'), strip:['gatto']}, {from:'ale', text:'3... 2... 1...', strip:ROCKET}],
+  sara:[{from:'sara', text:n2('brb, my mom is calling','torno subito, mia mamma mi chiama')}],
   luca:[]
 };
 const passesOf = i => S.passes[i] || (S.passes[i] = {noncomune:10, rara:3, epica:1, leggendaria:1});
@@ -448,22 +626,23 @@ function tone(a, type, freqs, start, dur, vol){
   o.connect(g).connect(a.destination); o.start(start); o.stop(start + dur + .02);
   return g;
 }
-function trillSound(delay = 0){
-  const a = ac(); if (!a) return; const t = a.currentTime + delay;
-  const g = tone(a, 'square', [[740,0],[988,.16],[1245,.3]], t, .5, .07);
+function zingSound(delay = 0){
+  const a = ac(); if (!a) return; const s = a.currentTime + delay;
+  const g = tone(a, 'square', [[740,0],[988,.16],[1245,.3]], s, .5, .07);
   const lfo = a.createOscillator(), lg = a.createGain(); lfo.frequency.value = 26; lg.gain.value = .05;
-  lfo.connect(lg).connect(g.gain); lfo.start(t); lfo.stop(t + .52);
+  lfo.connect(lg).connect(g.gain); lfo.start(s); lfo.stop(s + .52);
 }
-function popSound(){ const a = ac(); if (!a) return; const t = a.currentTime; tone(a, 'sine', [[520,0],[780,.06],[1040,.12]], t, .26, .12); }
-function onlineSound(){ const a = ac(); if (!a) return; const t = a.currentTime; tone(a, 'triangle', [[660,0]], t, .18, .12); tone(a, 'triangle', [[990,0]], t + .14, .3, .12); }
+function popSound(){ const a = ac(); if (!a) return; const s = a.currentTime; tone(a, 'sine', [[520,0],[780,.06],[1040,.12]], s, .26, .12); }
+function clickSound(){ const a = ac(); if (!a) return; tone(a, 'triangle', [[880,0]], a.currentTime, .09, .06); }
+function onlineSound(){ const a = ac(); if (!a) return; const s = a.currentTime; tone(a, 'triangle', [[660,0]], s, .18, .12); tone(a, 'triangle', [[990,0]], s + .14, .3, .12); }
 function buzz(p){ try { navigator.vibrate && navigator.vibrate(p); } catch(e){} }
 function shakeEl(el){ el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }
-function trillFx(el){ trillSound(); buzz([90,40,90,40,160]); shakeEl(el); }
+function zingFx(el){ zingSound(); buzz([90,40,90,40,160]); shakeEl(el); }
 
 /* ---------- Icone ---------- */
 const ICON = {
   amici:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="8" r="3.6"/><path d="M2 20c0-4 3.2-6.4 7-6.4s7 2.4 7 6.4z"/><circle cx="17" cy="9" r="2.8" opacity=".6"/><path d="M15.5 13.8c3.4-.2 6.5 1.8 6.5 5.6h-4.4c0-2.3-.8-4.2-2.1-5.6z" opacity=".6"/></svg>',
-  album:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v17H6.5a1.5 1.5 0 0 0 0 3H20v0H6.5A2.5 2.5 0 0 1 4 19.5z" opacity=".35"/><rect x="7" y="5" width="4.5" height="4.5" rx="1.2"/><rect x="13" y="5" width="4.5" height="4.5" rx="1.2"/><rect x="7" y="11" width="4.5" height="4.5" rx="1.2"/><rect x="13" y="11" width="4.5" height="4.5" rx="1.2" opacity=".5"/></svg>',
+  album:'<svg viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="2" width="16" height="20" rx="2.5" opacity=".35"/><rect x="7" y="5" width="4.5" height="4.5" rx="1.2"/><rect x="13" y="5" width="4.5" height="4.5" rx="1.2"/><rect x="7" y="11" width="4.5" height="4.5" rx="1.2"/><rect x="13" y="11" width="4.5" height="4.5" rx="1.2" opacity=".5"/></svg>',
   studio:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.8 3.6a2 2 0 0 1 2.8 0l2.8 2.8a2 2 0 0 1 0 2.8L9.6 20H4v-5.6z"/><path d="M3 22h18v-1.6H3z" opacity=".4"/></svg>',
   profilo:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4.2"/><path d="M3.5 21c0-4.6 3.8-7.4 8.5-7.4s8.5 2.8 8.5 7.4z"/></svg>',
   back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4 7 12l8 8"/></svg>',
@@ -471,48 +650,59 @@ const ICON = {
 };
 
 /* ---------- Render ---------- */
+function renderStatic(){
+  document.documentElement.lang = L;
+  $('#phone').setAttribute('aria-label', t('app_aria'));
+  $('#tabs').setAttribute('aria-label', t('sections'));
+  $('#status').setAttribute('aria-label', t('status_aria'));
+  $('#status').innerHTML = ['online','occupato','torno','telefono','pranzo','invisibile'].map(k => `<option value="${k}">${t('st_' + k)}</option>`).join('');
+  $('#status').value = S.status;
+  $('#pmInput').placeholder = t('pm_ph'); $('#pmInput').setAttribute('aria-label', t('pm_aria'));
+  if (!S.pmEdited) S.pm = L === 'it' ? 'mandatemi zing a volontà' : 'zing me anytime';
+  $('#pmInput').value = S.pm;
+  $('#msgInput').placeholder = t('input_ph');
+  $('#trayBtn').setAttribute('aria-label', t('my_emos')); $('#sendBtn').setAttribute('aria-label', t('send'));
+  document.querySelectorAll('#lang button').forEach(b => { b.classList.toggle('on', b.dataset.lang === L); b.setAttribute('aria-pressed', b.dataset.lang === L); });
+  $('#guide').setAttribute('aria-label', L === 'it' ? 'Come provare il prototipo' : 'How to try the prototype');
+  $('#guide').innerHTML = `<h1>zing</h1><p class="tag">${t('g_tag')}</p><ol>${t('g_steps').map(s => `<li>${s}</li>`).join('')}</ol><button class="btn-gloss pink" data-sim>${t('g_sim')}</button><p class="note">${t('g_note')}</p>`;
+}
 function renderMe(){
   $('#meNick').textContent = S.nick;
   $('#meAva').textContent = (S.nick.match(/[a-z0-9]/i) || ['?'])[0].toUpperCase();
-  $('#pmInput').value = S.pm; $('#status').value = S.status;
 }
 function renderTabs(){
-  const unread = Object.keys(F).filter(i => S.unread[i] || S.trilledMe[i]).length;
-  const tabs = [['amici','Amici'],['album','Album'],['studio','Studio'],['profilo','Profilo']];
-  $('#tabs').innerHTML = tabs.map(([k, l]) => `<button class="tab ${S.tab === k ? 'on' : ''}" data-tab="${k}" ${S.tab === k ? 'aria-current="page"' : ''}>${ICON[k]}${l}${k === 'amici' && unread ? `<span class="badge">${unread}</span>` : ''}</button>`).join('');
+  const unread = Object.keys(F).filter(i => S.unread[i] || S.zingedMe[i]).length;
+  $('#tabs').innerHTML = ['amici','album','studio','profilo'].map(k => `<button class="tab ${S.tab === k ? 'on' : ''}" data-tab="${k}" ${S.tab === k ? 'aria-current="page"' : ''}>${ICON[k]}${t('tab_' + k)}${k === 'amici' && unread ? `<span class="badge">${unread}</span>` : ''}</button>`).join('');
 }
-function renderScreen(){
-  const v = {amici:viewAmici, album:viewAlbum, studio:viewStudio, profilo:viewProfilo}[S.tab];
-  $('#screens').innerHTML = v();
-}
-function renderAll(){ renderTabs(); renderScreen(); if (!$('#chat').hidden) renderChat(); }
+function renderScreen(){ $('#screens').innerHTML = {amici:viewAmici, album:viewAlbum, studio:viewStudio, profilo:viewProfilo}[S.tab](); }
+function renderAll(){ renderTabs(); renderScreen(); if (!$('#chat').hidden){ renderChat(); renderTray(); renderMix(); } }
 
-function avaHTML(i, cls = ''){ const st = ST[F[i].status]; return `<span class="ava ${cls}" style="--c:${F[i].c}">${initial(i)}<i class="dot" style="--s:${st.c}"></i></span>`; }
+function avaHTML(i, cls = ''){ return `<span class="ava ${cls}" style="--c:${F[i].c}">${initial(i)}<i class="dot" style="--s:${ST_C[F[i].status]}"></i></span>`; }
 
 function viewAmici(){
   const ids = Object.keys(F);
-  const stories = ids.filter(i => F[i].story).map(i => `<button class="story ${S.seenStory[i] ? 'seen' : ''}" data-story="${i}" aria-label="Storia di ${esc(F[i].name)}"><span class="ring"><span class="ava" style="--c:${F[i].c}">${initial(i)}</span></span><span class="story-name">${esc(F[i].name)}</span></button>`).join('');
+  const stories = ids.filter(i => F[i].story).map(i => `<button class="story ${S.seenStory[i] ? 'seen' : ''}" data-story="${i}" aria-label="${esc(t('story_of', {name:F[i].name}))}"><span class="ring"><span class="ava" style="--c:${F[i].c}">${initial(i)}</span></span><span class="story-name">${esc(F[i].name)}</span></button>`).join('');
   const on = ids.filter(i => F[i].status !== 'offline'), off = ids.filter(i => F[i].status === 'offline');
   const row = i => {
     const f = F[i];
-    const badge = S.trilledMe[i] ? '<span class="badge trill">trillo!</span>' : S.unread[i] ? `<span class="badge">${S.unread[i]}</span>` : '';
-    const bell = f.status === 'offline' ? `<button class="bell ${S.notify[i] ? 'on' : ''}" data-notify="${i}">${S.notify[i] ? 'Ti avviso' : 'Avvisami'}</button>` : '';
-    return `<div class="friend"><button class="friend-main" data-open="${i}">${avaHTML(i)}<span style="min-width:0"><span class="f-name" style="display:block">${esc(f.name)}</span><span class="f-pm" style="display:block">${esc(f.pm)}</span>${f.listen ? `<span class="f-listen" style="display:block">${esc(f.listen)}</span>` : ''}</span>${badge}</button>${bell}</div>`;
+    const badge = S.zingedMe[i] ? `<span class="badge zing">${t('badge_zing')}</span>` : S.unread[i] ? `<span class="badge">${S.unread[i]}</span>` : '';
+    const bell = f.status === 'offline' ? `<button class="bell ${S.notify[i] ? 'on' : ''}" data-notify="${i}">${S.notify[i] ? t('notifying') : t('notify')}</button>` : '';
+    return `<div class="friend"><button class="friend-main" data-open="${i}">${avaHTML(i)}<span class="f-text"><span class="f-name">${esc(f.name)}</span><span class="f-pm">${esc(tx(f.pm))}</span>${f.listen ? `<span class="f-listen">${esc(tx(f.listen))}</span>` : ''}</span>${badge}</button>${bell}</div>`;
   };
   return `<div class="stories">${stories}</div>
-    <div class="group">Online (${on.length})</div>${on.map(row).join('')}
-    <div class="group">Offline (${off.length})</div>${off.map(row).join('')}<div style="height:12px"></div>`;
+    <div class="group">${t('grp_online', {n:on.length})}</div>${on.map(row).join('')}
+    <div class="group">${t('grp_offline', {n:off.length})}</div>${off.map(row).join('')}<div style="height:12px"></div>`;
 }
 
 function viewAlbum(){
   const own = CAT.filter(e => S.owned[e.id]).length;
-  let h = `<div class="pad"><h2>Album</h2><div class="prog"><div class="prog-bar"><i style="width:${own / CAT.length * 100}%"></i></div><span>${own} su ${CAT.length}</span></div><p class="small">Le emoticon non si comprano: te le deve mandare qualcuno.</p></div>`;
+  let h = `<div class="pad"><h2>Album</h2><div class="prog"><div class="prog-bar"><i style="width:${own / CAT.length * 100}%"></i></div><span>${t('of', {a:own, b:CAT.length})}</span></div><p class="small">${t('album_note')}</p></div>`;
   for (const r of Object.keys(RAR)){
     const list = CAT.filter(e => e.r === r); if (!list.length) continue;
     const n = list.filter(e => S.owned[e.id]).length;
-    h += `<section class="rar-sec"><div class="rar-title"><span class="rar-chip" style="--r:${RAR[r].c}">${RAR[r].l}</span><span>${n}/${list.length}</span></div><div class="emo-grid">${list.map(e => {
+    h += `<section class="rar-sec"><div class="rar-title"><span class="rar-chip" style="--r:${RAR[r].c}">${rl(r)}</span><span>${n}/${list.length}</span></div><div class="emo-grid">${list.map(e => {
       const has = !!S.owned[e.id], show = has || r === 'comune' || r === 'noncomune';
-      return `<button class="tile ${has ? '' : 'missing'}" data-emo="${e.id}" aria-label="${has ? esc(e.name) : 'Emoticon mancante'}">${emoSVG(e.s, 46)}<span>${show ? esc(e.name) : '???'}</span></button>`;
+      return `<button class="tile ${has ? '' : 'missing'}" data-emo="${e.id}" aria-label="${has || show ? esc(nm(e)) : '???'}">${itemSVG(e, 46)}<span>${show ? esc(nm(e)) : '???'}</span></button>`;
     }).join('')}</div></section>`;
   }
   return h + '<div style="height:12px"></div>';
@@ -522,17 +712,21 @@ const OPT = {
   color:['#ffd93b','#ffab4a','#ff6fb5','#ff5a4f','#b07cff','#4a5cff','#5fe0d6','#5ed36a','#b6f04a','#e8ecff'],
   eyes:['dot','wink','happy','heart','star','big','sleepy'],
   mouth:['smile','grin','o','tongue','flat','sad','cat'],
-  acc:['none','shades','cap','halo','sweat','blush','crown','horns','headphones','flower']
+  acc:['none','shades','cap','halo','sweat','blush','crown','horns','headphones','flower'],
+  anim:['bounce','wobble','pulse','float','shiver','still']
 };
 function viewStudio(){
   const sp = S.studio;
-  const grp = (k, label) => `<div class="opt"><span class="opt-label">${label}</span><div class="chips">${OPT[k].map(v => `<button class="chip ${sp[k] === v ? 'on' : ''}" data-opt="${k}" data-val="${v}" aria-label="${label}: ${v}" aria-pressed="${sp[k] === v}">${k === 'color' ? `<i class="sw" style="background:${v}"></i>` : emoSVG({...sp, [k]:v}, 36)}</button>`).join('')}</div></div>`;
-  const cr = S.creations.map(c => `<div class="creation">${emoSVG(c.spec, 40)}<span style="min-width:0"><b>${esc(c.name)}</b><span class="small" style="display:block">${c.ok ? 'Sei Paziente Zero. Ora puoi passarla agli amici.' : 'La Redazione la sta guardando...'}</span></span><span class="state ${c.ok ? 'ok' : ''}">${c.ok ? 'Approvata' : 'In revisione'}</span></div>`).join('');
-  return `<div class="pad"><div class="studio-hero"><div class="preview">${emoSVG(sp, 112)}</div><div style="min-width:0"><h2>Studio</h2><p class="small">Crea la tua emoticon con i pezzi dello Studio. Se la Redazione la approva entra in circolo, e tu sei Paziente Zero.</p></div></div>
-    ${grp('color','Colore')}${grp('eyes','Occhi')}${grp('mouth','Bocca')}${grp('acc','Accessorio')}
-    <label class="opt-label" for="emoName">Nome</label><input id="emoName" class="field" maxlength="20" placeholder="Es. Faccia da verifica" value="${esc(S.studioName)}">
-    <button class="btn-gloss pink" data-submit-emo>Invia alla Redazione</button>
-    <p class="small">Niente immagini caricate: solo pezzi dello Studio, così la moderazione resta semplice e sicura.</p>
+  const grp = (k, label) => `<div class="opt"><span class="opt-label">${label}</span><div class="chips">${OPT[k].map(v => {
+    const inner = k === 'color' ? `<i class="sw" style="background:${v}"></i>` : k === 'anim' ? t('an_' + v) : emoSVG({...sp, [k]:v}, 36, false);
+    return `<button class="chip ${sp[k] === v ? 'on' : ''}" data-opt="${k}" data-val="${v}" aria-label="${label}: ${k === 'anim' ? t('an_' + v) : v}" aria-pressed="${sp[k] === v}">${inner}</button>`;
+  }).join('')}</div></div>`;
+  const cr = S.creations.map(c => `<div class="creation">${emoSVG(c.spec, 40)}<span style="min-width:0"><b>${esc(c.name)}</b><span class="small" style="display:block">${c.ok ? t('review_ok') : t('review_wait')}</span></span><span class="state ${c.ok ? 'ok' : ''}">${c.ok ? t('approved') : t('in_review')}</span></div>`).join('');
+  return `<div class="pad"><div class="studio-hero"><div class="preview">${emoSVG(sp, 112)}</div><div style="min-width:0"><h2>Studio</h2><p class="small">${t('studio_intro')}</p></div></div>
+    ${grp('color', t('opt_color'))}${grp('eyes', t('opt_eyes'))}${grp('mouth', t('opt_mouth'))}${grp('acc', t('opt_acc'))}${grp('anim', t('opt_anim'))}
+    <label class="opt-label" for="emoName">${t('opt_name')}</label><input id="emoName" class="field" maxlength="20" placeholder="${esc(t('name_ph'))}" value="${esc(S.studioName)}">
+    <button class="btn-gloss pink" data-submit-emo>${t('submit')}</button>
+    <p class="small">${t('studio_note')}</p>
     ${cr ? `<div class="creations">${cr}</div>` : ''}</div>`;
 }
 
@@ -541,73 +735,87 @@ function viewProfilo(){
   const owned = CAT.filter(e => S.owned[e.id]).length;
   const stat = (n, l) => `<div class="stat"><b>${n}</b><span>${l}</span></div>`;
   return `<div class="profile"><div class="pf-ava" style="--r:${RAR[top].c}"><span class="ava xl" style="--c:var(--pink)">${(S.nick.match(/[a-z0-9]/i) || ['?'])[0].toUpperCase()}</span></div>
-    <span class="rar-chip" style="--r:${RAR[top].c}">Cornice ${RAR[top].l}</span>
-    <p class="small">La cornice cambia con l'emoticon più rara che possiedi.</p>
-    <label class="opt-label" for="nickInput">Nickname</label><input id="nickInput" class="field" maxlength="24" value="${esc(S.nick)}">
-    <span class="opt-label">Vetrina</span>
-    <div class="vetrina">${S.vetrina.map(id => `<button class="tile" data-emo="${id}">${emoSVG(E(id).s, 54)}<span>${esc(E(id).name)}</span></button>`).join('')}</div>
-    <p class="small" style="justify-self:stretch; text-align:left">Per cambiarla tocca un'emoticon nell'album.</p>
-    <span class="opt-label">I tuoi numeri · li vedi solo tu</span>
-    <div class="stats">${stat(S.sent, 'Trilli inviati')}${stat(S.recv, 'Trilli ricevuti')}${stat(owned, 'Emoticon')}${stat(S.crush.size + '/3', 'Cotte segrete')}</div>
-    <span class="opt-label">Impostazioni</span>
+    <span class="rar-chip" style="--r:${RAR[top].c}">${t('frame', {r:rl(top)})}</span>
+    <p class="small">${t('frame_note')}</p>
+    <label class="opt-label" for="nickInput">${t('nickname')}</label><input id="nickInput" class="field" maxlength="24" value="${esc(S.nick)}">
+    <span class="opt-label">${t('showcase')}</span>
+    <div class="vetrina">${S.vetrina.map(id => `<button class="tile" data-emo="${id}">${itemSVG(E(id), 54)}<span>${esc(nm(E(id)))}</span></button>`).join('')}</div>
+    <p class="small left">${t('showcase_note')}</p>
+    <span class="opt-label">${t('numbers')}</span>
+    <div class="stats">${stat(S.sent, t('s_sent'))}${stat(S.recv, t('s_recv'))}${stat(owned, t('s_emo'))}${stat(S.crush.size + '/3', t('s_crush'))}</div>
+    <span class="opt-label">${t('settings')}</span>
     <div class="settings">
-      <label class="setting"><input type="checkbox" id="quiet" ${S.quiet ? 'checked' : ''}><span>Ore di silenzio 23:00–07:00</span><small>Di notte i trilli arrivano senza suono né vibrazione.</small></label>
-      <div class="setting"><span></span><span>Fascia d'età: 14-17</span><small>La cotta segreta funziona solo con chi è nella tua fascia.</small></div>
+      <label class="setting"><input type="checkbox" id="quiet" ${S.quiet ? 'checked' : ''}><span>${t('quiet')}</span><small>${t('quiet_note')}</small></label>
+      <div class="setting"><span></span><span>${t('ageband')}</span><small>${t('ageband_note')}</small></div>
     </div></div>`;
 }
 
 /* ---------- Chat ---------- */
-function withShortcuts(t){
-  return esc(t).replace(SC_RE, (m, pre, code) => {
+function withShortcuts(s){
+  return esc(s).replace(SC_RE, (m, pre, code) => {
     const e = SC.find(x => x.sc === code);
-    return S.owned[e.id] ? pre + `<span class="emo-inline" title="${esc(e.name)}">${emoSVG(e.s, 24)}</span>` : m;
+    return S.owned[e.id] ? pre + `<span class="emo-inline" title="${esc(nm(e))}">${emoSVG(e.s, 24)}</span>` : m;
   });
 }
+const stripHTML = (ids, size) => `<div class="strip ${ids.length === 1 ? 'single' : ''}">${ids.map((id, k) => itemSVG(E(id), size, k)).join('')}</div>`;
 function msgHTML(m, idx){
   const i = S.chat;
-  if (m.t === 'trillo') return `<div class="sys trillo-pill">${m.from === 'me' ? '~ Hai mandato un trillo! ~' : '~ ' + esc(F[i].name) + ' ti ha mandato un trillo! ~'}</div>`;
-  if (m.t === 'combo') return '<div class="sys combo-pill">TRILLO COMBO!</div>';
-  if (m.t === 'sys') return `<div class="sys">${esc(m.text)}</div>`;
-  const side = m.from === 'me' ? 'me' : 'them';
+  if (m.t === 'zing') return `<div class="sys zing-pill">${m.from === 'me' ? t('zing_sent') : esc(t('zing_recv', {name:F[i].name}))}</div>`;
+  if (m.t === 'combo') return `<div class="sys combo-pill">${t('combo')}</div>`;
+  if (m.t === 'sys') return `<div class="sys">${esc(tx(m.text))}</div>`;
+  const mine = m.from === 'me';
   let b = '';
-  if (m.text) b += `<p>${side === 'me' ? withShortcuts(m.text) : esc(m.text)}</p>`;
-  if (m.emo){
-    const e = E(m.emo);
-    b += `<div class="emo-big">${emoSVG(e.s, 64)}</div><span class="emo-name">${esc(e.name)}</span>`;
-    if (side === 'them'){
-      if (m.taken) b += '<span class="took">Presa! È nel tuo album</span>';
-      else if (S.owned[e.id]) b += '<span class="took muted">Ce l\'hai già</span>';
-      else b += `<span class="rar-chip" style="--r:${RAR[e.r].c}">${RAR[e.r].l}</span><button class="prendila" data-take="${idx}">Prendila!</button>`;
+  if (m.text) b += `<p>${mine ? withShortcuts(m.text) : esc(tx(m.text))}</p>`;
+  if (m.strip){
+    const single = m.strip.length === 1, e0 = E(m.strip[0]);
+    b += stripHTML(m.strip, single ? 64 : 46);
+    if (single) b += `<span class="emo-name">${esc(nm(e0))}</span>`;
+    if (!mine){
+      const miss = [...new Set(m.strip)].filter(id => !S.owned[id]);
+      if (m.taken && !miss.length) b += `<span class="took">${t('taken')}</span>`;
+      else if (!miss.length) b += `<span class="took muted">${t('have')}</span>`;
+      else {
+        const top = miss.map(E).sort((x, y) => Object.keys(RAR).indexOf(y.r) - Object.keys(RAR).indexOf(x.r))[0];
+        b += `<span class="rar-chip" style="--r:${RAR[top.r].c}">${rl(top.r)}</span><button class="grab" data-take="${idx}">${miss.length > 1 ? t('grab_n', {n:miss.length}) : t('grab')}</button>`;
+      }
     }
   }
-  return `<div class="msg ${side}"><div class="bubble">${b}</div></div>`;
+  return `<div class="msg ${mine ? 'mine' : 'theirs'}"><div class="bubble">${b}</div></div>`;
 }
 function renderMessages(){
   const box = $('#msgs');
-  box.innerHTML = S.chats[S.chat].map(msgHTML).join('') || `<div class="sys">Nessun messaggio. Rompi il ghiaccio con un trillo.</div>`;
+  box.innerHTML = S.chats[S.chat].map(msgHTML).join('') || `<div class="sys">${t('no_msgs')}</div>`;
   box.scrollTop = box.scrollHeight;
 }
 function renderChat(){
-  const i = S.chat, f = F[i], st = ST[f.status];
-  $('#chatHead').innerHTML = `<button class="icon-btn" data-close-chat aria-label="Torna agli amici">${ICON.back}</button>${avaHTML(i, 'sm')}<div class="ch-info"><b>${esc(f.name)}</b><small>${st.l} · ${esc(f.pm)}</small></div><button class="icon-btn heart ${S.crush.has(i) ? 'on' : ''}" data-crush aria-label="Cotta segreta">${ICON.heart}</button>`;
-  renderMessages(); renderTyping(); updateTrilloBtn();
+  const i = S.chat, f = F[i];
+  $('#chatHead').innerHTML = `<button class="icon-btn" data-close-chat aria-label="${t('back')}">${ICON.back}</button>${avaHTML(i, 'sm')}<div class="ch-info"><b>${esc(f.name)}</b><small>${t('st_' + f.status)} · ${esc(tx(f.pm))}</small></div><button class="icon-btn heart ${S.crush.has(i) ? 'on' : ''}" data-crush aria-label="${t('crush_aria')}">${ICON.heart}</button>`;
+  renderMessages(); renderTyping(); updateZingBtn();
 }
-function renderTyping(){ $('#typing').textContent = S.typing && S.typing === S.chat ? F[S.chat].name + ' sta scrivendo...' : ''; }
+function renderTyping(){ $('#typing').textContent = S.typing && S.typing === S.chat ? t('typing', {name:F[S.chat].name}) : ''; }
 function renderTray(){
-  $('#tray').innerHTML = CAT.filter(e => S.owned[e.id]).map(e => `<button data-send-emo="${e.id}" aria-label="Manda ${esc(e.name)}" title="${esc(e.name)}${e.sc ? ' ' + e.sc : ''}">${emoSVG(e.s, 36)}</button>`).join('');
+  const owned = CAT.filter(e => S.owned[e.id]);
+  const btns = list => list.map(e => `<button type="button" data-add-mix="${e.id}" aria-label="${esc(nm(e))}" title="${esc(nm(e))}${e.sc ? ' ' + e.sc : ''}">${itemSVG(e, 36, 0, false)}</button>`).join('');
+  $('#tray').innerHTML = `<p class="tray-hint">${t('mix_hint')}</p><div class="tray-label">${t('mix_faces')}</div><div class="tray-grid">${btns(owned.filter(e => !e.piece))}</div><div class="tray-label">${t('mix_parts')}</div><div class="tray-grid">${btns(owned.filter(e => e.piece))}</div>`;
 }
-function updateTrilloBtn(){
+function renderMix(){
+  const bar = $('#mixbar');
+  bar.hidden = !S.mix.length;
+  bar.innerHTML = S.mix.length ? `<div class="strip">${S.mix.map((id, k) => `<button type="button" data-mix-remove="${k}" aria-label="${esc(nm(E(id)))}">${itemSVG(E(id), 40, k)}</button>`).join('')}</div><button type="button" class="mix-clear" data-mix-clear>${t('mix_clear')}</button>` : '';
+  if (S.mix.length){ const s = bar.querySelector('.strip'); s.scrollLeft = s.scrollWidth; }
+}
+function updateZingBtn(){
   if (!S.chat) return;
-  const left = (S.cool[S.chat] || 0) - Date.now(), btn = $('#trilloBtn');
-  btn.disabled = left > 0; btn.textContent = left > 0 ? Math.ceil(left / 1000) + ' s' : 'Trillo!';
-  $('#chatFoot').textContent = `trilli oggi ${S.today}/30 · pausa di 5 s tra un trillo e l'altro`;
+  const left = (S.cool[S.chat] || 0) - Date.now(), btn = $('#zingBtn');
+  btn.disabled = left > 0; btn.textContent = left > 0 ? Math.ceil(left / 1000) + ' s' : 'Zing!';
+  $('#chatFoot').textContent = t('foot', {n:S.today});
 }
-setInterval(updateTrilloBtn, 250);
+setInterval(updateZingBtn, 250);
 
 function openChat(i){
-  S.chat = i; S.unread[i] = 0; S.trilledMe[i] = false;
-  $('#chat').hidden = false; $('#tray').hidden = true; renderTray();
-  if (F[i].status === 'offline' && !S.chats[i].length) S.chats[i].push({t:'sys', text:F[i].name + ' è offline: leggerà quando si collega.'});
+  S.chat = i; S.unread[i] = 0; S.zingedMe[i] = false; S.mix = [];
+  $('#chat').hidden = false; $('#tray').hidden = true; renderTray(); renderMix();
+  if (F[i].status === 'offline' && !S.chats[i].length) S.chats[i].push({t:'sys', text:n2(STR.en.offline_note.replace('{name}', F[i].name), STR.it.offline_note.replace('{name}', F[i].name))});
   renderChat(); renderTabs();
 }
 function closeChat(){ $('#chat').hidden = true; S.chat = null; renderAll(); }
@@ -617,7 +825,7 @@ function addMsg(i, m, quiet){
   const open = S.chat === i && !$('#chat').hidden;
   if (open) renderMessages();
   else {
-    if (m.from !== 'me' && !m.t) { S.unread[i] = (S.unread[i] || 0) + 1; if (!quiet) toast(`${F[i].name}: ${m.text || 'ti ha mandato un\'emoticon'}`, i); }
+    if (m.from !== 'me' && !m.t){ S.unread[i] = (S.unread[i] || 0) + 1; if (!quiet) toast(`${F[i].name}: ${m.text ? tx(m.text) : t('sent_emo')}`, i); }
     renderTabs(); if (S.tab === 'amici') renderScreen();
   }
 }
@@ -629,118 +837,132 @@ function scheduleReply(i, delay){
     S.typing = i; if (S.chat === i) renderTyping();
     timers[i] = setTimeout(() => {
       S.typing = null; if (S.chat === i) renderTyping();
-      const m = {from:i, text:pick(f.replies)};
-      if (Math.random() < .4) m.emo = pick(f.pool);
+      const k = Math.floor(Math.random() * f.replies.en.length), m = {from:i, text:n2(f.replies.en[k], f.replies.it[k])};
+      if (Math.random() < .45){ const p = pick(f.pool); m.strip = Array.isArray(p) ? p : [p]; }
       addMsg(i, m);
     }, 1200 + Math.random() * 900);
   }, delay);
 }
-function sendText(text){
-  const i = S.chat; text = text.trim(); if (!text) return;
-  addMsg(i, {from:'me', text}); scheduleReply(i, 900);
+function sendMessage(text){
+  const i = S.chat; text = text.trim();
+  if (!text && !S.mix.length) return;
+  const m = {from:'me'}; if (text) m.text = text; if (S.mix.length) m.strip = S.mix.slice();
+  S.mix = []; renderMix(); $('#tray').hidden = true;
+  addMsg(i, m); scheduleReply(i, 900);
 }
 
-/* ---------- Trilli ---------- */
-function sendTrillo(){
+/* ---------- Zing ---------- */
+function sendZing(){
   const i = S.chat, now = Date.now();
   if ((S.cool[i] || 0) > now) return;
-  if (S.today >= 30){ toast('Hai finito i trilli di oggi. Domani si ricomincia!'); return; }
+  if (S.today >= 30){ toast(t('daily_out')); return; }
   S.today++; S.sent++; S.cool[i] = now + 5000; S.lastMine[i] = now;
-  addMsg(i, {t:'trillo', from:'me'}); trillFx($('#chat')); updateTrilloBtn();
+  addMsg(i, {t:'zing', from:'me'}); zingFx($('#chat')); updateZingBtn();
   if (now - (S.lastTheirs[i] || 0) < 3000){ addMsg(i, {t:'combo'}); setTimeout(() => showCombo(i), 450); return; }
   const f = F[i]; if (f.status === 'offline') return;
-  if (Math.random() < f.back) setTimeout(() => incomingTrillo(i), 900 + Math.random() * 1500);
+  if (Math.random() < f.back) setTimeout(() => incomingZing(i), 900 + Math.random() * 1500);
   else scheduleReply(i, 2000);
 }
-function incomingTrillo(i){
+function incomingZing(i){
   const now = Date.now(), open = S.chat === i && !$('#chat').hidden;
   S.recv++; S.lastTheirs[i] = now;
-  if (!open) S.trilledMe[i] = true;
-  addMsg(i, {t:'trillo', from:i}, true);
-  trillFx(open ? $('#chat') : $('#phone'));
-  if (!open) toast(`${F[i].name} ti ha mandato un trillo!`, i);
+  if (!open) S.zingedMe[i] = true;
+  addMsg(i, {t:'zing', from:i}, true);
+  zingFx(open ? $('#chat') : $('#phone'));
+  if (!open) toast(t('zing_recv', {name:F[i].name}).replace(/~ /g, '').replace(/ ~/g, ''), i);
   if (now - (S.lastMine[i] || 0) < 3000){ addMsg(i, {t:'combo'}); setTimeout(() => showCombo(i), 450); }
-  else if (open) toast('Rimandaglielo entro 3 secondi per la combo!');
+  else if (open) toast(t('combo_hint'));
 }
 function showCombo(i){
-  trillSound(); trillSound(.2); buzz([60,30,60,30,60,30,200]);
-  overlay(`<div class="combo"><div class="combo-emos"><span class="ce left">${emoSVG(E('risata').s, 92)}</span><span class="ce right">${emoSVG(E('occhiolino').s, 92)}</span></div><h2>TRILLO<br>COMBO!</h2><p>Tu e ${esc(F[i].name)} vi siete trillati a vicenda in meno di 3 secondi.</p><button class="btn-gloss pink" data-close-overlay>Troppo forte</button></div>`);
+  zingSound(); zingSound(.2); buzz([60,30,60,30,60,30,200]);
+  overlay(`<div class="combo"><div class="combo-emos"><span class="ce left">${emoSVG(E('risata').s, 92)}</span><span class="ce right">${emoSVG(E('occhiolino').s, 92)}</span></div><h2>ZING<br>COMBO!</h2><p>${esc(t('combo_text', {name:F[i].name}))}</p><button class="btn-gloss pink" data-close-overlay>${t('combo_btn')}</button></div>`);
 }
 
-/* ---------- Emoticon: prendila ---------- */
+/* ---------- Grab it! ---------- */
 function takeEmo(i, id){
   const e = E(id); if (S.owned[id]) return null;
   let extra = '';
   if (e.r !== 'comune'){
-    const p = passesOf(i);
-    if (p[e.r] <= 0){ toast(`${F[i].name} ha finito i passaggi ${RAR[e.r].pl} per ${e.r === 'leggendaria' ? 'questo mese' : 'questa settimana'}. Riprova più avanti!`); return null; }
+    const p = passesOf(i), period = t(e.r === 'leggendaria' ? 'month' : 'week');
+    if (p[e.r] <= 0){ toast(t('passes_out', {name:F[i].name, r:rp(e.r), period})); return null; }
     p[e.r]--;
-    extra = `${F[i].name} può passare ancora ${p[e.r]} ${RAR[e.r].pl} ${e.r === 'leggendaria' ? 'questo mese' : 'questa settimana'}.`;
+    extra = t('passes_left', {name:F[i].name, n:p[e.r], r:rp(e.r), period});
   }
-  S.owned[id] = {from:F[i].name, date:'oggi'}; popSound(); buzz(30); renderTray();
+  S.owned[id] = {from:F[i].name, date:'today'};
   return extra;
 }
-function showCard(e, from, extra){
-  overlay(`<div class="card-fig" style="--r:${RAR[e.r].c}"><span class="fig-tag">NUOVA!</span>${emoSVG(e.s, 120)}<h3>${esc(e.name)}</h3><span class="rar-chip" style="--r:${RAR[e.r].c}">${RAR[e.r].l}</span><p>Ricevuta da <b>${esc(from)}</b> · oggi</p>${extra ? `<p class="small">${esc(extra)}</p>` : ''}<button class="btn-gloss" data-close-overlay>Nell'album!</button></div>`);
+function grabMany(i, ids){
+  const got = [], extras = [];
+  for (const id of [...new Set(ids)]){ const x = takeEmo(i, id); if (x !== null){ got.push(id); if (x) extras.push(x); } }
+  if (got.length){ popSound(); buzz(30); renderTray(); showCard(got, F[i].name, extras[extras.length - 1] || ''); }
+  return got;
+}
+function showCard(ids, from, extra){
+  const e = E(ids[0]), rest = ids.slice(1);
+  overlay(`<div class="card-fig" style="--r:${RAR[e.r].c}"><span class="fig-tag">${t('new')}</span>${itemSVG(e, 120)}<h3>${esc(nm(e))}</h3><span class="rar-chip" style="--r:${RAR[e.r].c}">${rl(e.r)}${e.piece ? ' · ' + t('part') : ''}</span>${rest.length ? `${stripHTML(rest, 40)}<p class="small">${t('and_more', {n:rest.length})}</p>` : ''}<p>${t('from_line', {name:esc(from)})}</p>${extra ? `<p class="small">${esc(extra)}</p>` : ''}<button class="btn-gloss" data-close-overlay>${t('to_album')}</button></div>`);
 }
 
 /* ---------- Cotta segreta ---------- */
 function openCrush(){
-  const i = S.chat, f = F[i], has = S.crush.has(i);
-  sheet(`<h3>Cotta segreta</h3><p>Nessuno saprà mai che hai scelto ${esc(f.name)}. Se anche ${esc(f.name)} sceglie te, vi arriva un <b>trillo del destino</b>. Se no, non succede niente.</p><p class="small">Cotte usate: ${S.crush.size}/3 · Funziona solo con chi è nella tua fascia d'età.</p><button class="btn-gloss pink" data-crush-toggle>${has ? 'Togli la cotta' : 'Scegli ' + esc(f.name)}</button><button class="btn-gloss" data-close-sheet>Non ora</button>`);
+  const i = S.chat, f = F[i], has = S.crush.has(i), name = esc(f.name);
+  sheet(`<h3>${t('crush_title')}</h3><p>${t('crush_text', {name})}</p><p class="small">${t('crush_used', {n:S.crush.size})}</p><button class="btn-gloss pink" data-crush-toggle>${has ? t('crush_remove') : t('crush_pick', {name})}</button><button class="btn-gloss" data-close-sheet>${t('not_now')}</button>`);
 }
 function toggleCrush(){
   const i = S.chat, f = F[i]; closeSheet();
-  if (S.crush.has(i)){ S.crush.delete(i); toast('Cotta tolta. Nessuno lo saprà.'); renderChat(); return; }
-  if (S.crush.size >= 3){ toast('Hai già 3 cotte segrete. Togline una per sceglierne un\'altra.'); return; }
+  if (S.crush.has(i)){ S.crush.delete(i); toast(t('crush_removed')); renderChat(); return; }
+  if (S.crush.size >= 3){ toast(t('crush_full')); return; }
   S.crush.add(i); renderChat();
   if (f.mutual && !S.matched[i]) setTimeout(() => showDestiny(i), 1400);
-  else toast('Fatto. Rimane un segreto tra te e l\'app.');
+  else toast(t('crush_set'));
 }
 function showDestiny(i){
   S.matched[i] = true;
-  const e = E('cometa'); const fresh = !S.owned.cometa;
-  if (fresh) S.owned.cometa = {from:'Trillo del destino', date:'oggi'};
-  renderTray(); addMsg(i, {t:'sys', text:'Trillo del destino: vi siete scelti a vicenda'});
-  trillSound(); trillSound(.25); buzz([120,60,120,60,300]); shakeEl($('#phone'));
-  overlay(`<div class="destiny"><div class="hearts" aria-hidden="true">&lt;3 &lt;3</div><h2>Trillo del<br>destino</h2><p>Tu e ${esc(F[i].name)} vi siete scelti a vicenda. Ora lo sapete entrambi.</p>${fresh ? `<div class="gift">${emoSVG(e.s, 84)}<b>${esc(e.name)}</b><span class="rar-chip" style="--r:${RAR[e.r].c}">${RAR[e.r].l} · solo per voi due</span></div>` : ''}<button class="btn-gloss pink" data-close-overlay>Che emozione</button></div>`);
+  const e = E('cometa'), fresh = !S.owned.cometa;
+  if (fresh) S.owned.cometa = {from:'destiny', date:'today'};
+  renderTray(); addMsg(i, {t:'sys', text:n2(STR.en.destiny_sys, STR.it.destiny_sys)});
+  zingSound(); zingSound(.25); buzz([120,60,120,60,300]); shakeEl($('#phone'));
+  overlay(`<div class="destiny"><div class="hearts" aria-hidden="true">&lt;3 &lt;3</div><h2>${t('destiny_title')}</h2><p>${esc(t('destiny_text', {name:F[i].name}))}</p>${fresh ? `<div class="gift">${emoSVG(e.s, 84)}<b>${esc(nm(e))}</b><span class="rar-chip" style="--r:${RAR[e.r].c}">${t('destiny_gift', {r:rl(e.r)})}</span></div>` : ''}<button class="btn-gloss pink" data-close-overlay>${t('destiny_btn')}</button></div>`);
 }
 
 /* ---------- Storie ---------- */
 let storyTimer = null;
 function openStory(i){
   const f = F[i], st = f.story, e = E(st.emo); S.seenStory[i] = true;
-  overlay(`<div class="story-view" style="background:${st.bg}"><div class="sv-bar"><i></i></div><div class="sv-head"><span class="ava sm" style="--c:${f.c}">${initial(i)}</span><span style="min-width:0"><b>${esc(f.name)}</b><small>2 h fa · solo amici</small></span><button class="sv-x" data-close-overlay aria-label="Chiudi la storia">&times;</button></div><p class="sv-text">${esc(st.text)}</p><div class="sv-sticker">${emoSVG(e.s, 96)}<span>${esc(e.name)}</span>${S.owned[e.id] ? '<em>Ce l\'hai già</em>' : `<button class="prendila" data-take-story="${i}">Prendila!</button>`}</div></div>`, 'story');
+  overlay(`<div class="story-view" style="background:${st.bg}"><div class="sv-bar"><i></i></div><div class="sv-head"><span class="ava sm" style="--c:${f.c}">${initial(i)}</span><span style="min-width:0"><b>${esc(f.name)}</b><small>${t('story_meta')}</small></span><button class="sv-x" data-close-overlay aria-label="${t('close_story')}">&times;</button></div><p class="sv-text">${esc(tx(st.text))}</p><div class="sv-sticker">${emoSVG(e.s, 96)}<span>${esc(nm(e))}</span>${S.owned[e.id] ? `<em>${t('have')}</em>` : `<button class="grab" data-take-story="${i}">${t('grab')}</button>`}</div></div>`, 'story');
   storyTimer = setTimeout(closeOverlay, 7000);
   if (S.tab === 'amici') renderScreen();
 }
 
 /* ---------- Album: dettaglio ---------- */
 function holders(e){ const base = {comune:41200, noncomune:8300, rara:940, epica:118, leggendaria:14}[e.r]; let h = 0; for (const c of e.id) h = (h * 31 + c.charCodeAt(0)) % 997; return Math.round(base * (.7 + h / 1660)); }
+const fmt = n => n.toLocaleString(L === 'it' ? 'it-IT' : 'en-US');
+function fromLabel(o){ return o.from === 'starter' ? t('starter') : o.from === 'destiny' ? (L === 'it' ? 'Zing del destino' : 'Destiny Zing') : o.from; }
 function openEmo(id){
   const e = E(id), o = S.owned[id];
+  const chip = `<span class="rar-chip" style="--r:${RAR[e.r].c}">${rl(e.r)}${e.piece ? ' · ' + t('part') : ''}${e.creator ? ' · ' + t('community') : ''}</span>`;
   if (!o){
     const show = e.r === 'comune' || e.r === 'noncomune';
-    sheet(`<div class="center"><div class="silhouette">${emoSVG(e.s, 96)}</div><h3>${show ? esc(e.name) : '???'}</h3><span class="rar-chip" style="--r:${RAR[e.r].c}">${RAR[e.r].l}</span><p>Non ce l'hai ancora. L'unico modo per averla è che un amico te la mandi.</p><p class="small">Ce l'hanno ${holders(e).toLocaleString('it-IT')} persone in tutta Italia.</p></div><button class="btn-gloss" data-close-sheet>Ok</button>`);
+    sheet(`<div class="center"><div class="silhouette">${itemSVG(e, 96)}</div><h3>${show ? esc(nm(e)) : '???'}</h3>${chip}<p>${t('missing_text')}</p><p class="small">${t('holders', {n:fmt(holders(e))})}</p></div><button class="btn-gloss" data-close-sheet>${t('ok')}</button>`);
     return;
   }
   const inV = S.vetrina.includes(id);
-  const who = e.creator ? 'Solo tu, per ora.' : `Ce l'hanno ${holders(e).toLocaleString('it-IT')} persone · passata di mano ${(holders(e) * 3).toLocaleString('it-IT')} volte.`;
-  sheet(`<div class="center">${emoSVG(e.s, 96)}<h3>${esc(e.name)}</h3><span class="rar-chip" style="--r:${RAR[e.r].c}">${RAR[e.r].l}${e.creator ? ' · Community' : ''}</span>${e.sc ? `<p class="small">Scorciatoia: <b>${esc(e.sc)}</b></p>` : ''}<p>${o.pz ? 'Creata da te: sei Paziente Zero' : `Ricevuta da <b>${esc(o.from)}</b>, ${esc(o.date)}`}</p><p class="small">${who}</p></div>${inV ? '<p class="small" style="text-align:center">È già nella tua vetrina.</p>' : `<button class="btn-gloss pink" data-vetrina="${id}">Metti in vetrina</button>`}<button class="btn-gloss" data-close-sheet>Chiudi</button>`);
+  const who = e.creator ? t('only_you') : t('holders_pass', {n:fmt(holders(e)), m:fmt(holders(e) * 3)});
+  const date = o.date === 'oct' ? t('oct') : o.date === 'today' ? t('today') : o.date;
+  sheet(`<div class="center">${itemSVG(e, 96)}<h3>${esc(nm(e))}</h3>${chip}${e.sc ? `<p class="small">${t('shortcut', {s:esc(e.sc)})}</p>` : ''}<p>${o.pz ? t('created_by_you') : t('received_from', {name:esc(fromLabel(o)), date})}</p><p class="small">${who}</p></div>${inV ? `<p class="small" style="text-align:center">${t('in_showcase')}</p>` : `<button class="btn-gloss pink" data-vetrina="${id}">${t('put_showcase')}</button>`}<button class="btn-gloss" data-close-sheet>${t('close')}</button>`);
 }
 
 /* ---------- Studio ---------- */
 function submitEmo(){
   const name = S.studioName.trim();
-  if (!name){ toast('Dai un nome alla tua emoticon prima di inviarla.'); $('#emoName') && $('#emoName').focus(); return; }
+  if (!name){ toast(t('need_name')); $('#emoName') && $('#emoName').focus(); return; }
   const c = {id:'u' + Date.now(), name, spec:{...S.studio}, ok:false};
   S.creations.unshift(c); S.studioName = ''; renderScreen();
-  toast('Inviata alla Redazione. Di solito ci vuole poco.');
+  toast(t('sent_review'));
   setTimeout(() => {
     c.ok = true;
     CAT.push({id:c.id, name:c.name, r:'noncomune', s:c.spec, creator:true});
-    S.owned[c.id] = {from:'Te', date:'oggi', pz:true}; renderTray(); popSound();
-    toast(`La Redazione ha approvato "${c.name}"! Ora puoi mandarla agli amici.`);
+    S.owned[c.id] = {from:'me', date:'today', pz:true}; renderTray(); popSound();
+    toast(t('approved_toast', {name:c.name}));
     if (S.tab === 'studio' || S.tab === 'album') renderScreen();
   }, 3500);
 }
@@ -752,68 +974,66 @@ function sheet(html){ $('#sheet').innerHTML = html; $('#sheetWrap').hidden = fal
 function closeSheet(){ $('#sheetWrap').hidden = true; }
 let toastT = null;
 function toast(text, open){
-  const t = $('#toast'); t.textContent = text; t.dataset.toastOpen = open || ''; t.hidden = false;
-  t.style.animation = 'none'; void t.offsetWidth; t.style.animation = '';
-  clearTimeout(toastT); toastT = setTimeout(() => t.hidden = true, 2800);
+  const el = $('#toast'); el.textContent = text; el.dataset.toastOpen = open || ''; el.hidden = false;
+  el.style.animation = 'none'; void el.offsetWidth; el.style.animation = '';
+  clearTimeout(toastT); toastT = setTimeout(() => el.hidden = true, 2800);
 }
 
 /* ---------- Eventi ---------- */
 document.addEventListener('click', ev => {
-  const ov = $('#overlay');
-  if (ev.target === ov){ closeOverlay(); return; }
+  if (ev.target === $('#overlay')){ closeOverlay(); return; }
   if (ev.target === $('#sheetWrap')){ closeSheet(); return; }
   const b = ev.target.closest('button'); if (!b) return;
   const d = b.dataset;
-  if (d.tab){ S.tab = d.tab; if (!$('#chat').hidden){ $('#chat').hidden = true; S.chat = null; } renderAll(); $('#screens').scrollTop = 0; }
+  if (d.lang){ L = d.lang; try { localStorage.setItem('zing-lang', L); } catch(e){} renderStatic(); renderAll(); }
+  else if (d.tab){ S.tab = d.tab; if (!$('#chat').hidden){ $('#chat').hidden = true; S.chat = null; } renderAll(); $('#screens').scrollTop = 0; }
   else if (d.open) openChat(d.open);
   else if ('closeChat' in d) closeChat();
-  else if ('trillo' in d) sendTrillo();
+  else if ('zing' in d) sendZing();
   else if ('tray' in d){ $('#tray').hidden = !$('#tray').hidden; }
-  else if (d.sendEmo){ addMsg(S.chat, {from:'me', emo:d.sendEmo}); $('#tray').hidden = true; scheduleReply(S.chat, 1000); }
+  else if (d.addMix){ if (S.mix.length < 12){ S.mix.push(d.addMix); clickSound(); renderMix(); } }
+  else if (d.mixRemove !== undefined){ S.mix.splice(+d.mixRemove, 1); renderMix(); }
+  else if ('mixClear' in d){ S.mix = []; renderMix(); }
   else if (d.take !== undefined){
-    const m = S.chats[S.chat][+d.take], extra = takeEmo(S.chat, m.emo);
-    if (extra !== null){ m.taken = true; renderMessages(); showCard(E(m.emo), F[S.chat].name, extra); }
+    const m = S.chats[S.chat][+d.take], got = grabMany(S.chat, m.strip);
+    if (got.length){ m.taken = true; renderMessages(); }
   }
-  else if (d.takeStory){
-    const i = d.takeStory, e = E(F[i].story.emo), extra = takeEmo(i, e.id);
-    if (extra !== null) showCard(e, F[i].name, extra);
-  }
+  else if (d.takeStory){ grabMany(d.takeStory, [F[d.takeStory].story.emo]); }
   else if ('crush' in d) openCrush();
   else if ('crushToggle' in d) toggleCrush();
   else if (d.story) openStory(d.story);
   else if (d.emo) openEmo(d.emo);
-  else if (d.vetrina){ S.vetrina = [d.vetrina, ...S.vetrina.filter(x => x !== d.vetrina)].slice(0, 3); closeSheet(); toast('Messa in vetrina: la vedono i tuoi amici sul profilo.'); }
+  else if (d.vetrina){ S.vetrina = [d.vetrina, ...S.vetrina.filter(x => x !== d.vetrina)].slice(0, 3); closeSheet(); toast(t('showcased')); if (S.tab === 'profilo') renderScreen(); }
   else if (d.opt){ S.studio[d.opt] = d.val; renderScreen(); }
   else if ('submitEmo' in d) submitEmo();
   else if (d.notify){
     const i = d.notify; if (S.notify[i]) return;
-    S.notify[i] = true; renderScreen(); toast(`Ti avviso quando ${F[i].name} si collega.`);
-    setTimeout(() => { F[i].status = 'online'; S.notify[i] = false; onlineSound(); buzz(40); toast(`${F[i].name} è online!`, i); renderAll(); }, 6000);
+    S.notify[i] = true; renderScreen(); toast(t('notify_set', {name:F[i].name}));
+    setTimeout(() => { F[i].status = 'online'; S.notify[i] = false; onlineSound(); buzz(40); toast(t('is_online', {name:F[i].name}), i); renderAll(); }, 6000);
   }
   else if ('closeOverlay' in d) closeOverlay();
   else if ('closeSheet' in d) closeSheet();
-  else if ('sim' in d){ incomingTrillo('sara'); }
+  else if ('sim' in d) incomingZing('sara');
   else if (b.id === 'toast'){ b.hidden = true; if (d.toastOpen) openChat(d.toastOpen); }
 });
 document.addEventListener('keydown', ev => {
   if (ev.key !== 'Escape') return;
   if (!$('#overlay').hidden) closeOverlay(); else if (!$('#sheetWrap').hidden) closeSheet();
 });
-$('#composer').addEventListener('submit', ev => { ev.preventDefault(); const inp = $('#msgInput'); sendText(inp.value); inp.value = ''; });
+$('#composer').addEventListener('submit', ev => { ev.preventDefault(); const inp = $('#msgInput'); sendMessage(inp.value); inp.value = ''; });
 document.addEventListener('input', ev => {
-  const t = ev.target;
-  if (t.id === 'emoName') S.studioName = t.value;
-  else if (t.id === 'nickInput'){ S.nick = t.value || '~*Simo*~'; $('#meNick').textContent = S.nick; }
-  else if (t.id === 'pmInput') S.pm = t.value;
+  const el = ev.target;
+  if (el.id === 'emoName') S.studioName = el.value;
+  else if (el.id === 'nickInput'){ S.nick = el.value || '~*Simo*~'; renderMe(); }
+  else if (el.id === 'pmInput'){ S.pm = el.value; S.pmEdited = true; }
 });
 document.addEventListener('change', ev => {
-  const t = ev.target;
-  if (t.id === 'status') S.status = t.value;
-  else if (t.id === 'quiet') S.quiet = t.checked;
-  else if (t.id === 'nickInput') renderMe();
+  const el = ev.target;
+  if (el.id === 'status') S.status = el.value;
+  else if (el.id === 'quiet') S.quiet = el.checked;
 });
 
-$('#trayBtn').innerHTML = emoSVG(E('sorriso').s, 26);
-renderMe(); renderAll();
+$('#trayBtn').innerHTML = emoSVG(E('sorriso').s, 26, false);
+renderStatic(); renderMe(); renderAll();
 })();
 </script>
