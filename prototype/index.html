@@ -473,7 +473,7 @@ const STR = {
       'Tap a friend’s <b>avatar</b> in the list to open their <b>wall</b>: photos, blog posts, emoticon reactions, guestbook.',
       'In <b>Profile</b>, customize your page like it’s MySpace and publish a post. You can add a real photo.',
       'In Giuly’s chat, tap the heart: that’s the <b>secret crush</b>.',
-      'Type <code>:)</code>, or <code>:lo</code> to get suggestions. <code>(H)</code> stays text until someone passes you Cool. Grab Marco’s train, then type <code>(train)</code>.',
+      'Type <code>:)</code>, or <code>:lo</code> to get suggestions. <code>(H)</code> stays text until someone passes you Cool. Grab Marco’s train, then type <code>(train)</code>. <code>QQ</code> is the teary one.',
       'Make your own emoticon in the <b>Studio</b>, including how it moves.'
     ]
   },
@@ -524,7 +524,7 @@ const STR = {
       'Tocca l’<b>avatar</b> di un amico nella lista per aprire la sua <b>bacheca</b>: foto, post da blog, reazioni con le emoticon, messaggi.',
       'Nel <b>Profilo</b> personalizza la tua pagina come su MySpace e pubblica un post. Puoi aggiungere una foto vera.',
       'Nella chat con Giuly tocca il cuore: è la <b>cotta segreta</b>.',
-      'Scrivi <code>:)</code>, oppure <code>:lo</code> per i suggerimenti. <code>(H)</code> resta testo finché qualcuno non ti passa Cool. Prendi il treno di Marco e poi scrivi <code>(train)</code>.',
+      'Scrivi <code>:)</code>, oppure <code>:lo</code> per i suggerimenti. <code>(H)</code> resta testo finché qualcuno non ti passa Cool. Prendi il treno di Marco e poi scrivi <code>(train)</code>. <code>QQ</code> sono i lacrimoni.',
       'Crea la tua emoticon nello <b>Studio</b>, compreso come si muove.'
     ]
   }
@@ -681,7 +681,7 @@ const CODES = {sorriso:'smile', occhiolino:'wink', risata:'lol', linguaccia:'ton
   cool:'cool', fiore:'flower', cuffie:'headphones', sudato:'sweaty', gatto:'kitty', occhidolci:'puppy', lacrimoni:'teary', supplica:'pleading', miciodolce:'sweetkitty', angelo:'angel', diavoletto:'devil', innamorato:'crush', stellare:'starry',
   smeraldo:'emerald', invito:'welcome', corona:'royal', alieno:'alien', fantasma:'ghost', cometa:'comet', galassia:'galaxy',
   bughead:'bughead', bugseg:'bugbody', bugtail:'bugtail', loco:'loco', wagon:'wagon', caboose:'caboose', nose:'nose', body:'rocketbody', booster:'booster'};
-const EXTRA_SC = {innamorato:'<3', fiore:'(F)', cuffie:'(8)', stellare:'(*)'};
+const EXTRA_SC = {innamorato:'<3', fiore:'(F)', cuffie:'(8)', stellare:'(*)', lacrimoni:'QQ'};
 CAT.forEach(e => { e.code = CODES[e.id]; if (EXTRA_SC[e.id]) e.sc = EXTRA_SC[e.id]; });
 const reEsc = x => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const ST_C = {online:'#3ccf4e', occupato:'#ff4747', torno:'#ffad1f', telefono:'#ffad1f', pranzo:'#ffad1f', invisibile:'#a9b8c8', offline:'#a9b8c8'};

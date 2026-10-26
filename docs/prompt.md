@@ -42,7 +42,7 @@ Lo zing (il "trillo" di MSN) è il gesto principale dell'app: costa un tocco e d
 - **Provenienza**: ogni emoticon ricorda chi te l'ha passata e quando ("Ricevuta da Marco, 12 ottobre"). Statistiche globali: quante persone ce l'hanno, quante volte è passata di mano.
 - **Paziente zero**: badge per i primi possessori di un'emoticon.
 - **Scorciatoie**: funzionano in chat, nei post e nei commenti, e diventano emoticon **solo se la possiedi** (altrimenti restano testo):
-  - codici classici stile MSN: `:)`, `;)`, `:D`, `(H)`, `<3`...;
+  - codici classici stile MSN: `:)`, `;)`, `:D`, `(H)`, `<3`... e **`QQ`** per i lacrimoni dagli occhi dolci (nello slang internazionale QQ sono due occhi che piangono, in Cina "Q" vuol dire anche tenero);
   - codici con nome per tutte le emoticon e i pezzi, internazionali come su Discord e Slack: `:lol:`, `:cool:`, `:loco:`. Scrivendo `:` compaiono i **suggerimenti** con le emoticon che possiedi;
   - **set**: un solo codice per l'insieme intero, se hai tutti i pezzi (`(train)`, `(rocket)`, `(bug)`);
   - chi crea un'emoticon nello Studio sceglie la sua scorciatoia (es. `:simo:`), unica in tutto il catalogo;
