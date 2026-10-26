@@ -20,9 +20,10 @@ Prima di scrivere codice entra in plan mode, leggi tutto questo documento, crea 
 Lo zing (il "trillo" di MSN) è il gesto principale dell'app: costa un tocco e dice "ci sei?", "ti penso", "mi stai simpatico/a". Deve essere **leggero, giocoso e mai invadente**.
 
 - Uno zing fa **tremare lo schermo della chat** del destinatario, con vibrazione e suono dedicato. Ad app chiusa arriva una push con suono personalizzato (su iOS la vibrazione delle push non si può personalizzare: va bene così).
+- Si manda con il **pulsante a sinistra** del campo di testo (lontano da "invia", così non si sbaglia) oppure con un **doppio tocco sull'avatar** dell'amico, come il "pat" di WeChat. In futuro: frase personalizzabile ("ti ha mandato uno zing *e poi è scappato*").
 - Si manda **solo agli amici** (amicizia reciproca, richiesta + accettazione).
 - **Same energy**: se due amici si mandano uno zing a vicenda entro 3 secondi, compare "same energy", con i due avatar che pulsano insieme. Animazione sobria: niente scritte urlate né grafica da cartone animato, perché il pubblico (Gen Z e Gen Alpha) è ironico e attento all'estetica, e scappa da tutto ciò che sembra infantile.
-- **Cotta segreta**: ogni utente può segnare in segreto fino a 3 amici come "cotta". Nessuno lo vede. Se la cotta è **reciproca**, a entrambi arriva uno **Destiny Zing** ("Zing del destino") con animazione speciale e un'emoticon esclusiva. Se non è reciproca, non succede niente e nessuno lo saprà mai. Niente messaggi anonimi: l'unica cosa che si rivela è una corrispondenza reciproca. Solo tra utenti della stessa fascia d'età (vedi sicurezza).
+- **Cotta segreta**: ogni utente può segnare in segreto fino a 3 amici come "cotta". Nessuno lo vede. Se la cotta è **reciproca**, a entrambi compare **"it's mutual"**, con un'animazione sobria e un'emoticon esclusiva. Se non è reciproca, non succede niente e nessuno lo saprà mai. Niente messaggi anonimi: l'unica cosa che si rivela è una corrispondenza reciproca. Solo tra utenti della stessa fascia d'età (vedi sicurezza).
 - **Anti-spam e rispetto**: cooldown per conversazione, limite giornaliero (configurabili), possibilità di silenziare gli zing di una persona. Chi silenzia non viene notificato.
 - **Ore di silenzio**: per i minori, di default dalle 23 alle 7 gli zing arrivano senza suono né vibrazione e si vedono al risveglio.
 - Il contatore di zing ricevuti/inviati è **visibile solo a se stessi**: niente classifiche di popolarità.
@@ -41,7 +42,7 @@ Lo zing (il "trillo" di MSN) è il gesto principale dell'app: costa un tocco e d
 - **Provenienza**: ogni emoticon ricorda chi te l'ha passata e quando ("Ricevuta da Marco, 12 ottobre"). Statistiche globali: quante persone ce l'hanno, quante volte è passata di mano.
 - **Paziente zero**: badge per i primi possessori di un'emoticon.
 - **Scorciatoie da tastiera** stile MSN: `:)`, `;)`, `(Y)`, `(H)` diventano emoticon **solo se la possiedi**, altrimenti restano testo.
-- **Album**: schermata stile album di figurine, con le sagome grigie delle emoticon mancanti, divise per rarità e serie.
+- **Collezione**: sobria, non da album di figurine. Non è nella barra principale: sta dentro il Profilo (anteprima più "vedi tutte"). Mostra le emoticon che hai, divise per rarità con un pallino colorato discreto; quelle mancanti si vedono solo se lo chiedi, sbiadite e senza nome. Niente barre di avanzamento e niente "???".
 
 ### Economia (regole di partenza, tutte configurabili in una tabella `economy_config`)
 Mandare un'emoticon in chat non la consuma mai. Quello che è limitato è **passarla a qualcuno di nuovo**: il "passaggio" si conta solo quando il destinatario tocca "Grab it!".
@@ -86,6 +87,7 @@ Prima del lancio va verificata la disponibilità del nome "Zing" come marchio e 
 - **Backend**: Supabase (Postgres, Auth, Realtime, Storage, Edge Functions), progetto in regione UE.
 - **Animazioni**: Lottie (`lottie-react-native`) o Rive per emoticon, pezzi e zing; Reanimated per lo scuotimento della chat.
 - **Vibrazione e suoni**: `expo-haptics`, `expo-audio` (non `expo-av`, che è deprecato).
+- **Riferimenti di mercato**: vedi `docs/trends.md` (Stati Uniti e Cina).
 - **Notifiche push**: Expo Notifications, con suono personalizzato dello zing.
 - **Stato client**: Zustand + TanStack Query.
 - **Analytics**: eventi anonimi salvati nel nostro database (o uno strumento self-hosted in UE). **Nessun SDK pubblicitario o di tracciamento di terze parti.**
@@ -116,10 +118,14 @@ Se hai una proposta migliore, spiegamela prima di procedere.
 - Vocali e conferme di lettura non entrano nell'MVP: prima zing ed emoticon, poi il resto.
 - Messaggi non cifrati end-to-end nell'MVP: la scelta va scritta in modo chiaro nell'informativa privacy.
 
-### 3. Profilo
-- Foto, nickname, messaggio personale, **vetrina** con 3 emoticon scelte dalla collezione.
-- Cornice della foto profilo che cambia in base alla rarità più alta posseduta.
-- Profilo visibile **solo agli amici**.
+### 3. Profilo e bacheca (MySpace rivisto in chiave 2026)
+- Si entra nel profilo di un amico toccando il suo avatar (nella lista amici o in alto nella chat) e si **legge la sua pagina**, come un piccolo blog personale.
+- **Pagina personalizzabile** come su MySpace: tema della copertina (cielo, bubblegum, midnight, lime, chrome), mood, **canzone del profilo** ("now playing"), tag di interessi, vetrina con 3 emoticon.
+- **Bacheca**: post con **foto** (con didascalia e sticker emoticon) e post **blog** (titolo e testo più lungo). Si reagisce **con le emoticon che si possiedono**: se un amico reagisce con un'emoticon che non hai, toccandola puoi prenderla (rispettando l'economia).
+- **Commenti** sotto ogni post e **messaggi in bacheca** (il guestbook di MySpace).
+- Tutto visibile **solo agli amici**; foto caricate sempre moderate prima della pubblicazione.
+- Niente classifica "Top 8" degli amici: tra i 14-17enni crea drammi. Al massimo una "crew" senza ordine.
+- **Più avanti: giornali e pagine** da seguire (giornalino della scuola, riviste di musica, artisti, brand) che pubblicano sulla bacheca come post. Contenuti editoriali scelti, niente pubblicità profilata ai minori.
 
 ---
 
@@ -182,7 +188,7 @@ Questa sezione ha la precedenza su qualsiasi funzionalità. Se una funzione la m
 4. **Fase 3** — Emoticon collezionabili: catalogo con emoticon animate e pezzi componibili, mix in chat, Studio a pezzi con revisione, pacchetto iniziale, "Grab it!", economia, scorciatoie, album, provenienza, premio per gli inviti, analytics, anti-trucco con test.
    **→ Qui c'è l'MVP**: lo facciamo provare a un gruppo ristretto (20-30 persone, con i consensi necessari) e misuriamo se le emoticon circolano davvero.
 5. **Fase 4** — Cotta segreta, fusioni, badge, eventi stagionali, moderazione automatica delle foto.
-6. **Fase 5** — Vetrina avanzata, storie, chat di gruppo.
+6. **Fase 5** — Bacheca completa (foto, blog, commenti, guestbook, temi del profilo), storie, chat di gruppo.
 7. **Fase 6** — Extra scelti dalla lista sopra, Studio con caricamento di disegni, serie di artisti e brand.
 
 Alla fine di ogni fase: fermati, riassumimi cosa hai fatto, come provarlo sul telefono (development build) e cosa resta aperto.
