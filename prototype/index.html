@@ -465,6 +465,41 @@ textarea.field{resize:vertical; min-height:64px}
   *,*::before,*::after{animation-duration:.01ms !important; animation-iteration-count:1 !important}
   .shake{animation:flash .6s !important}
 }
+
+/* ---------- Coerenza: lucido solo su ciò che si colleziona, un solo accento, una scala di angoli, due font ---------- */
+:root{--rb:14px; --btn-depth:none}
+.phone{border-radius:28px}
+.phone[data-skin="classic"], .phone[data-skin="chrome"], .phone[data-skin="sky"]{--btn-depth:inset 0 1px 1px rgb(255 255 255 / .4), 0 2px 0 var(--btn-shadow)}
+.phone[data-skin="cobalt"]{--bar:linear-gradient(180deg, #2f52dc, #2346d0); --bar-gloss:none; --btn:#2b4fd8}
+.phone[data-skin="peach"]{--bar:#1b2140; --bar-gloss:none; --btn:#1b2140}
+.phone[data-skin="periwinkle"]{--bar:linear-gradient(180deg, #7584ff, #6070f4); --bar-gloss:none; --btn:#5462e8}
+.btn, .btn.pink{box-shadow:var(--btn-depth)}
+.phone:is([data-skin="cobalt"], [data-skin="peach"], [data-skin="periwinkle"], [data-skin="clean"]) .btn.pink{background:var(--pink)}
+/* avatar piatti: il lucido resta a emoticon e pulsante dello zing */
+.ava{background:var(--c); text-shadow:none; box-shadow:0 0 0 2px var(--paper)}
+.ava.xl{box-shadow:0 0 0 4px var(--paper)}
+.ring{background:conic-gradient(var(--pink), var(--aqua), var(--pink))}
+/* un solo accento per le azioni */
+.grab{background:var(--pink); color:var(--on); box-shadow:none}
+.badge.zing{background:var(--aqua); color:var(--on)}
+.drop-tag.live{background:var(--pink)}
+.countdown{color:var(--pink)}
+.stock i{background:var(--pink)}
+.zing-pill{font-size:15px; background:var(--soft); border:1px dashed var(--line)}
+/* la rarità è un pallino, non un'etichetta colorata */
+.rar-chip{background:color-mix(in srgb, var(--r) 14%, var(--paper)); color:var(--ink); text-transform:none; letter-spacing:0; font-size:11px; font-weight:700; gap:5px}
+.rar-chip::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--r); flex:none}
+/* etichette nel font del testo, il pixel resta solo nello zing e nei codici */
+.group, .opt-label, .sec-title span, .tray-label, .chat-foot{font-family:var(--font-body); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em}
+.group{padding-top:14px}
+.sec-title span{text-transform:none; letter-spacing:0; font-weight:600; font-size:12px}
+.theme-sky{--cover:linear-gradient(135deg,#7d97f2,#2b4fd8 60%,#1d36a8); --accent:#2b4fd8}
+/* scala degli angoli: 10 piccoli, 12 medi, 16 grandi, pillola per pulsanti e avatar */
+.chip, .scene-btn, .theme-btn, .skin-swatch, .shop-logo{border-radius:10px}
+.tile, .field, .stat, .setting, .creation, .skin-card, .drops-note, .toast, .composer-card, .sv-sticker, .gift{border-radius:12px}
+.post, .drop, .b2b, .card-fig, .preview, .tray-grid button{border-radius:16px}
+.tray-grid button{border-radius:10px}
+.sheet{border-radius:20px 20px 0 0}
 @media (max-width:440px){ .phone{border-radius:24px} }
 </style>
 
@@ -743,11 +778,11 @@ function pieceSVG(p, size, i = 0, anim = true){
 const itemSVG = (e, size, i = 0, anim = true) => e.piece ? pieceSVG(e, size, i, anim) : emoSVG(e.s, size, anim);
 
 const RAR = {
-  comune:{en:'Common', it:'Comune', pen:'common', pit:'comuni', c:'#7f9bb8'},
-  noncomune:{en:'Uncommon', it:'Non comune', pen:'uncommon', pit:'non comuni', c:'#38b544'},
-  rara:{en:'Rare', it:'Rara', pen:'rare', pit:'rare', c:'#2b84ff'},
-  epica:{en:'Epic', it:'Epica', pen:'epic', pit:'epiche', c:'#9a45f5'},
-  leggendaria:{en:'Legendary', it:'Leggendaria', pen:'legendary', pit:'leggendarie', c:'#f0a000'}
+  comune:{en:'Common', it:'Comune', pen:'common', pit:'comuni', c:'#8f9bb0'},
+  noncomune:{en:'Uncommon', it:'Non comune', pen:'uncommon', pit:'non comuni', c:'#3aa36a'},
+  rara:{en:'Rare', it:'Rara', pen:'rare', pit:'rare', c:'#3a6ee0'},
+  epica:{en:'Epic', it:'Epica', pen:'epic', pit:'epiche', c:'#8257d4'},
+  leggendaria:{en:'Legendary', it:'Leggendaria', pen:'legendary', pit:'leggendarie', c:'#d99a00'}
 };
 const rl = r => RAR[r][L], rp = r => RAR[r]['p' + L];
 const Y = '#ffd93b';
@@ -812,18 +847,18 @@ const ST_C = {online:'#3ccf4e', occupato:'#ff4747', torno:'#ffad1f', telefono:'#
 const TRAIN = ['loco','wagon','wagon','caboose'], ROCKET = ['nose','body','booster'], BUG = ['bughead','bugseg','bugseg','bugseg','bugtail'];
 const MACROS = [{code:'(train)', ids:TRAIN}, {code:'(rocket)', ids:ROCKET}, {code:'(bug)', ids:['bughead','bugseg','bugseg','bugtail']}];
 const F = {
-  giulia:{name:'*~Giuly~*', c:'#ff6fb5', status:'online', pm:n2('whoever zings me wins','chi mi manda uno zing vince'), listen:n2('Playlist "summer 2006 but it’s 2026"','Playlist "estate 2006 ma siamo nel 2026"'),
+  giulia:{name:'*~Giuly~*', c:'#d9577e', status:'online', pm:n2('whoever zings me wins','chi mi manda uno zing vince'), listen:n2('Playlist "summer 2006 but it’s 2026"','Playlist "estate 2006 ma siamo nel 2026"'),
     story:{text:n2('concert tonight','concerto stasera'), bg:'linear-gradient(160deg,#ff6fb5,#ffc62e)', emo:'cuffie'},
     pool:['innamorato','cuffie','fiore','occhidolci','supplica',BUG], replies:n2(['hahaha','no way','see you after school?','I’m dying lol','you’re the best','omg tell me everything'],['ahahah','noo dai','ci vediamo dopo scuola?','mi hai fatto morire','sei il top','oddio raccontami tutto']), back:.85, mutual:true},
-  marco:{name:'MaRkO_xX', c:'#1a96e6', status:'occupato', pm:n2('math test tomorrow HELP','verifica di mate domani AIUTO'),
+  marco:{name:'MaRkO_xX', c:'#3a5fd9', status:'occupato', pm:n2('math test tomorrow HELP','verifica di mate domani AIUTO'),
     story:{text:n2('study mode: on','studio mode: on'), bg:'linear-gradient(160deg,#1a96e6,#7fdc2f)', emo:'sudato'},
     pool:['cool','smeraldo','diavoletto',TRAIN], replies:n2(['bro I’m done','ok but the test','nice','whatever','no way bro'],['raga sono morto','ok ma la verifica','top','vabbè','fra non ci credo']), back:.35},
-  ale:{name:'Ale!!', c:'#9a45f5', status:'pranzo', pm:n2('new haircut, don’t judge','nuovo taglio, non giudicate'), listen:n2('Lo-fi to pretend I’m studying','Lo-fi per fare finta di studiare'),
+  ale:{name:'Ale!!', c:'#7b5cd1', status:'pranzo', pm:n2('new haircut, don’t judge','nuovo taglio, non giudicate'), listen:n2('Lo-fi to pretend I’m studying','Lo-fi per fare finta di studiare'),
     story:{text:n2('go ahead, judge','giudicate pure'), bg:'linear-gradient(160deg,#9a45f5,#ff4f9a)', emo:'stellare'},
     pool:['gatto','stellare','alieno','lacrimoni','miciodolce',ROCKET], replies:n2(['eating, brb','lol I swear','what are you doing saturday?','send me the pic'],['sto mangiando, arrivo','ahah giuro','che fai sabato?','mandami la foto']), back:.5},
-  sara:{name:'sara.xo', c:'#ffab4a', status:'torno', pm:n2('brb... maybe','torno subito... forse'),
+  sara:{name:'sara.xo', c:'#c9803a', status:'torno', pm:n2('brb... maybe','torno subito... forse'),
     pool:['angelo','fiore','lacrimoni'], replies:n2(['here','sorry I vanished','wait really??','we got this'],['eccomi','scusa ero sparita','ma davvero??','dai che ce la facciamo']), back:.5},
-  luca:{name:'~luKa~', c:'#38b544', status:'offline', pm:n2('sk8 or nothing','sk8 o niente'),
+  luca:{name:'~luKa~', c:'#2f9470', status:'offline', pm:n2('sk8 or nothing','sk8 o niente'),
     pool:['cool','sudato'], replies:n2(['nice','yo you there?','just back from the skatepark'],['bella','oh ci sei?','appena tornato dallo skatepark']), back:.4}
 };
 const initial = i => (F[i].name.match(/[a-z0-9]/i) || ['?'])[0].toUpperCase();

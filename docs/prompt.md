@@ -101,6 +101,12 @@ L'app ha più skin, che cambiano colori, font e decorazioni ma **mai la posizion
 - **Inchiostro e pesca**: blu notte `#1B2140`, accento pesca `#FF8A5C`, sfondo panna.
 - **Pervinca**: blu-lilla `#6C7CFF`, pannelli lilla tenue, bolle lime.
 
+**Regole di coerenza visiva** (valgono per tutte le skin):
+- **Lucido e 3D solo su ciò che si colleziona**: emoticon, pezzi e pulsante dello zing. Avatar, barre, pulsanti e card sono piatti.
+- **Interfaccia neutra con un solo accento** per le azioni (corallo in Cobalto). La rarità si mostra con un pallino colorato, non con etichette piene. Avatar degli amici in colori con la stessa luminosità e saturazione.
+- **Una scala di angoli**: 10 px per gli elementi piccoli, 12 px per i medi, 16 px per card e post, pillola per pulsanti e avatar.
+- **Due font**: uno geometrico per titoli e logo, uno per il testo. Il font pixel resta solo come tocco nostalgico negli avvisi di zing e nei codici delle scorciatoie.
+
 **Skin di stile**:
 - **Classic 2005**: barre da finestra, Verdana, angoli squadrati, per chi ha usato MSN;
 - **Y2K Chrome**: scura, cromata e neon, per la Gen Z;
