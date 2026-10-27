@@ -126,6 +126,9 @@ svg{overflow:visible}
 .skin-swatch{width:44px; height:44px; border-radius:10px; border:1px solid var(--line)}
 
 /* ---------- Drops ---------- */
+.cats{display:flex; gap:6px; overflow-x:auto; padding:10px 16px 0}
+.cat-btn{flex:none; border:1px solid var(--line); background:var(--paper); color:var(--ink); border-radius:999px; padding:5px 13px; font-size:12.5px; font-weight:700}
+.cat-btn.on{background:var(--pink); border-color:var(--pink); color:var(--on)}
 .drops-note{margin:10px 16px 0; padding:9px 12px; border-radius:14px; background:var(--soft); font-size:12px; color:var(--muted)}
 .drop{margin:10px 16px 0; border-radius:18px; background:var(--paper); border:1px solid var(--line); overflow:hidden}
 .drop-img{position:relative; aspect-ratio:16/9; max-width:100%; display:grid; place-items:center}
@@ -492,12 +495,12 @@ try { const saved = localStorage.getItem('zing-lang'); if (saved === 'it' || sav
 const STR = {
   en:{
     st_online:'Online', st_occupato:'Busy', st_torno:'Be right back', st_telefono:'On the phone', st_pranzo:'Out to lunch', st_invisibile:'Appear offline', st_offline:'Offline',
-    tab_drops:'Drops', drops_sub:'Limited drops from small brands: clothes, sneakers, merch, vintage.', drops_rules:'Shops on Zing can’t message you, add you or see who you are. Every drop is labelled.',
+    tab_drops:'Drops', drops_sub:'Limited drops from small brands and artists: clothes, music, beauty, merch, anything.', cat_all:'All', cat_fashion:'Fashion', cat_music:'Music', cat_beauty:'Beauty', cat_merch:'Merch', cat_store:'In store', release:'new release', presave:'Pre-save', presaved:'Pre-saved', presave_note:'Opens your music app on release day. Nothing to buy.', presave_toast:'Pre-saved. It lands in your library at midnight.', presave_emo:'You’re an early listener.', drops_rules:'Shops on Zing can’t message you, add you or see who you are. Every drop is labelled.',
     live:'live', soon:'soon', in_store:'in store', raffle:'raffle', enter_raffle:'Enter the raffle', entered_btn:'You’re in · size {s}', entered:'You’re in. Winners are drawn on Sunday.', raffle_emo:'Everyone who enters gets the emoticon, win or lose.', need_size:'Pick your size first.', choose_size:'Size', raffle_note:'Only friend-verified accounts can enter: no bots, no resellers.', raffle_how:'One entry per person. Winners are drawn at random and have 24 hours to confirm.', raffle_pay:'You only pay if you win. Ages 14-17: a parent confirms the purchase.', ends_in:'ends in {t}', left:'{n} of {m} left', reserve:'Reserve', reserved:'Reserved', remind:'Remind me', reminding:'Reminder on', remind_toast:'We’ll remind you 10 minutes before.',
-    excl:'Comes with an exclusive emoticon', scan:'I’m at the counter: scan the QR', scan_note:'Only works in the shop: the code changes every minute.', verified:'Verified shop', follow:'Follow', following:'Following',
+    excl:'Comes with an exclusive emoticon', scan:'I’m at the counter: scan the QR', scan_note:'Only works in the shop: the code changes every minute.', verified:'Verified', follow:'Follow', following:'Following',
     checkout:'Checkout', pickup:'Delivery', pickup_v:'Pick up in store', parent_need:'You’re 14-17, so a parent approves purchases.', ask_parent:'Ask a parent to approve',
     pay_note:'Demo: nothing is charged. In the real app: Revolut Pay, card, Apple Pay or Google Pay.', parent_sent:'Request sent to your parent.', parent_ok:'Approved. It’s reserved for you.',
-    b2b_title:'Run a shop or a small brand?', b2b_text:'Launch a drop on Zing: limited stock, your own emoticon that spreads between friends, a QR at the counter. You only see totals, never who the kids are.', b2b_btn:'How it works',
+    b2b_title:'Brand, shop or artist?', b2b_text:'Launch a drop on Zing: a product, a new single, a limited set. Your own emoticon spreads between friends. You only see totals, never who the kids are. No alcohol, vapes, gambling or diet products.', b2b_btn:'How it works',
     b2b_steps:['Create the drop from the web dashboard: product, number of pieces, date and time.','Design the exclusive emoticon, or ask one of our artists.','Optional: an in-store QR that only works at your counter.','Pay per drop by card or Revolut Business. You get totals: reminders, reservations, how far the emoticon travelled.'],
     skin:'Skin', g_skins:'try a skin', skin_note:'Skins change colors and fonts, never where things are.',
     sk_sky:'Sky', skd_sky:'The default: glossy blue, 2026 with 2005 vibes.', sk_classic:'Classic 2005', skd_classic:'Window bars, Verdana, square corners. For those who remember.',
@@ -549,17 +552,17 @@ const STR = {
       'In Giuly’s chat, tap the heart: that’s the <b>secret crush</b>.',
       'Type <code>:)</code>, or <code>:lo</code> to get suggestions. <code>(H)</code> stays text until someone passes you Cool. Grab Marco’s train, then type <code>(train)</code>. <code>QQ</code> is the teary one.',
       'Make your own emoticon in the <b>Studio</b>, including how it moves.',
-      'Open <b>Drops</b>: pick a size and reserve the live hoodie, enter the sneaker raffle, set a reminder, or scan the QR at the vintage shop.'
+      'Open <b>Drops</b> and filter by category: reserve the live hoodie, pre-save Mara Blu’s new single, enter the sneaker raffle, or set a reminder for the gloss drop.'
     ]
   },
   it:{
     st_online:'Online', st_occupato:'Occupato', st_torno:'Torno subito', st_telefono:'Al telefono', st_pranzo:'A pranzo', st_invisibile:'Invisibile', st_offline:'Offline',
-    tab_drops:'Drops', drops_sub:'Drop limitati di piccoli brand: vestiti, sneakers, merch, vintage.', drops_rules:'I negozi su Zing non possono scriverti, aggiungerti né vedere chi sei. Ogni drop è segnalato.',
+    tab_drops:'Drops', drops_sub:'Drop limitati di piccoli brand e artisti: vestiti, musica, trucco, merch, qualsiasi cosa.', cat_all:'Tutti', cat_fashion:'Moda', cat_music:'Musica', cat_beauty:'Trucco', cat_merch:'Merch', cat_store:'In negozio', release:'nuova uscita', presave:'Pre-salva', presaved:'Pre-salvato', presave_note:'Il giorno dell’uscita si apre la tua app di musica. Niente da comprare.', presave_toast:'Pre-salvato. A mezzanotte lo trovi nella tua libreria.', presave_emo:'Sei tra i primi ad ascoltarla.', drops_rules:'I negozi su Zing non possono scriverti, aggiungerti né vedere chi sei. Ogni drop è segnalato.',
     live:'live', soon:'presto', in_store:'in negozio', raffle:'estrazione', enter_raffle:'Partecipa all’estrazione', entered_btn:'Partecipi · taglia {s}', entered:'Sei dentro. I vincitori si estraggono domenica.', raffle_emo:'Chi partecipa riceve l’emoticon, che vinca o no.', need_size:'Prima scegli la taglia.', choose_size:'Taglia', raffle_note:'Partecipano solo gli account verificati dagli amici: niente bot né rivenditori.', raffle_how:'Una partecipazione a persona. I vincitori sono estratti a caso e hanno 24 ore per confermare.', raffle_pay:'Paghi solo se vinci. Se hai 14-17 anni, l’acquisto lo conferma un genitore.', ends_in:'finisce tra {t}', left:'ne restano {n} su {m}', reserve:'Prenota', reserved:'Prenotato', remind:'Ricordamelo', reminding:'Promemoria attivo', remind_toast:'Ti avvisiamo 10 minuti prima.',
-    excl:'Include un’emoticon esclusiva', scan:'Sono alla cassa: scansiona il QR', scan_note:'Funziona solo in negozio: il codice cambia ogni minuto.', verified:'Negozio verificato', follow:'Segui', following:'Lo segui',
+    excl:'Include un’emoticon esclusiva', scan:'Sono alla cassa: scansiona il QR', scan_note:'Funziona solo in negozio: il codice cambia ogni minuto.', verified:'Verificato', follow:'Segui', following:'Lo segui',
     checkout:'Riepilogo', pickup:'Consegna', pickup_v:'Ritiro in negozio', parent_need:'Hai 14-17 anni, quindi gli acquisti li approva un genitore.', ask_parent:'Chiedi l’ok a un genitore',
     pay_note:'Demo: non si paga niente. Nell’app vera: Revolut Pay, carta, Apple Pay o Google Pay.', parent_sent:'Richiesta inviata al tuo genitore.', parent_ok:'Approvato. È prenotato per te.',
-    b2b_title:'Hai un negozio o un piccolo brand?', b2b_text:'Lancia un drop su Zing: pezzi limitati, la tua emoticon che gira tra amici, un QR alla cassa. Vedi solo i totali, mai chi sono i ragazzi.', b2b_btn:'Come funziona',
+    b2b_title:'Sei un brand, un negozio o un artista?', b2b_text:'Lancia un drop su Zing: un prodotto, un nuovo singolo, un set limitato. La tua emoticon gira tra amici. Vedi solo i totali, mai chi sono i ragazzi. Niente alcol, svapo, scommesse o prodotti dimagranti.', b2b_btn:'Come funziona',
     b2b_steps:['Crei il drop dalla dashboard web: prodotto, numero di pezzi, data e ora.','Disegni l’emoticon esclusiva, o la chiedi a uno dei nostri artisti.','Facoltativo: un QR che funziona solo alla tua cassa.','Paghi per drop con carta o Revolut Business. Ricevi i totali: promemoria, prenotazioni, quanto ha girato l’emoticon.'],
     skin:'Skin', g_skins:'prova una skin', skin_note:'Le skin cambiano colori e font, mai la posizione dei comandi.',
     sk_sky:'Sky', skd_sky:'Quella di base: azzurro lucido, 2026 con vibes 2005.', sk_classic:'Classic 2005', skd_classic:'Barre da finestra, Verdana, angoli squadrati. Per chi se lo ricorda.',
@@ -611,7 +614,7 @@ const STR = {
       'Nella chat con Giuly tocca il cuore: è la <b>cotta segreta</b>.',
       'Scrivi <code>:)</code>, oppure <code>:lo</code> per i suggerimenti. <code>(H)</code> resta testo finché qualcuno non ti passa Cool. Prendi il treno di Marco e poi scrivi <code>(train)</code>. <code>QQ</code> sono i lacrimoni.',
       'Crea la tua emoticon nello <b>Studio</b>, compreso come si muove.',
-      'Apri <b>Drops</b>: scegli la taglia e prenota la felpa live, partecipa all’estrazione delle sneakers, attiva un promemoria o scansiona il QR del negozio vintage.'
+      'Apri <b>Drops</b> e filtra per categoria: prenota la felpa live, pre-salva il nuovo singolo di Mara Blu, partecipa all’estrazione delle sneakers o metti un promemoria per i gloss.'
     ]
   }
 };
@@ -745,6 +748,8 @@ const CAT = [
   {id:'vinyl', name:n2('Side B','Lato B'), r:'rara', s:{color:'#5fe0d6', eyes:'sleepy', mouth:'smile', acc:'headphones', anim:'float'}},
   {id:'awaymsg', name:n2('Away Message','Messaggio di stato'), r:'rara', s:{color:'#c7b6ff', eyes:'sleepy', mouth:'smile', acc:'cap', anim:'float'}},
   {id:'freshpair', name:n2('Fresh Pair','Paio nuovo'), r:'epica', s:{color:'#ffab4a', eyes:'star', mouth:'grin', acc:'sweat', anim:'bounce'}},
+  {id:'midnight', name:n2('Midnight Release','Uscita di mezzanotte'), r:'rara', s:{color:'#b07cff', eyes:'star', mouth:'o', acc:'headphones', anim:'pulse'}},
+  {id:'gloss', name:n2('Lip Gloss','Lucidalabbra'), r:'noncomune', s:{color:'#ffb3d1', eyes:'wink', mouth:'smile', acc:'blush', anim:'pulse'}},
   {id:'thrift', name:n2('Thrift Find','Affare vintage'), r:'noncomune', s:{color:'#b6f04a', eyes:'happy', mouth:'tongue', acc:'flower', anim:'wobble'}},
   {id:'angelo', name:n2('Angel','Angioletto'), r:'rara', sc:'(A)', s:{color:'#f4f7ff', eyes:'happy', mouth:'smile', acc:'halo', anim:'float'}},
   {id:'diavoletto', name:n2('Little Devil','Diavoletto'), r:'rara', sc:'(6)', s:{color:'#ff5a4f', eyes:'wink', mouth:'grin', acc:'horns', anim:'shiver'}},
@@ -770,7 +775,7 @@ const CAT = [
 const E = id => CAT.find(e => e.id === id);
 const nm = e => tx(e.name);
 const CODES = {sorriso:'smile', occhiolino:'wink', risata:'lol', linguaccia:'tongue', stupito:'wow', triste:'sad', sonno:'sleepy', imbarazzo:'blush',
-  cool:'cool', fiore:'flower', cuffie:'headphones', sudato:'sweaty', gatto:'kitty', occhidolci:'puppy', lacrimoni:'teary', supplica:'pleading', miciodolce:'sweetkitty', beanie:'beanie', vinyl:'sideb', awaymsg:'away', freshpair:'freshpair', thrift:'thrift', angelo:'angel', diavoletto:'devil', innamorato:'crush', stellare:'starry',
+  cool:'cool', fiore:'flower', cuffie:'headphones', sudato:'sweaty', gatto:'kitty', occhidolci:'puppy', lacrimoni:'teary', supplica:'pleading', miciodolce:'sweetkitty', beanie:'beanie', vinyl:'sideb', awaymsg:'away', freshpair:'freshpair', thrift:'thrift', midnight:'midnight', gloss:'gloss', angelo:'angel', diavoletto:'devil', innamorato:'crush', stellare:'starry',
   smeraldo:'emerald', invito:'welcome', corona:'royal', alieno:'alien', fantasma:'ghost', cometa:'comet', galassia:'galaxy',
   bughead:'bughead', bugseg:'bugbody', bugtail:'bugtail', loco:'loco', wagon:'wagon', caboose:'caboose', nose:'nose', body:'rocketbody', booster:'booster'};
 const EXTRA_SC = {innamorato:'<3', fiore:'(F)', cuffie:'(8)', stellare:'(*)', lacrimoni:'QQ'};
@@ -836,14 +841,18 @@ const SHOPS = {
   kiko:{name:'Kiko Runners', c:'#ff7a1a', bio:n2('Independent sneaker label. Every pair numbered.','Marchio indipendente di sneakers. Ogni paio è numerato.')},
   nova:{name:'NOVA knit', c:'#ff4f9a', bio:n2('Small-batch knitwear, made in Bologna.','Maglieria in piccole serie, fatta a Bologna.')},
   tape:{name:'Tape Deck Records', c:'#1a96e6', bio:n2('Indie label. Vinyl, tapes and tour merch.','Etichetta indie. Vinili, cassette e merch dei tour.')},
+  marablu:{name:'Mara Blu', c:'#6a4cff', bio:n2('Singer-songwriter from Turin. Bedroom pop.','Cantautrice di Torino. Bedroom pop.')},
+  glossy:{name:'Glossy Club', c:'#e8387f', bio:n2('Indie beauty brand: glosses and glitter, cruelty-free.','Marchio beauty indipendente: gloss e glitter, cruelty-free.')},
   ritorno:{name:'Ritorno Vintage', c:'#3d8a12', bio:n2('Second-hand Y2K clothes, Via Roma 12.','Abiti Y2K di seconda mano, Via Roma 12.')}
 };
 const DROPS = [
-  {id:'d1', shop:'ottanta', kind:'live', art:'hoodie', color:'#6a4cff', title:n2('“Away Message” hoodie, 150 pieces','Felpa “Away Message”, 150 pezzi'), price:'€59', stock:41, total:150, ends:Date.now() + 14 * 60000 + 32000, sizes:['XS','S','M','L','XL'], emo:'awaymsg', bg:'linear-gradient(135deg,#eef1ff,#b07cff)'},
-  {id:'d2', shop:'kiko', kind:'raffle', art:'sneaker', color:'#ff7a1a', title:n2('Kiko Runner ’05, 300 numbered pairs','Kiko Runner ’05, 300 paia numerate'), price:'€120', when:n2('raffle closes in 2 days','l’estrazione chiude tra 2 giorni'), sizes:['36','37','38','39','40','41','42','43','44','45'], emo:'freshpair', bg:'linear-gradient(135deg,#fff2a8,#ffab4a)'},
-  {id:'d3', shop:'nova', kind:'soon', art:'beanie', color:'#ff4f9a', title:n2('Beanie Season, 120 pieces','Beanie Season, 120 pezzi'), price:'€28', when:n2('drops Friday 18:00','esce venerdì alle 18:00'), emo:'beanie', bg:'linear-gradient(135deg,#ffc2dc,#ff6fb5)'},
-  {id:'d4', shop:'tape', kind:'soon', art:'tee', color:'#13304f', title:n2('“Side B” tour tee','Maglietta del tour “Lato B”'), price:'€25', when:n2('drops tomorrow 10:00','esce domani alle 10:00'), emo:'vinyl', bg:'linear-gradient(135deg,#9ad8ff,#1a96e6)'},
-  {id:'d5', shop:'ritorno', kind:'store', art:'rack', color:'#3d8a12', title:n2('Y2K vintage rack, Saturday only','Stand vintage Y2K, solo sabato'), place:'Ritorno Vintage · Via Roma 12', emo:'thrift', bg:'linear-gradient(135deg,#e2ff9e,#7fdc2f)'}
+  {id:'d1', cat:'fashion', shop:'ottanta', kind:'live', art:'hoodie', color:'#6a4cff', title:n2('“Away Message” hoodie, 150 pieces','Felpa “Away Message”, 150 pezzi'), price:'€59', stock:41, total:150, ends:Date.now() + 14 * 60000 + 32000, sizes:['XS','S','M','L','XL'], emo:'awaymsg', bg:'linear-gradient(135deg,#eef1ff,#b07cff)'},
+  {id:'d6', cat:'music', shop:'marablu', kind:'release', art:'music', color:'#6a4cff', title:n2('“MSN”, new single','“MSN”, nuovo singolo'), price:'', when:n2('out Friday at midnight on every music app','esce venerdì a mezzanotte su tutte le app di musica'), emo:'midnight', bg:'linear-gradient(135deg,#2b2f7a,#b07cff)'},
+  {id:'d2', cat:'fashion', shop:'kiko', kind:'raffle', art:'sneaker', color:'#ff7a1a', title:n2('Kiko Runner ’05, 300 numbered pairs','Kiko Runner ’05, 300 paia numerate'), price:'€120', when:n2('raffle closes in 2 days','l’estrazione chiude tra 2 giorni'), sizes:['36','37','38','39','40','41','42','43','44','45'], emo:'freshpair', bg:'linear-gradient(135deg,#fff2a8,#ffab4a)'},
+  {id:'d7', cat:'beauty', shop:'glossy', kind:'soon', art:'gloss', color:'#ff4f9a', title:n2('Y2K gloss trio, 500 sets','Tris di gloss Y2K, 500 set'), price:'€14', when:n2('drops Saturday 12:00','esce sabato alle 12:00'), emo:'gloss', bg:'linear-gradient(135deg,#fff0f7,#ffb3d1)'},
+  {id:'d3', cat:'fashion', shop:'nova', kind:'soon', art:'beanie', color:'#ff4f9a', title:n2('Beanie Season, 120 pieces','Beanie Season, 120 pezzi'), price:'€28', when:n2('drops Friday 18:00','esce venerdì alle 18:00'), emo:'beanie', bg:'linear-gradient(135deg,#ffc2dc,#ff6fb5)'},
+  {id:'d4', cat:'merch', shop:'tape', kind:'soon', art:'tee', color:'#13304f', title:n2('“Side B” tour tee','Maglietta del tour “Lato B”'), price:'€25', when:n2('drops tomorrow 10:00','esce domani alle 10:00'), emo:'vinyl', bg:'linear-gradient(135deg,#9ad8ff,#1a96e6)'},
+  {id:'d5', cat:'store', shop:'ritorno', kind:'store', art:'rack', color:'#3d8a12', title:n2('Y2K vintage rack, Saturday only','Stand vintage Y2K, solo sabato'), place:'Ritorno Vintage · Via Roma 12', emo:'thrift', bg:'linear-gradient(135deg,#e2ff9e,#7fdc2f)'}
 ];
 /* Capi disegnati in SVG, senza loghi di marchi veri */
 function garmentSVG(kind, c){
@@ -853,10 +862,13 @@ function garmentSVG(kind, c){
     tee:`<path d="M36 18 L50 12 Q60 21 70 12 L84 18 L102 34 L91 43 L84 37 V84 H36 V37 L29 43 L18 34Z" fill="${c}" stroke="${d}" stroke-width="2" stroke-linejoin="round"/><circle cx="60" cy="48" r="12" fill="#ffd93b" stroke="#fff" stroke-width="2"/><path d="M54 49 q6 6 12 0" stroke="${c}" stroke-width="2.4" fill="none" stroke-linecap="round"/>${shine}`,
     sneaker:`<path d="M16 66 Q18 44 38 40 L58 38 Q68 30 78 42 Q96 50 106 60 L107 66Z" fill="#fff" stroke="#13304f" stroke-width="2" stroke-linejoin="round"/><path d="M40 50 Q60 40 86 52 L84 60 Q60 50 42 58Z" fill="${c}"/><path d="M60 38 L66 46 M66 36 L72 45 M72 37 L77 45" stroke="#13304f" stroke-width="1.8" stroke-linecap="round"/><path d="M14 66 H109 Q111 66 111 70 V73 Q111 76 108 76 H16 Q12 76 12 72 V70 Q12 66 14 66Z" fill="${l}" stroke="#13304f" stroke-width="2"/>`,
     beanie:`<path d="M28 62 C28 20 92 20 92 62Z" fill="${c}" stroke="${d}" stroke-width="2"/><path d="M42 60 V32 M52 60 V26 M60 60 V24 M68 60 V26 M78 60 V32" stroke="${d}" stroke-width="1.5" opacity=".5"/><rect x="24" y="56" width="72" height="16" rx="8" fill="${l}" stroke="${d}" stroke-width="2"/><circle cx="60" cy="18" r="9" fill="#fff" stroke="#c9cfe0" stroke-width="1.5"/>`,
+    music:`<circle cx="52" cy="46" r="34" fill="#13152a" stroke="#fff" stroke-opacity=".25" stroke-width="1.5"/><circle cx="52" cy="46" r="26" fill="none" stroke="#fff" stroke-opacity=".12"/><circle cx="52" cy="46" r="19" fill="none" stroke="#fff" stroke-opacity=".12"/><circle cx="52" cy="46" r="11" fill="${l}"/><circle cx="52" cy="46" r="2" fill="#13152a"/><path d="M88 20 V56 a7 6 0 1 1 -4 -5.5 V26 L104 22 V48 a7 6 0 1 1 -4 -5.5 V28Z" fill="#fff"/>`,
+    gloss:`<rect x="48" y="10" width="24" height="26" rx="5" fill="#13304f"/><rect x="44" y="34" width="32" height="48" rx="9" fill="${c}" stroke="${d}" stroke-width="2"/><rect x="50" y="40" width="6" height="34" rx="3" fill="#fff" opacity=".45"/><path d="M92 20 l3 7 7 3 -7 3 -3 7 -3 -7 -7 -3 7 -3z M26 50 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2z" fill="#fff"/>`,
     rack:`<path d="M14 14 H106 M20 14 V84 M100 14 V84" stroke="#56739a" stroke-width="3" stroke-linecap="round"/><path d="M32 20 L26 30 V70 H46 V30 L40 20" fill="#ff6fb5" stroke="#c21f6a" stroke-width="1.5"/><path d="M54 20 L48 30 V66 H72 V30 L66 20" fill="#5fe0d6" stroke="#1a96e6" stroke-width="1.5"/><path d="M80 20 L74 30 V74 H94 V30 L88 20" fill="#ffd93b" stroke="#c99a00" stroke-width="1.5"/><path d="M32 14 q4 -6 8 0 M56 14 q4 -6 8 0 M80 14 q4 -6 8 0" stroke="#56739a" stroke-width="1.5" fill="none"/>`
   };
   return `<svg width="150" height="112" viewBox="0 0 120 90" aria-hidden="true">${G[kind]}</svg>`;
 }
+const DROP_CATS = ['all','fashion','music','beauty','merch','store'];
 const SKINS = ['sky','classic','chrome','clean'];
 const SKIN_SW = {sky:'linear-gradient(180deg,#5cc2ff,#0f6fbf)', classic:'linear-gradient(180deg,#7fb2f0,#2459b8 52%,#a6e07a 53%,#3d8a12)', chrome:'linear-gradient(160deg,#f4f6fa,#6c7891 50%,#161a2c 51%,#ff6fb5)', clean:'linear-gradient(180deg,#ffffff,#eef1f5)'};
 
@@ -1007,11 +1019,14 @@ function viewStudio(){
 const fmtLeft = ms => { const x = Math.max(0, Math.floor(ms / 1000)); return String(Math.floor(x / 60)).padStart(2, '0') + ':' + String(x % 60).padStart(2, '0'); };
 function dropCard(d){
   const sh = SHOPS[d.shop], e = E(d.emo);
-  const tag = d.kind === 'live' ? `<span class="drop-tag live">${t('live')}</span>` : `<span class="drop-tag">${t({soon:'soon', store:'in_store', raffle:'raffle'}[d.kind])}</span>`;
+  const tag = d.kind === 'live' ? `<span class="drop-tag live">${t('live')}</span>` : `<span class="drop-tag">${t({soon:'soon', store:'in_store', raffle:'raffle', release:'release'}[d.kind])}</span>`;
   let meta = '', act = '';
   if (d.kind === 'live'){
     meta = `<div class="drop-meta"><b>${d.price}</b><span>${t('ends_in', {t:`<span class="countdown" data-countdown="${d.id}">${fmtLeft(d.ends - Date.now())}</span>`})}</span></div><div class="stock"><i data-stockbar="${d.id}" style="width:${d.stock / d.total * 100}%"></i></div><div class="drop-meta"><span data-stock="${d.id}">${t('left', {n:d.stock, m:d.total})}</span></div>`;
     act = d.reserved ? `<button class="btn ghost" disabled>${t('reserved')}</button>` : `<button class="btn pink" data-reserve="${d.id}">${t('reserve')}</button>`;
+  } else if (d.kind === 'release'){
+    meta = `<div class="drop-meta"><span>${esc(tx(d.when))}</span></div><p class="small" style="margin:0">${t('presave_note')}</p>`;
+    act = d.presaved ? `<button class="btn ghost" disabled>${t('presaved')}</button>` : `<button class="btn pink" data-presave="${d.id}">${t('presave')}</button>`;
   } else if (d.kind === 'raffle'){
     meta = `<div class="drop-meta"><b>${d.price}</b><span>${esc(tx(d.when))}</span></div><p class="small" style="margin:0">${t('raffle_note')}</p>`;
     act = d.entered ? `<button class="btn ghost" disabled>${t('entered_btn', {s:d.entered})}</button>` : `<button class="btn pink" data-raffle="${d.id}">${t('enter_raffle')}</button>`;
@@ -1025,7 +1040,8 @@ function dropCard(d){
   return `<article class="drop"><div class="drop-img" style="background:${d.bg}">${tag}${garmentSVG(d.art, d.color)}<span style="position:absolute; right:12px; bottom:10px">${emoSVG(e.s, 44)}</span></div><div class="drop-body"><button class="shop-row" data-shop="${d.shop}"><span class="shop-logo" style="--c:${sh.c}">${sh.name[0].toUpperCase()}</span>${esc(sh.name)}<span class="verified">${t('verified')}</span></button><h3 class="drop-title">${esc(tx(d.title))}</h3>${meta}<div class="excl">${emoSVG(e.s, 20, false)}<span>${t('excl')}: <b>${esc(nm(e))}</b></span></div>${act}</div></article>`;
 }
 function viewDrops(){
-  return `<div class="pad" style="padding-bottom:0"><h2>Drops</h2><p class="small">${t('drops_sub')}</p></div><div class="drops-note">${t('drops_rules')}</div>${DROPS.map(dropCard).join('')}
+  const cat = S.dropCat || 'all', list = DROPS.filter(d => cat === 'all' || d.cat === cat);
+  return `<div class="pad" style="padding-bottom:0"><h2>Drops</h2><p class="small">${t('drops_sub')}</p></div><div class="cats">${DROP_CATS.map(k => `<button class="cat-btn ${cat === k ? 'on' : ''}" data-cat="${k}">${t('cat_' + k)}</button>`).join('')}</div><div class="drops-note">${t('drops_rules')}</div>${list.map(dropCard).join('')}
     <div class="b2b"><h3>${t('b2b_title')}</h3><p class="small">${t('b2b_text')}</p><button class="btn ghost" data-b2b>${t('b2b_btn')}</button></div>`;
 }
 function grantDrop(d, extra){
@@ -1488,6 +1504,8 @@ document.addEventListener('click', ev => {
     const dr = DROPS.find(x => x.id === d.parent); if (dr.sizes && !S.size){ toast(t('need_size')); return; } closeSheet(); toast(t('parent_sent'));
     setTimeout(() => { dr.reserved = true; dr.stock = Math.max(0, dr.stock - 1); if (S.tab === 'drops') renderScreen(); grantDrop(dr, t('parent_ok')); }, 1800);
   }
+  else if (d.cat){ S.dropCat = d.cat; renderScreen(); }
+  else if (d.presave){ const dr = DROPS.find(x => x.id === d.presave); dr.presaved = true; renderScreen(); toast(t('presave_toast')); grantDrop(dr, t('presave_emo')); }
   else if (d.remind){ const dr = DROPS.find(x => x.id === d.remind); dr.remind = !dr.remind; if (dr.remind) toast(t('remind_toast')); renderScreen(); }
   else if (d.scan){ const dr = DROPS.find(x => x.id === d.scan); grantDrop(dr); }
   else if (d.shop) openShop(d.shop);
