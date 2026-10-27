@@ -94,8 +94,14 @@ Una sezione **Drops** nella barra principale: uscite limitate di piccoli brand, 
 ---
 
 ## Skin
-L'app ha più skin, che cambiano colori, font e decorazioni ma **mai la posizione dei comandi**:
-- **Sky** (base): azzurro lucido, 2026 con vibes 2005;
+L'app ha più skin, che cambiano colori, font e decorazioni ma **mai la posizione dei comandi**.
+
+**Colori di base, da scegliere tra tre proposte** (l'azzurro lucido di partenza era troppo infantile; il lucido resta solo su emoticon e pulsante dello zing):
+- **Cobalto**: blu `#2B4FD8`/`#1D36A8`, sfondi `#F4F6FB`, testo `#111A33`, accento corallo `#FF5A6E`. Proposta preferita: va bene per tutte le età.
+- **Inchiostro e pesca**: blu notte `#1B2140`, accento pesca `#FF8A5C`, sfondo panna.
+- **Pervinca**: blu-lilla `#6C7CFF`, pannelli lilla tenue, bolle lime.
+
+**Skin di stile**:
 - **Classic 2005**: barre da finestra, Verdana, angoli squadrati, per chi ha usato MSN;
 - **Y2K Chrome**: scura, cromata e neon, per la Gen Z;
 - **Clean**: bianca e tranquilla, per chi vuole solo le funzioni.

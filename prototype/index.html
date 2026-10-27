@@ -90,6 +90,29 @@ svg{overflow:visible}
 .tab .badge{position:absolute; top:1px; right:22%}
 
 /* ---------- Skin: cambiano colori, font e decorazioni, mai la posizione dei comandi ---------- */
+.phone[data-skin="cobalt"]{
+  --bar:linear-gradient(180deg, #4166ea 0%, #2b4fd8 55%, #1d36a8 100%); --bar-gloss:linear-gradient(180deg, rgb(255 255 255 / .18), rgb(255 255 255 / 0));
+  --aqua:#2b4fd8; --aqua-deep:#1d36a8; --ink:#111a33; --muted:#5a6685; --panel:#f4f6fb; --line:#dde3f0; --soft:#e8edfb;
+  --pink:#ff5a6e; --pink-deep:#d33a50; --mine:linear-gradient(180deg, #eef2ff, #dfe6ff); --mine-line:#c5d0fa;
+  --btn:linear-gradient(180deg, #4f70f0 0%, #2b4fd8 55%, #1d36a8 100%); --btn-shadow:#14287a; --bar-ink-inv:#1d36a8;
+}
+.phone[data-skin="peach"]{
+  --bar:linear-gradient(180deg, #2a3260 0%, #1b2140 100%); --bar-gloss:linear-gradient(180deg, rgb(255 255 255 / .08), rgb(255 255 255 / 0)); --bar-ink-inv:#1b2140;
+  --aqua:#1b2140; --aqua-deep:#2a3260; --ink:#1b2140; --muted:#6e6a78; --paper:#fffdfa; --panel:#fbf6f0; --line:#ece1d5; --soft:#f6ebe0;
+  --pink:#ff8a5c; --pink-deep:#d9653a; --mine:linear-gradient(180deg, #fff1e6, #ffe1cb); --mine-line:#f3c7a5;
+  --btn:linear-gradient(180deg, #343d70 0%, #1b2140 100%); --btn-shadow:#0d1124;
+}
+.phone[data-skin="periwinkle"]{
+  --bar:linear-gradient(180deg, #8d99ff 0%, #6c7cff 55%, #5462e8 100%); --bar-gloss:linear-gradient(180deg, rgb(255 255 255 / .25), rgb(255 255 255 / 0)); --bar-ink-inv:#4b55c9;
+  --aqua:#6c7cff; --aqua-deep:#4b55c9; --ink:#1c1d3f; --muted:#64678f; --panel:#f5f4ff; --line:#e1defa; --soft:#ecebff;
+  --pink:#ff5fa8; --pink-deep:#cf3a82; --mine:linear-gradient(180deg, #f4ffe2, #e0f8b4); --mine-line:#c3ea80;
+  --btn:linear-gradient(180deg, #8d99ff 0%, #6c7cff 55%, #4b55c9 100%); --btn-shadow:#343c9a;
+}
+:root[data-skin="cobalt"]{--sky-top:#c8d3f6; --sky-mid:#e6ebfa; --sky-low:#f6f8fd}
+:root[data-skin="peach"]{--sky-top:#f1dfd0; --sky-mid:#f9f0e7; --sky-low:#fdf9f4}
+:root[data-skin="periwinkle"]{--sky-top:#d6d9ff; --sky-mid:#ecedfe; --sky-low:#f8f8ff}
+:root[data-skin="clean"]{--sky-top:#e9edf3; --sky-mid:#f3f5f8; --sky-low:#fbfcfd}
+:root[data-skin="chrome"]{--sky-top:#0b0d18; --sky-mid:#1a1f38; --sky-low:#2b2440}
 .phone[data-skin="classic"]{
   --bar:linear-gradient(180deg, #7fb2f0 0%, #3b78d8 48%, #2459b8 52%, #3b78d8 100%); --bar-gloss:linear-gradient(180deg, rgb(255 255 255 / .55), rgb(255 255 255 / .1));
   --panel:#eaf1fb; --line:#a9c0df; --soft:#dbe7f8; --mine:linear-gradient(180deg, #ffffff, #eef4ff); --mine-line:#a9c0df;
@@ -236,7 +259,7 @@ svg{overflow:visible}
 .composer .icon-btn{border-color:var(--line); background:var(--panel); color:var(--aqua-deep)}
 .composer input{min-width:0; border:1px solid var(--line); border-radius:999px; padding:8px 13px; background:var(--panel)}
 .composer input:focus{outline:none; border-color:var(--aqua)}
-.zing-btn{position:relative; display:grid; place-items:center; width:40px; height:40px; border-radius:50%; border:0; padding:0; color:var(--on); font-weight:800; font-size:12px; background:linear-gradient(180deg, #ff9ccb 0%, var(--pink) 55%, var(--pink-deep) 100%); box-shadow:inset 0 1px 1px rgb(255 255 255 / .6), 0 2px 0 #8e0f4b}
+.zing-btn{position:relative; display:grid; place-items:center; width:40px; height:40px; border-radius:50%; border:0; padding:0; color:var(--on); font-weight:800; font-size:12px; background:linear-gradient(180deg, color-mix(in srgb, var(--pink) 55%, #fff) 0%, var(--pink) 55%, var(--pink-deep) 100%); box-shadow:inset 0 1px 1px rgb(255 255 255 / .6), 0 2px 0 var(--pink-deep)}
 .zing-btn svg{width:20px; height:20px}
 .zing-btn:disabled{filter:grayscale(.75); opacity:.7; cursor:default}
 .chat-foot{padding:2px 14px 8px; background:var(--paper); font-family:var(--font-pixel); font-size:14.5px; color:var(--muted)}
@@ -274,7 +297,7 @@ h3{font-family:var(--font-display); font-weight:700; font-size:16px; letter-spac
 .field:focus{outline:none; border-color:var(--aqua)}
 textarea.field{resize:vertical; min-height:64px}
 .btn{display:block; width:100%; margin-top:10px; border:0; border-radius:999px; padding:10px 16px; font-weight:800; font-size:14px; color:var(--on); background:var(--btn); box-shadow:inset 0 1px 1px rgb(255 255 255 / .4), 0 2px 0 var(--btn-shadow)}
-.btn.pink{background:linear-gradient(180deg, #ff9ccb 0%, var(--pink) 55%, var(--pink-deep) 100%); box-shadow:inset 0 1px 1px rgb(255 255 255 / .55), 0 2px 0 #8e0f4b}
+.btn.pink{background:linear-gradient(180deg, color-mix(in srgb, var(--pink) 55%, #fff) 0%, var(--pink) 55%, var(--pink-deep) 100%); box-shadow:inset 0 1px 1px rgb(255 255 255 / .55), 0 2px 0 var(--pink-deep)}
 .btn.ghost{background:var(--paper); color:var(--aqua-deep); border:1px solid var(--line); box-shadow:none}
 .creations{display:grid; gap:8px; margin-top:14px}
 .creation{display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:10px; align-items:center; padding:8px 12px; border-radius:14px; background:var(--paper); border:1px solid var(--line)}
@@ -502,8 +525,9 @@ const STR = {
     pay_note:'Demo: nothing is charged. In the real app: Revolut Pay, card, Apple Pay or Google Pay.', parent_sent:'Request sent to your parent.', parent_ok:'Approved. It’s reserved for you.',
     b2b_title:'Brand, shop or artist?', b2b_text:'Launch a drop on Zing: a product, a new single, a limited set. Your own emoticon spreads between friends. You only see totals, never who the kids are. No alcohol, vapes, gambling or diet products.', b2b_btn:'How it works',
     b2b_steps:['Create the drop from the web dashboard: product, number of pieces, date and time.','Design the exclusive emoticon, or ask one of our artists.','Optional: an in-store QR that only works at your counter.','Pay per drop by card or Revolut Business. You get totals: reminders, reservations, how far the emoticon travelled.'],
-    skin:'Skin', g_skins:'try a skin', skin_note:'Skins change colors and fonts, never where things are.',
-    sk_sky:'Sky', skd_sky:'The default: glossy blue, 2026 with 2005 vibes.', sk_classic:'Classic 2005', skd_classic:'Window bars, Verdana, square corners. For those who remember.',
+    skin:'Skin', g_skins:'skins', skin_note:'Skins change colors and fonts, never where things are.',
+    g_palettes:'base colors: pick one', sk_cobalt:'Cobalt', skd_cobalt:'Proposal A: deeper blue, coral accent. Works for every age.', sk_peach:'Ink & Peach', skd_peach:'Proposal B: navy and peach. Warm and calm.', sk_periwinkle:'Periwinkle', skd_periwinkle:'Proposal C: blue-lilac with lime. More Gen Z.',
+    sk_sky:'Sky (old)', skd_sky:'The previous blue, for comparison.', sk_classic:'Classic 2005', skd_classic:'Window bars, Verdana, square corners. For those who remember.',
     sk_chrome:'Y2K Chrome', skd_chrome:'Dark, chrome and neon. For Gen Z.', sk_clean:'Clean', skd_clean:'White and calm. Just the features.',
     tab_amici:'Friends', tab_album:'Album', tab_studio:'Studio', tab_profilo:'Profile',
     pm_ph:'Write a personal message', pm_aria:'Personal message', status_aria:'Your status', sections:'Sections', app_aria:'Zing app prototype',
@@ -546,7 +570,7 @@ const STR = {
     g_steps:[
       'Open <b>MaRkO_xX</b>’s chat and tap <b>Grab it</b> on the emerald shades and on the train.',
       'Tap the smiley next to the text box: chain faces and parts into a mix and send it.',
-      'Zing <b>*~Giuly~*</b> with the pink button on the left, or double-tap the avatar at the top. If Giuly zings back within 3 seconds it’s <b>same energy</b>.',
+      'Zing <b>*~Giuly~*</b> with the round button on the left, or double-tap the avatar at the top. If Giuly zings back within 3 seconds it’s <b>same energy</b>.',
       'Tap a friend’s <b>avatar</b> in the list to open their <b>wall</b>: photos, blog posts, emoticon reactions, guestbook.',
       'In <b>Profile</b>, customize your page like it’s MySpace and publish a post. You can add a real photo.',
       'In Giuly’s chat, tap the heart: that’s the <b>secret crush</b>.',
@@ -564,8 +588,9 @@ const STR = {
     pay_note:'Demo: non si paga niente. Nell’app vera: Revolut Pay, carta, Apple Pay o Google Pay.', parent_sent:'Richiesta inviata al tuo genitore.', parent_ok:'Approvato. È prenotato per te.',
     b2b_title:'Sei un brand, un negozio o un artista?', b2b_text:'Lancia un drop su Zing: un prodotto, un nuovo singolo, un set limitato. La tua emoticon gira tra amici. Vedi solo i totali, mai chi sono i ragazzi. Niente alcol, svapo, scommesse o prodotti dimagranti.', b2b_btn:'Come funziona',
     b2b_steps:['Crei il drop dalla dashboard web: prodotto, numero di pezzi, data e ora.','Disegni l’emoticon esclusiva, o la chiedi a uno dei nostri artisti.','Facoltativo: un QR che funziona solo alla tua cassa.','Paghi per drop con carta o Revolut Business. Ricevi i totali: promemoria, prenotazioni, quanto ha girato l’emoticon.'],
-    skin:'Skin', g_skins:'prova una skin', skin_note:'Le skin cambiano colori e font, mai la posizione dei comandi.',
-    sk_sky:'Sky', skd_sky:'Quella di base: azzurro lucido, 2026 con vibes 2005.', sk_classic:'Classic 2005', skd_classic:'Barre da finestra, Verdana, angoli squadrati. Per chi se lo ricorda.',
+    skin:'Skin', g_skins:'skin', skin_note:'Le skin cambiano colori e font, mai la posizione dei comandi.',
+    g_palettes:'colori di base: scegline uno', sk_cobalt:'Cobalto', skd_cobalt:'Proposta A: blu più profondo, accento corallo. Va bene per tutte le età.', sk_peach:'Inchiostro e pesca', skd_peach:'Proposta B: blu notte e pesca. Calda e tranquilla.', sk_periwinkle:'Pervinca', skd_periwinkle:'Proposta C: blu-lilla con lime. Più Gen Z.',
+    sk_sky:'Sky (vecchio)', skd_sky:'L’azzurro di prima, per confronto.', sk_classic:'Classic 2005', skd_classic:'Barre da finestra, Verdana, angoli squadrati. Per chi se lo ricorda.',
     sk_chrome:'Y2K Chrome', skd_chrome:'Scura, cromata e neon. Per la Gen Z.', sk_clean:'Clean', skd_clean:'Bianca e tranquilla. Solo le funzioni.',
     tab_amici:'Amici', tab_album:'Album', tab_studio:'Studio', tab_profilo:'Profilo',
     pm_ph:'Scrivi un messaggio personale', pm_aria:'Messaggio personale', status_aria:'Il tuo stato', sections:'Sezioni', app_aria:'Prototipo dell’app Zing',
@@ -608,7 +633,7 @@ const STR = {
     g_steps:[
       'Apri la chat con <b>MaRkO_xX</b> e tocca <b>Grab it</b> sotto gli occhiali smeraldo e sotto il treno.',
       'Tocca la faccina accanto al testo: metti in fila facce e pezzi e invia il mix.',
-      'Manda uno zing a <b>*~Giuly~*</b> con il pulsante rosa a sinistra, o con un doppio tocco sull’avatar in alto. Se Giuly te lo rimanda entro 3 secondi è <b>same energy</b>.',
+      'Manda uno zing a <b>*~Giuly~*</b> con il pulsante tondo a sinistra, o con un doppio tocco sull’avatar in alto. Se Giuly te lo rimanda entro 3 secondi è <b>same energy</b>.',
       'Tocca l’<b>avatar</b> di un amico nella lista per aprire la sua <b>bacheca</b>: foto, post da blog, reazioni con le emoticon, messaggi.',
       'Nel <b>Profilo</b> personalizza la tua pagina come su MySpace e pubblica un post. Puoi aggiungere una foto vera.',
       'Nella chat con Giuly tocca il cuore: è la <b>cotta segreta</b>.',
@@ -869,8 +894,8 @@ function garmentSVG(kind, c){
   return `<svg width="150" height="112" viewBox="0 0 120 90" aria-hidden="true">${G[kind]}</svg>`;
 }
 const DROP_CATS = ['all','fashion','music','beauty','merch','store'];
-const SKINS = ['sky','classic','chrome','clean'];
-const SKIN_SW = {sky:'linear-gradient(180deg,#5cc2ff,#0f6fbf)', classic:'linear-gradient(180deg,#7fb2f0,#2459b8 52%,#a6e07a 53%,#3d8a12)', chrome:'linear-gradient(160deg,#f4f6fa,#6c7891 50%,#161a2c 51%,#ff6fb5)', clean:'linear-gradient(180deg,#ffffff,#eef1f5)'};
+const PALETTES = ['cobalt','peach','periwinkle','sky'], LOOKS = ['classic','chrome','clean'], SKINS = [...PALETTES, ...LOOKS];
+const SKIN_SW = {cobalt:'linear-gradient(180deg,#4166ea,#1d36a8 60%,#ff5a6e 61%)', peach:'linear-gradient(180deg,#2a3260,#1b2140 60%,#ff8a5c 61%)', periwinkle:'linear-gradient(180deg,#8d99ff,#5462e8 60%,#b6f04a 61%)', sky:'linear-gradient(180deg,#5cc2ff,#0f6fbf)', classic:'linear-gradient(180deg,#7fb2f0,#2459b8 52%,#a6e07a 53%,#3d8a12)', chrome:'linear-gradient(160deg,#f4f6fa,#6c7891 50%,#161a2c 51%,#ff6fb5)', clean:'linear-gradient(180deg,#ffffff,#eef1f5)'};
 
 /* ---------- Stato ---------- */
 const S = {
@@ -879,9 +904,9 @@ const S = {
   cool:{}, lastMine:{}, lastTheirs:{}, sent:12, recv:17, today:0, mix:[],
   crush:new Set(), matched:{}, passes:{}, creations:[], quiet:true, typing:null,
   studio:{color:Y, eyes:'dot', mouth:'smile', acc:'none', anim:'bounce'}, studioName:'',
-  draft:{mode:'photo', scene:'sunset', img:null, text:'', title:''}, reactTarget:null, skin:'sky', follows:{}
+  draft:{mode:'photo', scene:'sunset', img:null, text:'', title:''}, reactTarget:null, skin:'cobalt', follows:{}
 };
-try { const sk = localStorage.getItem('zing-skin'); if (SKINS.includes(sk)) S.skin = sk; } catch(e){}
+try { const sk = localStorage.getItem('zing-skin-v2'); if (SKINS.includes(sk)) S.skin = sk; } catch(e){}
 S.me = {theme:'sky', mood:0, song:'', tags:n2(['music','Y2K'],['musica','Y2K']), vetrina:['risata','occhiolino','sudato'],
   posts:[{kind:'blog', title:n2('first post, be nice','primo post, siate buoni'), text:n2('setting up my wall like it’s 2006. who remembers glitter text?','sto sistemando la mia bacheca come nel 2006. chi si ricorda le scritte glitterate?'), date:n2('today','oggi'), reacts:{risata:2, occhiolino:1}, comments:[]}],
   guestbook:[{from:'giulia', text:n2('omg your wall is so 2006, I love it','oddio la tua bacheca è così 2006, la adoro')}]};
@@ -948,7 +973,7 @@ function renderStatic(){
   $('#trayBtn').setAttribute('aria-label', t('my_emos')); $('#sendBtn').setAttribute('aria-label', t('send')); $('#zingBtn').setAttribute('aria-label', t('zing_aria'));
   document.querySelectorAll('#lang button').forEach(b => { b.classList.toggle('on', b.dataset.lang === L); b.setAttribute('aria-pressed', b.dataset.lang === L); });
   $('#guide').setAttribute('aria-label', L === 'it' ? 'Come provare il prototipo' : 'How to try the prototype');
-  $('#guide').innerHTML = `<h1>zing</h1><p class="tag">${t('g_tag')}</p><ol>${t('g_steps').map(s => `<li>${s}</li>`).join('')}</ol><p class="tag" style="margin:16px 0 0">${t('g_skins')}</p><div class="skins">${SKINS.map(k => `<button class="skin-btn ${S.skin === k ? 'on' : ''}" data-skin="${k}">${t('sk_' + k)}</button>`).join('')}</div><button class="btn pink" data-sim>${t('g_sim')}</button><p class="note">${t('g_note')}</p>`;
+  $('#guide').innerHTML = `<h1>zing</h1><p class="tag">${t('g_tag')}</p><ol>${t('g_steps').map(s => `<li>${s}</li>`).join('')}</ol><p class="tag" style="margin:16px 0 0">${t('g_palettes')}</p><div class="skins">${PALETTES.map(k => `<button class="skin-btn ${S.skin === k ? 'on' : ''}" data-skin="${k}">${t('sk_' + k)}</button>`).join('')}</div><p class="tag" style="margin:12px 0 0">${t('g_skins')}</p><div class="skins">${LOOKS.map(k => `<button class="skin-btn ${S.skin === k ? 'on' : ''}" data-skin="${k}">${t('sk_' + k)}</button>`).join('')}</div><button class="btn pink" data-sim>${t('g_sim')}</button><p class="note">${t('g_note')}</p>`;
 }
 function renderMe(){ $('#meNick').textContent = S.nick; $('#meAva').textContent = myInitial(); }
 function renderTabs(){
@@ -1074,7 +1099,7 @@ function tickDrops(){
   document.querySelectorAll('[data-stockbar]').forEach(el => el.style.width = (d.stock / d.total * 100) + '%');
 }
 setInterval(tickDrops, 1000);
-function applySkin(){ $('#phone').dataset.skin = S.skin; try { localStorage.setItem('zing-skin', S.skin); } catch(e){} }
+function applySkin(){ $('#phone').dataset.skin = S.skin; document.documentElement.dataset.skin = S.skin; try { localStorage.setItem('zing-skin-v2', S.skin); } catch(e){} }
 
 /* ---------- Bacheca ---------- */
 function postHTML(owner, p, idx){
