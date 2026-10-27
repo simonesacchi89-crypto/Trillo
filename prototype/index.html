@@ -2,7 +2,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Figtree:wght@400;600;700;800&family=VT323&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Figtree:wght@400;600;700;800&family=VT323&family=Fredoka:wght@500;600&family=Playfair+Display:wght@600;700&family=Special+Elite&family=Permanent+Marker&family=Pacifico&display=swap">
 <style>
 /* Layout: telefono al centro su cielo Y2K, guida accanto su desktop e sotto su telefono. Un solo look chiaro; i profili hanno temi propri, come su MySpace. */
 :root{
@@ -113,6 +113,15 @@ svg{overflow:visible}
 :root[data-skin="periwinkle"]{--sky-top:#d6d9ff; --sky-mid:#ecedfe; --sky-low:#f8f8ff}
 :root[data-skin="clean"]{--sky-top:#e9edf3; --sky-mid:#f3f5f8; --sky-low:#fbfcfd}
 :root[data-skin="chrome"]{--sky-top:#0b0d18; --sky-mid:#1a1f38; --sky-low:#2b2440}
+.phone[data-skin="bubblegum"]{--bar:#f0569a; --bar-gloss:none; --bar-ink-inv:#c21f6a; --aqua:#e8387f; --aqua-deep:#b81d63; --ink:#2a1630; --muted:#7a5a74; --panel:#fff4f9; --line:#f4d5e4; --soft:#ffe6f1; --pink:#7b5cd1; --pink-deep:#5d40b0; --mine:#ffe1ef; --mine-line:#f2bdd5; --btn:#e8387f}
+.phone[data-skin="matcha"]{--bar:#3f7d5a; --bar-gloss:none; --bar-ink-inv:#2f6146; --aqua:#3f7d5a; --aqua-deep:#2f6146; --ink:#1d2b22; --muted:#5f7266; --panel:#f4f8f2; --line:#dbe7d8; --soft:#e7f1e4; --pink:#e0705a; --pink-deep:#b9503b; --mine:#e9f5e1; --mine-line:#c8e2ba; --btn:#3f7d5a}
+.phone[data-skin="midnight"]{--paper:#171a24; --panel:#0f1118; --ink:#eceef5; --muted:#9aa0b5; --line:#2a2f40; --soft:#20253a; --cream:#2a2633; --bar:#171a24; --bar-gloss:none; --bar-ink:#eceef5; --bar-ink-inv:#171a24; --aqua:#7aa2ff; --aqua-deep:#9db8ff; --pink:#ff6b81; --pink-deep:#d9475e; --mine:#2b3557; --mine-line:#3a4670; --btn:#4a6cf0; color-scheme:dark}
+.phone[data-skin="midnight"] .topbar, .phone[data-skin="midnight"] .chat-head, .phone[data-skin="midnight"] .prof-head{border-bottom:1px solid var(--line)}
+.phone[data-skin="mono"]{--paper:#ffffff; --panel:#f5f5f5; --ink:#111111; --muted:#666666; --line:#e2e2e2; --soft:#eeeeee; --bar:#111111; --bar-gloss:none; --bar-ink:#ffffff; --bar-ink-inv:#111111; --aqua:#111111; --aqua-deep:#111111; --pink:#ff3b30; --pink-deep:#c4261d; --mine:#efefef; --mine-line:#dcdcdc; --btn:#111111; --rb:6px}
+:root[data-skin="bubblegum"]{--sky-top:#ffd0e4; --sky-mid:#ffe8f2; --sky-low:#fff7fb}
+:root[data-skin="matcha"]{--sky-top:#d4e6cc; --sky-mid:#e9f2e5; --sky-low:#f7faf5}
+:root[data-skin="midnight"]{--sky-top:#05060b; --sky-mid:#10131d; --sky-low:#1a1e2c}
+:root[data-skin="mono"]{--sky-top:#dcdcdc; --sky-mid:#ececec; --sky-low:#f8f8f8}
 .phone[data-skin="classic"]{
   --bar:linear-gradient(180deg, #7fb2f0 0%, #3b78d8 48%, #2459b8 52%, #3b78d8 100%); --bar-gloss:linear-gradient(180deg, rgb(255 255 255 / .55), rgb(255 255 255 / .1));
   --panel:#eaf1fb; --line:#a9c0df; --soft:#dbe7f8; --mine:linear-gradient(180deg, #ffffff, #eef4ff); --mine-line:#a9c0df;
@@ -474,7 +483,7 @@ textarea.field{resize:vertical; min-height:64px}
 .phone[data-skin="peach"]{--bar:#1b2140; --bar-gloss:none; --btn:#1b2140}
 .phone[data-skin="periwinkle"]{--bar:linear-gradient(180deg, #7584ff, #6070f4); --bar-gloss:none; --btn:#5462e8}
 .btn, .btn.pink{box-shadow:var(--btn-depth)}
-.phone:is([data-skin="cobalt"], [data-skin="peach"], [data-skin="periwinkle"], [data-skin="clean"]) .btn.pink{background:var(--pink)}
+.phone:is([data-skin="cobalt"], [data-skin="peach"], [data-skin="periwinkle"], [data-skin="clean"], [data-skin="bubblegum"], [data-skin="matcha"], [data-skin="midnight"], [data-skin="mono"]) .btn.pink{background:var(--pink)}
 /* avatar piatti: il lucido resta a emoticon e pulsante dello zing */
 .ava{background:var(--c); text-shadow:none; box-shadow:0 0 0 2px var(--paper)}
 .ava.xl{box-shadow:0 0 0 4px var(--paper)}
@@ -500,6 +509,49 @@ textarea.field{resize:vertical; min-height:64px}
 .post, .drop, .b2b, .card-fig, .preview, .tray-grid button{border-radius:16px}
 .tray-grid button{border-radius:10px}
 .sheet{border-radius:20px 20px 0 0}
+/* ---------- Profilo: testata stile Instagram, pagina personalizzabile stile MySpace ---------- */
+.pf{background:var(--pf-bg, var(--panel)); min-height:100%}
+.bg-none{--pf-bg:var(--panel)}
+.bg-stars{--pf-bg:radial-gradient(circle, color-mix(in srgb, var(--accent) 45%, transparent) 0 1.3px, transparent 1.9px) 0 0 / 18px 18px, radial-gradient(circle, color-mix(in srgb, var(--accent) 25%, transparent) 0 1px, transparent 1.6px) 9px 9px / 18px 18px, var(--panel)}
+.bg-hearts{--pf-bg:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3E%3Cpath d='M14 21s-6-3.8-6-8a3.4 3.4 0 0 1 6-2.2A3.4 3.4 0 0 1 20 13c0 4.2-6 8-6 8z' fill='%23ff4f9a' fill-opacity='.16'/%3E%3C/svg%3E") 0 0 / 28px 28px, var(--panel)}
+.bg-checker{--pf-bg:repeating-conic-gradient(color-mix(in srgb, var(--accent) 9%, var(--panel)) 0 25%, var(--panel) 0 50%) 0 0 / 32px 32px}
+.bg-glitter{--pf-bg:radial-gradient(circle at 20% 30%, color-mix(in srgb, var(--accent) 55%, #fff) 0 1.4px, transparent 2px) 0 0 / 38px 38px, radial-gradient(circle at 70% 60%, #fff 0 1.6px, transparent 2.2px) 0 0 / 29px 29px, radial-gradient(circle at 45% 85%, color-mix(in srgb, var(--accent) 40%, #fff) 0 1px, transparent 1.6px) 0 0 / 21px 21px, linear-gradient(180deg, color-mix(in srgb, var(--accent) 16%, var(--panel)), var(--panel))}
+.bg-gradient{--pf-bg:linear-gradient(180deg, color-mix(in srgb, var(--accent) 24%, var(--panel)) 0%, var(--panel) 75%)}
+.pf .name, .pf .about, .pf .post-body, .pf .gb-text{font-family:var(--pfont, var(--font-body))}
+.pf[data-font="pixel"] .about, .pf[data-font="pixel"] .post-body p, .pf[data-font="pixel"] .gb-text{font-size:17px}
+.pf[data-font="script"] .name{font-weight:400}
+.ig-head{display:grid; grid-template-columns:auto minmax(0,1fr); gap:16px; align-items:end; padding:0 16px; margin-top:-40px}
+.ig-stats{display:flex; justify-content:space-around; gap:8px; padding-bottom:4px}
+.ig-stat{display:grid; justify-items:center; line-height:1.15}
+.ig-stat b{font-family:var(--font-display); font-weight:700; font-size:16px; font-variant-numeric:tabular-nums}
+.ig-stat span{font-size:11px; color:var(--muted)}
+.ig-id{padding:8px 16px 0}
+.ig-id .name{font-weight:700; font-size:17px; letter-spacing:-.01em}
+.ig-id .pm{color:var(--muted); font-size:12.5px; font-style:italic}
+.about{margin:6px 0 0; font-size:13.5px}
+.ig-id .meta, .ig-id .tags{justify-content:flex-start}
+.hl-row{display:flex; gap:12px; overflow-x:auto; padding:12px 16px 2px}
+.hl{flex:none; width:62px; display:grid; justify-items:center; gap:4px; border:0; background:transparent; padding:0; font-size:11px; font-weight:600; color:var(--ink)}
+.hl-ring{padding:2px; border-radius:50%; border:1.5px solid var(--line); background:var(--paper)}
+.hl-img{display:block; width:52px; height:52px; border-radius:50%; background-size:cover; background-position:center}
+.crew{display:grid; grid-template-columns:repeat(6, minmax(0,1fr)); gap:6px}
+.crew-btn{display:grid; justify-items:center; gap:3px; border:0; background:transparent; padding:0; font-size:10.5px; font-weight:600; color:var(--ink); min-width:0}
+.crew-btn .n{max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.pf-tabs{display:grid; grid-template-columns:repeat(3,1fr); margin-top:8px; background:var(--paper); border-block:1px solid var(--line)}
+.pf-tabs button{border:0; border-bottom:2px solid transparent; background:transparent; padding:10px 0; font-size:12.5px; font-weight:700; color:var(--muted)}
+.pf-tabs button.on{color:var(--ink); border-bottom-color:var(--ink)}
+.pf-body{padding:10px 16px}
+.ig-grid{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:2px; margin:0 -16px}
+.gcell{position:relative; aspect-ratio:1; max-width:100%; border:0; padding:0; overflow:hidden}
+.gcell img{display:block; width:100%; height:100%; object-fit:cover}
+.gsticker{position:absolute; right:4px; bottom:2px}
+.gcount{position:absolute; left:6px; top:6px; font-size:10.5px; font-weight:800; color:#fff; background:rgb(0 0 0 / .35); padding:1px 7px; border-radius:999px}
+.bg-swatch{width:52px; height:36px; border-radius:10px; border:2px solid var(--line); background:var(--pf-bg, var(--panel)); padding:0}
+.bg-swatch.on{border-color:var(--ink)}
+.font-chip{min-height:40px; padding:0 12px; font-size:15px}
+.msg-preview{display:flex; justify-content:flex-end; padding:10px; border-radius:12px; background:var(--panel)}
+.color-dot{width:30px; height:30px; border-radius:50%; border:2px solid var(--paper); box-shadow:0 0 0 1.5px var(--line); padding:0}
+.color-dot.on{box-shadow:0 0 0 2.5px var(--ink)}
 @media (max-width:440px){ .phone{border-radius:24px} }
 </style>
 
@@ -553,6 +605,11 @@ try { const saved = localStorage.getItem('zing-lang'); if (saved === 'it' || sav
 const STR = {
   en:{
     st_online:'Online', st_occupato:'Busy', st_torno:'Be right back', st_telefono:'On the phone', st_pranzo:'Out to lunch', st_invisibile:'Appear offline', st_offline:'Offline',
+    st_posts:'posts', st_crew:'crew', st_emos:'emoticons', crew:'Crew', crew_note:'no ranking, unlike MySpace’s Top 8', pf_grid:'Photos', pf_blog:'Blog', pf_gb:'Guestbook', no_photos:'No photos yet.', no_blog:'No blog posts yet.', gb_empty:'Nobody has written here yet.',
+    about_me:'About me', about_ph:'A few words about you', pf_bg:'Page background', pf_font:'Page font', bg_none:'Plain', bg_stars:'Stars', bg_hearts:'Hearts', bg_checker:'Checker', bg_glitter:'Glitter', bg_gradient:'Fade',
+    f_default:'Default', f_cute:'Rounded', f_elegant:'Elegant', f_typewriter:'Typewriter', f_marker:'Marker', f_script:'Script', f_pixel:'Pixel',
+    msg_style:'Message style', msg_style_btn:'Aa message style', msg_style_note:'Like on MSN: friends see your messages in your font and color.', msg_font:'Font', msg_color:'Color', msg_sample:'hiii, zing me later :)',
+    sk_bubblegum:'Bubblegum', skd_bubblegum:'Pink with a violet accent.', sk_matcha:'Matcha', skd_matcha:'Calm green with terracotta.', sk_midnight:'Midnight', skd_midnight:'Dark and minimal, easy at night.', sk_mono:'Mono', skd_mono:'Black and white with one red accent.',
     tab_drops:'Drops', drops_sub:'Limited drops from small brands and artists: clothes, music, beauty, merch, anything.', cat_all:'All', cat_fashion:'Fashion', cat_music:'Music', cat_beauty:'Beauty', cat_merch:'Merch', cat_store:'In store', release:'new release', presave:'Pre-save', presaved:'Pre-saved', presave_note:'Opens your music app on release day. Nothing to buy.', presave_toast:'Pre-saved. It lands in your library at midnight.', presave_emo:'You’re an early listener.', drops_rules:'Shops on Zing can’t message you, add you or see who you are. Every drop is labelled.',
     live:'live', soon:'soon', in_store:'in store', raffle:'raffle', enter_raffle:'Enter the raffle', entered_btn:'You’re in · size {s}', entered:'You’re in. Winners are drawn on Sunday.', raffle_emo:'Everyone who enters gets the emoticon, win or lose.', need_size:'Pick your size first.', choose_size:'Size', raffle_note:'Only friend-verified accounts can enter: no bots, no resellers.', raffle_how:'One entry per person. Winners are drawn at random and have 24 hours to confirm.', raffle_pay:'You only pay if you win. Ages 14-17: a parent confirms the purchase.', ends_in:'ends in {t}', left:'{n} of {m} left', reserve:'Reserve', reserved:'Reserved', remind:'Remind me', reminding:'Reminder on', remind_toast:'We’ll remind you 10 minutes before.',
     excl:'Comes with an exclusive emoticon', scan:'I’m at the counter: scan the QR', scan_note:'Only works in the shop: the code changes every minute.', verified:'Verified', follow:'Follow', following:'Following',
@@ -606,8 +663,8 @@ const STR = {
       'Open <b>MaRkO_xX</b>’s chat and tap <b>Grab it</b> on the emerald shades and on the train.',
       'Tap the smiley next to the text box: chain faces and parts into a mix and send it.',
       'Zing <b>*~Giuly~*</b> with the round button on the left, or double-tap the avatar at the top. If Giuly zings back within 3 seconds it’s <b>same energy</b>.',
-      'Tap a friend’s <b>avatar</b> in the list to open their <b>wall</b>: photos, blog posts, emoticon reactions, guestbook.',
-      'In <b>Profile</b>, customize your page like it’s MySpace and publish a post. You can add a real photo.',
+      'Tap a friend’s <b>avatar</b> in the list to open their page: Instagram-style header and photo grid, highlights, crew, and a MySpace-style background and font.',
+      'In <b>Profile</b> → Customize, pick your page background and font, write your About me and publish a post. Set your <b>message style</b> from the smiley tray in chat.',
       'In Giuly’s chat, tap the heart: that’s the <b>secret crush</b>.',
       'Type <code>:)</code>, or <code>:lo</code> to get suggestions. <code>(H)</code> stays text until someone passes you Cool. Grab Marco’s train, then type <code>(train)</code>. <code>QQ</code> is the teary one.',
       'Make your own emoticon in the <b>Studio</b>, including how it moves.',
@@ -616,6 +673,11 @@ const STR = {
   },
   it:{
     st_online:'Online', st_occupato:'Occupato', st_torno:'Torno subito', st_telefono:'Al telefono', st_pranzo:'A pranzo', st_invisibile:'Invisibile', st_offline:'Offline',
+    st_posts:'post', st_crew:'crew', st_emos:'emoticon', crew:'Crew', crew_note:'nessuna classifica, a differenza della Top 8 di MySpace', pf_grid:'Foto', pf_blog:'Blog', pf_gb:'Messaggi', no_photos:'Ancora nessuna foto.', no_blog:'Ancora nessun post sul blog.', gb_empty:'Qui non ha ancora scritto nessuno.',
+    about_me:'Su di me', about_ph:'Qualche parola su di te', pf_bg:'Sfondo della pagina', pf_font:'Font della pagina', bg_none:'Tinta unita', bg_stars:'Stelle', bg_hearts:'Cuori', bg_checker:'Scacchi', bg_glitter:'Glitter', bg_gradient:'Sfumato',
+    f_default:'Base', f_cute:'Tondo', f_elegant:'Elegante', f_typewriter:'Macchina da scrivere', f_marker:'Pennarello', f_script:'Corsivo', f_pixel:'Pixel',
+    msg_style:'Stile dei messaggi', msg_style_btn:'Aa stile dei messaggi', msg_style_note:'Come su MSN: gli amici vedono i tuoi messaggi con il tuo font e il tuo colore.', msg_font:'Font', msg_color:'Colore', msg_sample:'ciaooo, dopo mandami uno zing :)',
+    sk_bubblegum:'Bubblegum', skd_bubblegum:'Rosa con accento viola.', sk_matcha:'Matcha', skd_matcha:'Verde calmo con terracotta.', sk_midnight:'Midnight', skd_midnight:'Scura e minimale, comoda di notte.', sk_mono:'Mono', skd_mono:'Bianco e nero con un solo accento rosso.',
     tab_drops:'Drops', drops_sub:'Drop limitati di piccoli brand e artisti: vestiti, musica, trucco, merch, qualsiasi cosa.', cat_all:'Tutti', cat_fashion:'Moda', cat_music:'Musica', cat_beauty:'Trucco', cat_merch:'Merch', cat_store:'In negozio', release:'nuova uscita', presave:'Pre-salva', presaved:'Pre-salvato', presave_note:'Il giorno dell’uscita si apre la tua app di musica. Niente da comprare.', presave_toast:'Pre-salvato. A mezzanotte lo trovi nella tua libreria.', presave_emo:'Sei tra i primi ad ascoltarla.', drops_rules:'I negozi su Zing non possono scriverti, aggiungerti né vedere chi sei. Ogni drop è segnalato.',
     live:'live', soon:'presto', in_store:'in negozio', raffle:'estrazione', enter_raffle:'Partecipa all’estrazione', entered_btn:'Partecipi · taglia {s}', entered:'Sei dentro. I vincitori si estraggono domenica.', raffle_emo:'Chi partecipa riceve l’emoticon, che vinca o no.', need_size:'Prima scegli la taglia.', choose_size:'Taglia', raffle_note:'Partecipano solo gli account verificati dagli amici: niente bot né rivenditori.', raffle_how:'Una partecipazione a persona. I vincitori sono estratti a caso e hanno 24 ore per confermare.', raffle_pay:'Paghi solo se vinci. Se hai 14-17 anni, l’acquisto lo conferma un genitore.', ends_in:'finisce tra {t}', left:'ne restano {n} su {m}', reserve:'Prenota', reserved:'Prenotato', remind:'Ricordamelo', reminding:'Promemoria attivo', remind_toast:'Ti avvisiamo 10 minuti prima.',
     excl:'Include un’emoticon esclusiva', scan:'Sono alla cassa: scansiona il QR', scan_note:'Funziona solo in negozio: il codice cambia ogni minuto.', verified:'Verificato', follow:'Segui', following:'Lo segui',
@@ -669,8 +731,8 @@ const STR = {
       'Apri la chat con <b>MaRkO_xX</b> e tocca <b>Grab it</b> sotto gli occhiali smeraldo e sotto il treno.',
       'Tocca la faccina accanto al testo: metti in fila facce e pezzi e invia il mix.',
       'Manda uno zing a <b>*~Giuly~*</b> con il pulsante tondo a sinistra, o con un doppio tocco sull’avatar in alto. Se Giuly te lo rimanda entro 3 secondi è <b>same energy</b>.',
-      'Tocca l’<b>avatar</b> di un amico nella lista per aprire la sua <b>bacheca</b>: foto, post da blog, reazioni con le emoticon, messaggi.',
-      'Nel <b>Profilo</b> personalizza la tua pagina come su MySpace e pubblica un post. Puoi aggiungere una foto vera.',
+      'Tocca l’<b>avatar</b> di un amico nella lista per aprire la sua pagina: testata e griglia di foto come su Instagram, highlights, crew, sfondo e font come su MySpace.',
+      'Nel <b>Profilo</b> → Personalizza scegli sfondo e font della pagina, scrivi il tuo Su di me e pubblica un post. Lo <b>stile dei messaggi</b> si sceglie dal vassoio delle faccine in chat.',
       'Nella chat con Giuly tocca il cuore: è la <b>cotta segreta</b>.',
       'Scrivi <code>:)</code>, oppure <code>:lo</code> per i suggerimenti. <code>(H)</code> resta testo finché qualcuno non ti passa Cool. Prendi il treno di Marco e poi scrivi <code>(train)</code>. <code>QQ</code> sono i lacrimoni.',
       'Crea la tua emoticon nello <b>Studio</b>, compreso come si muove.',
@@ -866,7 +928,7 @@ const myInitial = () => (S.nick.match(/[a-z0-9]/i) || ['?'])[0].toUpperCase();
 
 /* ---------- Bacheche (profili stile MySpace) ---------- */
 const P = {
-  giulia:{theme:'bubblegum', mood:2, song:n2('Playlist "summer 2006 but it’s 2026"','Playlist "estate 2006 ma siamo nel 2026"'), tags:n2(['pop','concerts','film photos'],['pop','concerti','foto a pellicola']),
+  giulia:{theme:'bubblegum', bg:'hearts', font:'cute', emoCount:41, about:n2('Concerts, film cameras, and zinging people at 2am.','Concerti, macchine a pellicola e zing alle 2 di notte.'), highlights:[[n2('concerts','concerti'),0],[n2('sunsets','tramonti'),2]], mood:2, song:n2('Playlist "summer 2006 but it’s 2026"','Playlist "estate 2006 ma siamo nel 2026"'), tags:n2(['pop','concerts','film photos'],['pop','concerti','foto a pellicola']),
     vetrina:['cuffie','innamorato','fiore'],
     posts:[
       {kind:'photo', scene:'concert', sticker:'cuffie', text:n2('front row or nothing','prima fila o niente'), date:n2('2 h ago','2 h fa'), reacts:{stupito:4, cuffie:2}, comments:[{from:'ale', text:n2('take me next time','la prossima portami')}]},
@@ -874,22 +936,22 @@ const P = {
       {kind:'photo', scene:'sunset', text:n2('golden hour hits different','l’ora d’oro è un’altra cosa'), date:n2('3 days ago','3 giorni fa'), reacts:{sorriso:3}, comments:[]}
     ],
     guestbook:[{from:'marco', text:n2('thanks for the add lol','grazie dell’amicizia ahah')}]},
-  marco:{theme:'midnight', mood:5, song:n2('Lo-fi beats to panic to','Lo-fi per andare nel panico'), tags:n2(['basketball','gaming','math (sadly)'],['basket','gaming','mate (purtroppo)']),
+  marco:{theme:'midnight', bg:'stars', font:'marker', emoCount:27, about:n2('Point guard. Night owl. Bad at math, good at excuses.','Playmaker. Nottambulo. Scarso in mate, bravo con le scuse.'), highlights:[[n2('3am','le 3'),0]], mood:5, song:n2('Lo-fi beats to panic to','Lo-fi per andare nel panico'), tags:n2(['basketball','gaming','math (sadly)'],['basket','gaming','mate (purtroppo)']),
     vetrina:['smeraldo','cool','diavoletto'],
     posts:[
       {kind:'photo', scene:'city', sticker:'sonno', text:n2('3am study session','sessione di studio alle 3'), date:n2('5 h ago','5 h fa'), reacts:{sonno:5, sudato:2}, comments:[{from:'giulia', text:n2('go to sleep','vai a dormire')}]},
       {kind:'blog', title:n2('ranking my excuses for not studying','classifica delle mie scuse per non studiare'), text:n2('10/10: my cat sat on the book. 7/10: the wifi was weird. 2/10: I was studying, I swear.','10/10: il gatto si è seduto sul libro. 7/10: il wifi faceva strano. 2/10: stavo studiando, giuro.'), date:n2('2 days ago','2 giorni fa'), reacts:{risata:9}, comments:[]}
     ],
     guestbook:[]},
-  ale:{theme:'chrome', mood:0, song:n2('Lo-fi to pretend I’m studying','Lo-fi per fare finta di studiare'), tags:n2(['anime','haircuts','space'],['anime','tagli di capelli','spazio']),
+  ale:{theme:'chrome', bg:'glitter', font:'elegant', emoCount:33, about:n2('Anime, space, and a new haircut every month.','Anime, spazio e un taglio nuovo ogni mese.'), highlights:[[n2('sea','mare'),0]], mood:0, song:n2('Lo-fi to pretend I’m studying','Lo-fi per fare finta di studiare'), tags:n2(['anime','haircuts','space'],['anime','tagli di capelli','spazio']),
     vetrina:['stellare','alieno','gatto'],
     posts:[{kind:'photo', scene:'sea', sticker:'stellare', text:n2('new haircut, approved by the sea','nuovo taglio, approvato dal mare'), date:n2('1 h ago','1 h fa'), reacts:{stellare:3, cool:2}, comments:[]}],
     guestbook:[{from:'sara', text:n2('the haircut is a 10','il taglio è da 10')}]},
-  sara:{theme:'sky', mood:4, song:n2('Whatever’s on the radio','Quello che passa la radio'), tags:n2(['books','cats'],['libri','gatti']),
+  sara:{theme:'sky', bg:'checker', font:'typewriter', emoCount:19, about:n2('Books, cats, and a status stuck on brb.','Libri, gatti e uno stato fisso su torno subito.'), highlights:[], mood:4, song:n2('Whatever’s on the radio','Quello che passa la radio'), tags:n2(['books','cats'],['libri','gatti']),
     vetrina:['angelo','fiore','sorriso'],
     posts:[{kind:'blog', title:n2('brb is a lifestyle','torno subito è uno stile di vita'), text:n2('I set my status to brb in 2026 and never came back. ok I came back.','Ho messo lo stato torno subito nel 2026 e non sono più tornata. ok, sono tornata.'), date:n2('4 days ago','4 giorni fa'), reacts:{risata:4}, comments:[]}],
     guestbook:[]},
-  luca:{theme:'lime', mood:2, song:n2('Skate punk mix','Mix skate punk'), tags:n2(['skate','sneakers'],['skate','sneakers']),
+  luca:{theme:'lime', bg:'gradient', font:'pixel', emoCount:22, about:n2('Skatepark every day. Sneakers > everything.','Skatepark tutti i giorni. Sneakers prima di tutto.'), highlights:[[n2('sk8','sk8'),0]], mood:2, song:n2('Skate punk mix','Mix skate punk'), tags:n2(['skate','sneakers'],['skate','sneakers']),
     vetrina:['cool','sudato','sorriso'],
     posts:[{kind:'photo', scene:'skate', text:n2('skatepark, day 47','skatepark, giorno 47'), date:n2('yesterday','ieri'), reacts:{cool:6}, comments:[]}],
     guestbook:[]}
@@ -929,8 +991,8 @@ function garmentSVG(kind, c){
   return `<svg width="150" height="112" viewBox="0 0 120 90" aria-hidden="true">${G[kind]}</svg>`;
 }
 const DROP_CATS = ['all','fashion','music','beauty','merch','store'];
-const PALETTES = ['cobalt','peach','periwinkle','sky'], LOOKS = ['classic','chrome','clean'], SKINS = [...PALETTES, ...LOOKS];
-const SKIN_SW = {cobalt:'linear-gradient(180deg,#4166ea,#1d36a8 60%,#ff5a6e 61%)', peach:'linear-gradient(180deg,#2a3260,#1b2140 60%,#ff8a5c 61%)', periwinkle:'linear-gradient(180deg,#8d99ff,#5462e8 60%,#b6f04a 61%)', sky:'linear-gradient(180deg,#5cc2ff,#0f6fbf)', classic:'linear-gradient(180deg,#7fb2f0,#2459b8 52%,#a6e07a 53%,#3d8a12)', chrome:'linear-gradient(160deg,#f4f6fa,#6c7891 50%,#161a2c 51%,#ff6fb5)', clean:'linear-gradient(180deg,#ffffff,#eef1f5)'};
+const PALETTES = ['cobalt','peach','periwinkle','bubblegum','matcha','midnight','mono','sky'], LOOKS = ['classic','chrome','clean'], SKINS = [...PALETTES, ...LOOKS];
+const SKIN_SW = {bubblegum:'linear-gradient(180deg,#f0569a 60%,#7b5cd1 61%)', matcha:'linear-gradient(180deg,#3f7d5a 60%,#e0705a 61%)', midnight:'linear-gradient(180deg,#171a24 60%,#ff6b81 61%)', mono:'linear-gradient(180deg,#111 60%,#ff3b30 61%)', cobalt:'linear-gradient(180deg,#4166ea,#1d36a8 60%,#ff5a6e 61%)', peach:'linear-gradient(180deg,#2a3260,#1b2140 60%,#ff8a5c 61%)', periwinkle:'linear-gradient(180deg,#8d99ff,#5462e8 60%,#b6f04a 61%)', sky:'linear-gradient(180deg,#5cc2ff,#0f6fbf)', classic:'linear-gradient(180deg,#7fb2f0,#2459b8 52%,#a6e07a 53%,#3d8a12)', chrome:'linear-gradient(160deg,#f4f6fa,#6c7891 50%,#161a2c 51%,#ff6fb5)', clean:'linear-gradient(180deg,#ffffff,#eef1f5)'};
 
 /* ---------- Stato ---------- */
 const S = {
@@ -939,10 +1001,10 @@ const S = {
   cool:{}, lastMine:{}, lastTheirs:{}, sent:12, recv:17, today:0, mix:[],
   crush:new Set(), matched:{}, passes:{}, creations:[], quiet:true, typing:null,
   studio:{color:Y, eyes:'dot', mouth:'smile', acc:'none', anim:'bounce'}, studioName:'',
-  draft:{mode:'photo', scene:'sunset', img:null, text:'', title:''}, reactTarget:null, skin:'cobalt', follows:{}
+  draft:{mode:'photo', scene:'sunset', img:null, text:'', title:''}, reactTarget:null, pfTab:{}, openPost:null, msgFont:'default', msgColor:'', skin:'cobalt', follows:{}
 };
 try { const sk = localStorage.getItem('zing-skin-v2'); if (SKINS.includes(sk)) S.skin = sk; } catch(e){}
-S.me = {theme:'sky', mood:0, song:'', tags:n2(['music','Y2K'],['musica','Y2K']), vetrina:['risata','occhiolino','sudato'],
+S.me = {theme:'sky', bg:'none', font:'default', about:'', highlights:[], mood:0, song:'', tags:n2(['music','Y2K'],['musica','Y2K']), vetrina:['risata','occhiolino','sudato'],
   posts:[{kind:'blog', title:n2('first post, be nice','primo post, siate buoni'), text:n2('setting up my wall like it’s 2006. who remembers glitter text?','sto sistemando la mia bacheca come nel 2006. chi si ricorda le scritte glitterate?'), date:n2('today','oggi'), reacts:{risata:2, occhiolino:1}, comments:[]}],
   guestbook:[{from:'giulia', text:n2('omg your wall is so 2006, I love it','oddio la tua bacheca è così 2006, la adoro')}]};
 P.me = S.me;
@@ -1155,32 +1217,53 @@ function draftHTML(){
     : `<input id="draftTitle" class="field" maxlength="60" placeholder="${t('title_ph')}" value="${esc(d.title)}"><textarea id="draftText" class="field" maxlength="800" placeholder="${t('body_ph')}">${esc(d.text)}</textarea>`}
     <button class="btn pink" data-publish style="margin-top:0">${t('publish')}</button></div>`;
 }
+const FONTS = {default:"var(--font-body)", cute:"'Fredoka', var(--font-body)", elegant:"'Playfair Display', Georgia, serif", typewriter:"'Special Elite', 'Courier New', monospace", marker:"'Permanent Marker', 'Comic Sans MS', cursive", script:"'Pacifico', cursive", pixel:"'VT323', monospace"};
+const BGS = ['none','stars','hearts','checker','glitter','gradient'];
+const MSG_COLORS = ['', '#2b4fd8', '#d33a50', '#7b5cd1', '#2f9470', '#c9803a', '#d9577e'];
+const reactCount = p => Object.values(p.reacts).reduce((a, n) => a + n, 0);
+function photoBg(p){ return p.img ? `style="background-image:url(${p.img})"` : ''; }
 function profileBody(owner){
   const me = owner === 'me', pr = P[owner];
   const name = me ? S.nick : F[owner].name, pm = me ? S.pm : tx(F[owner].pm);
   const c = me ? 'var(--pink)' : F[owner].c, ini = me ? myInitial() : initial(owner);
-  const song = me ? pr.song : tx(pr.song);
+  const song = me ? pr.song : tx(pr.song), about = me ? pr.about : tx(pr.about);
+  const tab = S.pfTab[owner] || 'grid';
+  const items = pr.posts.map((p, k) => [p, k]);
+  const photos = items.filter(([p]) => p.kind === 'photo'), blogs = items.filter(([p]) => p.kind === 'blog');
+  const crew = me ? Object.keys(F) : ['me', ...Object.keys(F).filter(x => x !== owner)].slice(0, 6);
+  const emoCount = me ? CAT.filter(e => S.owned[e.id]).length : pr.emoCount;
+  const stat = (n, l) => `<div class="ig-stat"><b>${n}</b><span>${l}</span></div>`;
   const actions = me ? `<button class="btn" data-customize>${t('edit_profile')}</button>`
     : `<button class="btn" data-open="${owner}">${t('chat')}</button><button class="btn ghost" data-zing-from="${owner}">${t('zing')}</button>`;
-  let h = `<div class="theme-${pr.theme}"><div class="cover"></div>
-    <div class="prof-id"><span class="ava xl" style="--c:${c}">${ini}</span><div class="name">${esc(name)}</div>${pm ? `<div class="pm">${esc(pm)}</div>` : ''}
+  const hl = pr.highlights.map(([lab, k]) => { const p = pr.posts[k]; return `<button class="hl" data-post="${owner}|${k}"><span class="hl-ring"><span class="hl-img ${p.img ? '' : 'scene-' + p.scene}" ${photoBg(p)}></span></span><span>${esc(tx(lab))}</span></button>`; }).join('');
+  let body = '';
+  if (tab === 'grid'){
+    body = (me ? draftHTML() : '') + (photos.length ? `<div class="ig-grid">${photos.map(([p, k]) => `<button class="gcell ${p.img ? '' : 'scene-' + p.scene}" data-post="${owner}|${k}" aria-label="${esc(tx(p.text || t('photo')))}">${p.img ? `<img src="${p.img}" alt="">` : ''}${p.sticker ? `<span class="gsticker">${emoSVG(E(p.sticker).s, 28, false)}</span>` : ''}${reactCount(p) ? `<span class="gcount">${reactCount(p)}</span>` : ''}</button>`).join('')}</div>` : `<p class="small">${t('no_photos')}</p>`);
+  } else if (tab === 'blog'){
+    body = (me ? draftHTML() : '') + (blogs.length ? blogs.map(([p, k]) => postHTML(owner, p, k)).join('') : `<p class="small">${t('no_blog')}</p>`);
+  } else {
+    body = `<div class="post"><div class="comments" style="border-top:0">${pr.guestbook.map(c => `<div class="comment"><b>${esc(whoName(c.from))}</b><span class="gb-text">${fmtText(c.text)}</span></div>`).join('') || `<p class="small" style="margin:0">${t('gb_empty')}</p>`}
+      ${me ? '' : `<form class="cform" data-cform="${owner}|gb"><input aria-label="${esc(t('gb_ph', {name}))}" placeholder="${esc(t('gb_ph', {name}))}" maxlength="140"><button>${t('comment_send')}</button></form>`}</div></div>`;
+  }
+  let h = `<div class="pf theme-${pr.theme} bg-${pr.bg}" data-font="${pr.font}" style="--pfont:${FONTS[pr.font]}"><div class="cover"></div>
+    <div class="ig-head"><span class="ava xl" style="--c:${c}">${ini}</span><div class="ig-stats">${stat(pr.posts.length, t('st_posts'))}${stat(crew.length, t('st_crew'))}${stat(emoCount, t('st_emos'))}</div></div>
+    <div class="ig-id"><div class="name">${esc(name)}</div>${pm ? `<div class="pm">${esc(pm)}</div>` : ''}${about ? `<p class="about">${fmtText(about)}</p>` : ''}
       <div class="meta"><span class="pill">${t('mood', {m:t('moods')[pr.mood]})}</span>${song ? `<span class="pill"><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>${esc(song)}</span>` : ''}</div>
       <div class="tags">${tx(pr.tags).map(x => `<span class="tag">${esc(x)}</span>`).join('')}</div></div>
     <div class="prof-actions">${actions}</div>
-    <section class="sec"><div class="sec-title"><h3>${t('showcase')}</h3>${me ? `<span>${t('showcase_note')}</span>` : ''}</div><div class="vetrina">${pr.vetrina.map(id => `<button class="tile" data-emo="${id}">${itemSVG(E(id), 44)}<span>${esc(nm(E(id)))}</span></button>`).join('')}</div></section>
+    ${hl ? `<div class="hl-row">${hl}</div>` : ''}
+    <section class="sec"><div class="sec-title"><h3>${t('showcase')}</h3>${me ? `<span>${t('showcase_note')}</span>` : ''}</div><div class="vetrina">${pr.vetrina.map(id => `<button class="tile" data-emo="${id}">${itemSVG(E(id), 40)}<span>${esc(nm(E(id)))}</span></button>`).join('')}</div></section>
     ${me ? `<section class="sec"><div class="sec-title"><h3>${t('collection')}</h3><button class="link-btn" data-tab="album">${t('see_all', {n:CAT.filter(e => S.owned[e.id]).length})}</button></div><div class="coll-row">${CAT.filter(e => S.owned[e.id]).slice(-8).reverse().map(e => itemSVG(e, 34, 0, false)).join('')}</div></section>` : ''}
-    <section class="sec"><div class="sec-title"><h3>${t('wall')}</h3><span>${pr.posts.length === 1 ? t('posts_1') : t('posts', {n:pr.posts.length})}</span></div>
-      ${me ? draftHTML() : ''}${pr.posts.map((p, k) => postHTML(owner, p, k)).join('')}
-      ${me ? `<p class="small">${t('wall_note')}</p>` : ''}</section>
-    <section class="sec"><div class="sec-title"><h3>${t('guestbook')}</h3><span>${pr.guestbook.length}</span></div>
-      <div class="post"><div class="comments" style="border-top:0">${pr.guestbook.map(c => `<div class="comment"><b>${esc(whoName(c.from))}</b>${fmtText(c.text)}</div>`).join('')}
-      ${me ? '' : `<form class="cform" data-cform="${owner}|gb"><input aria-label="${esc(t('gb_ph', {name}))}" placeholder="${esc(t('gb_ph', {name}))}" maxlength="140"><button>${t('comment_send')}</button></form>`}</div></div></section>`;
+    <section class="sec"><div class="sec-title"><h3>${t('crew')}</h3><span>${t('crew_note')}</span></div><div class="crew">${crew.map(x => x === 'me' ? `<span class="crew-btn"><span class="ava sm" style="--c:var(--pink)">${myInitial()}</span><span class="n">${esc(S.nick)}</span></span>` : `<button class="crew-btn" data-profile="${x}"><span class="ava sm" style="--c:${F[x].c}">${initial(x)}</span><span class="n">${esc(F[x].name)}</span></button>`).join('')}</div></section>
+    <div class="pf-tabs">${['grid','blog','gb'].map(k => `<button class="${tab === k ? 'on' : ''}" data-pftab="${owner}|${k}">${t('pf_' + k)}</button>`).join('')}</div>
+    <div class="pf-body">${body}${me && tab !== 'gb' ? `<p class="small">${t('wall_note')}</p>` : ''}</div>`;
   if (me){
     const owned = CAT.filter(e => S.owned[e.id]).length;
-    const stat = (n, l) => `<div class="stat"><b>${n}</b><span>${l}</span></div>`;
-    h += `<section class="sec"><div class="sec-title"><h3>${t('numbers')}</h3><span>${t('only_you_see')}</span></div><div class="stats">${stat(S.sent, t('s_sent'))}${stat(S.recv, t('s_recv'))}${stat(owned, t('s_emo'))}${stat(S.crush.size + '/3', t('s_crush'))}</div></section>
+    const st = (n, l) => `<div class="stat"><b>${n}</b><span>${l}</span></div>`;
+    h += `<section class="sec"><div class="sec-title"><h3>${t('numbers')}</h3><span>${t('only_you_see')}</span></div><div class="stats">${st(S.sent, t('s_sent'))}${st(S.recv, t('s_recv'))}${st(owned, t('s_emo'))}${st(S.crush.size + '/3', t('s_crush'))}</div></section>
       <section class="sec"><div class="sec-title"><h3>${t('skin')}</h3></div>${SKINS.map(k => `<button class="skin-card ${S.skin === k ? 'on' : ''}" data-skin="${k}"><span class="skin-swatch" style="background:${SKIN_SW[k]}"></span><span><b>${t('sk_' + k)}</b><small>${t('skd_' + k)}</small></span></button>`).join('')}<p class="small">${t('skin_note')}</p></section>
       <section class="sec"><div class="sec-title"><h3>${t('settings')}</h3></div><div class="settings">
+        <div class="setting"><span></span><span>${t('msg_style')}</span><small>${t('msg_style_note')} <button class="link-btn" data-msgstyle>${t('msg_style_btn')}</button></small></div>
         <label class="setting"><input type="checkbox" id="quiet" ${S.quiet ? 'checked' : ''}><span>${t('quiet')}</span><small>${t('quiet_note')}</small></label>
         <div class="setting"><span></span><span>${t('sc_title')}</span><small>${t('sc_intro')} <button class="link-btn" data-shortcuts>${t('sc_all')}</button></small></div>
         <div class="setting"><span></span><span>${t('ageband')}</span><small>${t('ageband_note')}</small></div>
@@ -1188,6 +1271,11 @@ function profileBody(owner){
       </div></section>`;
   }
   return h + '<div style="height:16px"></div></div>';
+}
+function openPost(owner, k){
+  S.openPost = [owner, k];
+  const pr = P[owner];
+  sheet(`<div class="pf theme-${pr.theme}" data-font="${pr.font}" style="--pfont:${FONTS[pr.font]}; background:transparent; min-height:0">${postHTML(owner, pr.posts[k], k)}</div><button class="btn ghost" data-close-sheet>${t('close')}</button>`);
 }
 function viewProfilo(){ return profileBody('me'); }
 function openProf(i){ S.profOpen = i; $('#prof').hidden = false; renderProf(true); }
@@ -1198,6 +1286,7 @@ function renderProf(reset){
 }
 function closeProf(){ S.profOpen = null; $('#prof').hidden = true; if ($('#chat').hidden) renderScreen(); }
 function rerenderWall(owner){
+  if (S.openPost && S.openPost[0] === owner && !$('#sheetWrap').hidden) openPost(owner, S.openPost[1]);
   if (owner === 'me'){ if (S.tab === 'profilo' && $('#chat').hidden){ const sc = $('#screens'), top = sc.scrollTop; renderScreen(); sc.scrollTop = top; } }
   else if (S.profOpen === owner) renderProf();
 }
@@ -1208,7 +1297,7 @@ function publishPost(){
   const p = d.mode === 'photo' ? {kind:'photo', scene:d.scene, img:d.img, text, date:n2('just now','adesso'), reacts:{}, comments:[]}
     : {kind:'blog', title:title || '...', text, date:n2('just now','adesso'), reacts:{}, comments:[]};
   S.me.posts.unshift(p); S.draft = {mode:d.mode, scene:'sunset', img:null, text:'', title:''};
-  rerenderWall('me'); toast(t('published')); popSound();
+  S.pfTab.me = d.mode === 'photo' ? 'grid' : 'blog'; rerenderWall('me'); toast(t('published')); popSound();
   setTimeout(() => {
     p.reacts.risata = (p.reacts.risata || 0) + 1;
     p.comments.push({from:'giulia', text:n2('lol this is so you','ahah sei proprio tu')});
@@ -1233,11 +1322,25 @@ function openReactPicker(owner, idx){
 function openCustomize(){
   const pr = S.me;
   const themes = ['sky','bubblegum','midnight','lime','chrome'].map(th => `<button class="theme-btn theme-${th} ${pr.theme === th ? 'on' : ''}" data-theme-pick="${th}" aria-label="${th}"></button>`).join('');
+  const bgs = BGS.map(k => `<button class="bg-swatch theme-${pr.theme} bg-${k} ${pr.bg === k ? 'on' : ''}" data-pbg="${k}" aria-label="${t('bg_' + k)}" title="${t('bg_' + k)}"></button>`).join('');
+  const fonts = Object.keys(FONTS).map(k => `<button class="chip font-chip ${pr.font === k ? 'on' : ''}" data-pfont="${k}" style="font-family:${FONTS[k]}">${t('f_' + k)}</button>`).join('');
   sheet(`<h3>${t('customize')}</h3><span class="opt-label">${t('theme')}</span><div class="theme-row">${themes}</div>
+    <span class="opt-label">${t('pf_bg')}</span><div class="theme-row">${bgs}</div>
+    <span class="opt-label">${t('pf_font')}</span><div class="chips">${fonts}</div>
     <span class="opt-label">${t('mood_l')}</span><div class="chips">${t('moods').map((m, k) => `<button class="chip ${pr.mood === k ? 'on' : ''}" data-mood="${k}">${m}</button>`).join('')}</div>
+    <label class="opt-label" for="aboutInput">${t('about_me')}</label><textarea id="aboutInput" class="field" maxlength="160" placeholder="${t('about_ph')}">${esc(pr.about)}</textarea>
     <label class="opt-label" for="songInput">${t('song')}</label><input id="songInput" class="field" maxlength="60" placeholder="${t('song_ph')}" value="${esc(pr.song)}">
     <button class="btn pink" data-save-profile>${t('save')}</button>`);
 }
+function openMsgStyle(){
+  const fonts = Object.keys(FONTS).map(k => `<button class="chip font-chip ${S.msgFont === k ? 'on' : ''}" data-mfont="${k}" style="font-family:${FONTS[k]}">${t('f_' + k)}</button>`).join('');
+  const colors = MSG_COLORS.map(c => `<button class="color-dot ${S.msgColor === c ? 'on' : ''}" data-mcolor="${c || 'none'}" style="background:${c || 'var(--ink)'}" aria-label="${c || t('f_default')}"></button>`).join('');
+  sheet(`<h3>${t('msg_style')}</h3><p class="small">${t('msg_style_note')}</p><div class="msg-preview"><div class="msg mine"><div class="bubble"><p style="${msgStyle()}">${t('msg_sample')}</p></div></div></div>
+    <span class="opt-label">${t('msg_font')}</span><div class="chips">${fonts}</div>
+    <span class="opt-label">${t('msg_color')}</span><div class="chips">${colors}</div>
+    <button class="btn ghost" data-close-sheet>${t('close')}</button>`);
+}
+const msgStyle = () => `font-family:${FONTS[S.msgFont]};${S.msgColor ? 'color:' + S.msgColor + ';' : ''}${S.msgFont === 'pixel' ? 'font-size:18px;' : ''}`;
 
 /* ---------- Chat ---------- */
 function codeTable(){
@@ -1301,7 +1404,7 @@ function msgHTML(m, idx){
   if (m.t === 'sys') return `<div class="sys">${esc(tx(m.text))}</div>`;
   const mine = m.from === 'me';
   let b = '';
-  if (m.text) b += `<p>${mine ? withShortcuts(m.text) : esc(tx(m.text))}</p>`;
+  if (m.text) b += mine ? `<p style="${msgStyle()}">${withShortcuts(m.text)}</p>` : `<p>${esc(tx(m.text))}</p>`;
   if (m.strip){
     const single = m.strip.length === 1, e0 = E(m.strip[0]);
     b += stripHTML(m.strip, single ? 56 : 42);
@@ -1332,7 +1435,7 @@ function renderTyping(){ $('#typing').textContent = S.typing && S.typing === S.c
 function renderTray(){
   const owned = CAT.filter(e => S.owned[e.id]);
   const btns = list => list.map(e => `<button type="button" data-add-mix="${e.id}" aria-label="${esc(nm(e))}" title="${esc(nm(e))} ${e.sc ? e.sc + ' ' : ''}:${e.code}:">${itemSVG(e, 32, 0, false)}</button>`).join('');
-  $('#tray').innerHTML = `<p class="tray-hint">${t('mix_hint')} <button type="button" class="link-btn" data-shortcuts>${t('sc_all')}</button></p><div class="tray-label">${t('mix_faces')}</div><div class="tray-grid">${btns(owned.filter(e => !e.piece))}</div><div class="tray-label">${t('mix_parts')}</div><div class="tray-grid">${btns(owned.filter(e => e.piece))}</div>`;
+  $('#tray').innerHTML = `<p class="tray-hint">${t('mix_hint')} <button type="button" class="link-btn" data-shortcuts>${t('sc_all')}</button> · <button type="button" class="link-btn" data-msgstyle>${t('msg_style_btn')}</button></p><div class="tray-label">${t('mix_faces')}</div><div class="tray-grid">${btns(owned.filter(e => !e.piece))}</div><div class="tray-label">${t('mix_parts')}</div><div class="tray-grid">${btns(owned.filter(e => e.piece))}</div>`;
 }
 function renderMix(){
   const bar = $('#mixbar');
@@ -1513,7 +1616,7 @@ function submitEmo(){
 function overlay(html, cls = ''){ clearTimeout(storyTimer); const o = $('#overlay'); o.className = 'overlay ' + cls; o.innerHTML = html; o.hidden = false; const b = o.querySelector('button'); b && b.focus({preventScroll:true}); }
 function closeOverlay(){ clearTimeout(storyTimer); $('#overlay').hidden = true; $('#overlay').innerHTML = ''; if (S.profOpen) renderProf(); else if ($('#chat').hidden) renderScreen(); }
 function sheet(html){ $('#sheet').innerHTML = html; $('#sheetWrap').hidden = false; }
-function closeSheet(){ $('#sheetWrap').hidden = true; }
+function closeSheet(){ $('#sheetWrap').hidden = true; S.openPost = null; }
 let toastT = null;
 function toast(text, open){
   const el = $('#toast'); el.textContent = text; el.dataset.toastOpen = open || ''; el.hidden = false;
@@ -1585,7 +1688,14 @@ document.addEventListener('click', ev => {
   else if ('customize' in d) openCustomize();
   else if (d.themePick){ S.me.theme = d.themePick; openCustomize(); rerenderWall('me'); }
   else if (d.mood !== undefined){ S.me.mood = +d.mood; openCustomize(); rerenderWall('me'); }
-  else if ('saveProfile' in d){ S.me.song = ($('#songInput') || {}).value || ''; closeSheet(); rerenderWall('me'); toast(t('saved')); }
+  else if ('saveProfile' in d){ closeSheet(); rerenderWall('me'); toast(t('saved')); }
+  else if (d.pbg){ S.me.bg = d.pbg; openCustomize(); rerenderWall('me'); }
+  else if (d.pfont){ S.me.font = d.pfont; openCustomize(); rerenderWall('me'); }
+  else if (d.pftab){ const [o, k] = d.pftab.split('|'); S.pfTab[o] = k; rerenderWall(o); }
+  else if (d.post){ const [o, k] = d.post.split('|'); openPost(o, +k); }
+  else if ('msgstyle' in d) openMsgStyle();
+  else if (d.mfont){ S.msgFont = d.mfont; openMsgStyle(); if (S.chat) renderMessages(); }
+  else if (d.mcolor){ S.msgColor = d.mcolor === 'none' ? '' : d.mcolor; openMsgStyle(); if (S.chat) renderMessages(); }
   else if (d.notify){
     const i = d.notify; if (S.notify[i]) return;
     S.notify[i] = true; renderScreen(); toast(t('notify_set', {name:F[i].name}));
@@ -1620,6 +1730,8 @@ document.addEventListener('input', ev => {
   else if (el.id === 'pmInput'){ S.pm = el.value; S.pmEdited = true; }
   else if (el.id === 'draftText') S.draft.text = el.value;
   else if (el.id === 'draftTitle') S.draft.title = el.value;
+  else if (el.id === 'songInput') S.me.song = el.value;
+  else if (el.id === 'aboutInput') S.me.about = el.value;
 });
 document.addEventListener('change', ev => {
   const el = ev.target;

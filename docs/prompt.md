@@ -100,6 +100,7 @@ L'app ha più skin, che cambiano colori, font e decorazioni ma **mai la posizion
 - **Cobalto**: blu `#2B4FD8`/`#1D36A8`, sfondi `#F4F6FB`, testo `#111A33`, accento corallo `#FF5A6E`. Proposta preferita: va bene per tutte le età.
 - **Inchiostro e pesca**: blu notte `#1B2140`, accento pesca `#FF8A5C`, sfondo panna.
 - **Pervinca**: blu-lilla `#6C7CFF`, pannelli lilla tenue, bolle lime.
+- Altre palette: **Bubblegum** (rosa con accento viola), **Matcha** (verde con terracotta), **Midnight** (scura e minimale), **Mono** (bianco e nero con un accento rosso).
 
 **Regole di coerenza visiva** (valgono per tutte le skin):
 - **Lucido e 3D solo su ciò che si colleziona**: emoticon, pezzi e pulsante dello zing. Avatar, barre, pulsanti e card sono piatti.
@@ -159,7 +160,10 @@ Se hai una proposta migliore, spiegamela prima di procedere.
 - Vocali e conferme di lettura non entrano nell'MVP: prima zing ed emoticon, poi il resto.
 - Messaggi non cifrati end-to-end nell'MVP: la scelta va scritta in modo chiaro nell'informativa privacy.
 
-### 3. Profilo e bacheca (MySpace rivisto in chiave 2026)
+### 3. Profilo e bacheca (Instagram + MySpace rivisti in chiave 2026)
+- **Testata stile Instagram**: avatar grande, numeri (post, crew, emoticon), nome, messaggio personale, "Su di me", mood, canzone, tag. Sotto: **highlights** (cerchi con le foto in evidenza) e le schede **Foto** (griglia 3 colonne) · **Blog** · **Messaggi**. Toccando una foto si apre il post con reazioni e commenti.
+- **Tocco MySpace moderno**: ognuno sceglie **sfondo della pagina** (tinta unita, stelle, cuori, scacchi, glitter, sfumato), **font della pagina** (base, tondo, elegante, macchina da scrivere, pennarello, corsivo, pixel), tema della copertina e testo "Su di me". La **Crew** mostra gli amici senza classifica (niente Top 8).
+- **Stile dei messaggi come su MSN**: ognuno sceglie font e colore dei propri messaggi in chat, e gli amici li vedono così.
 - Si entra nel profilo di un amico toccando il suo avatar (nella lista amici o in alto nella chat) e si **legge la sua pagina**, come un piccolo blog personale.
 - **Pagina personalizzabile** come su MySpace: tema della copertina (cielo, bubblegum, midnight, lime, chrome), mood, **canzone del profilo** ("now playing"), tag di interessi, vetrina con 3 emoticon.
 - **Bacheca**: post con **foto** (con didascalia e sticker emoticon) e post **blog** (titolo e testo più lungo). Si reagisce **con le emoticon che si possiedono**: se un amico reagisce con un'emoticon che non hai, toccandola puoi prenderla (rispettando l'economia).
